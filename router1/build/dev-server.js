@@ -5,7 +5,7 @@ var path = require('path') ;
 
 // 创建一个express实例
 var app = express() ;
-
+//express static 详细讲解 http://www.cnblogs.com/A-dam/p/5053299.html
 var publicPath = path.join(__dirname, '../public') ;
 app.use('/public',express.static(publicPath));//和上面是一样的
 

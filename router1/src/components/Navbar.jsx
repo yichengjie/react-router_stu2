@@ -44,7 +44,7 @@ class Navbar extends Component{
                         <ul className="nav navbar-nav">
                             <li {...this.getActiveClassObj('/home')(pathname)}><Link to="/home">Home</Link></li>
                             <li {...this.getActiveClassObj('/about')(pathname)}><Link to="/about">About</Link></li>
-                            <li><a href="#">其他</a></li>
+                            <li {...this.getActiveClassObj('/jcf')(pathname)}><Link to="/jcf">JCF相关接口测试</Link></li>
                         </ul>
                     </div>
                 </div>

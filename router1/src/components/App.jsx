@@ -1,19 +1,21 @@
 import  React,{Component} from 'react'
 import { BrowserRouter as Router,Route} from 'react-router-dom' ;
 import Navbar from './Navbar.jsx' ;
+import Home from './Home.jsx' ;
+import About from './About.jsx' ;
+import JCFListGroup from './JCFListGroup.jsx' ;
+
 class App extends Component {
     render(){
         return (
             <Router>
                 <div className="App">
                     <Navbar />
-                    <div className="main-content">
-                        <div className="content-left">
-                            <h1>左侧内容区域</h1>
-                        </div>
-                        <div className="content-right">
-                            <h2>右侧内容区域</h2>
-                        </div>
+                    <div className="main-container">
+                        <Route exact path="/" component={Home}/>
+                        <Route exact path="/home" component={Home}/>
+                        <Route path="/about" component={About}/>
+                        <Route path="/jcf" component={JCFListGroup}/>
                     </div>
                   </div>
             </Router>
