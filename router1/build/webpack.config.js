@@ -23,7 +23,7 @@ module.exports = {
     output: {
         // 输出路径是 myProject/output/static
         path: path.resolve(__dirname, '../output/static'),
-        publicPath: 'static/',//(线上环境)
+        publicPath: 'public',//(线上环境)
         //publicPath: '/',//(开发环境)
         filename: '[name].[hash].js',
         chunkFilename: '[id].[chunkhash].js'
