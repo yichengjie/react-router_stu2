@@ -7,7 +7,6 @@ var path = require('path') ;
 var app = express() ;
 
 var publicPath = path.join(__dirname, '../static') ;
-
 app.use('/static',express.static(publicPath));//和上面是一样的
 
 
