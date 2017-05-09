@@ -3,7 +3,7 @@ import { BrowserRouter as Router,Route} from 'react-router-dom' ;
 import Navbar from './Navbar.jsx' ;
 import Home from './Home.jsx' ;
 import About from './About.jsx' ;
-import JCFListGroup from './JCFListGroup.jsx' ;
+import JCFListGroup from './jcf/JCFListGroup.jsx' ;
 
 class App extends Component {
     render(){

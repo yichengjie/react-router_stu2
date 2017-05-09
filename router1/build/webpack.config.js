@@ -39,6 +39,7 @@ module.exports = {
                 exclude: /node_modules/,
                 loaders:['react-hot','babel']
             },
+            {test: /\.json$/,loader: 'json-loader'},
             //这里的提取css在开发环境下实际上是不需要的
             { test: /\.css$/, loader: ExtractTextPlugin.extract("style", "css!postcss")},
             { test: /\.scss$/, loader: ExtractTextPlugin.extract("style", "css!postcss!sass")},
@@ -55,7 +56,8 @@ module.exports = {
                 limit: 10000,
                 name: 'img/[name].[hash:7].[ext]'
              }
-            }
+            },
+           
         ]
     },
     resolve: {
