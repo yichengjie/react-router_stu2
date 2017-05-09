@@ -14,8 +14,8 @@ class App extends Component {
                     <div className="main-container">
                         <Route exact path="/" component={Home}/>
                         <Route exact path="/home" component={Home}/>
-                        <Route path="/about" component={About}/>
                         <Route path="/jcf" component={JCFListGroup}/>
+                        <Route path="/about" component={About}/>
                     </div>
                   </div>
             </Router>
