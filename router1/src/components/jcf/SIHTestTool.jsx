@@ -1,8 +1,8 @@
 import React,{Component} from 'react' ;
 import outputData from '../../api/output.json' ;
-import inputData from './data/input1.json' ;
+import inputData from './data/sih-test-tool.json' ;
 
-class JCFListGroupContent1 extends Component{
+class SIHTestTool extends Component{
 
     constructor (props){
         super(props) ;
@@ -46,4 +46,4 @@ class JCFListGroupContent1 extends Component{
     }
 }
 
-export default JCFListGroupContent1 ;
+export default SIHTestTool ;
