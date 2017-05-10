@@ -1,0 +1,27 @@
+{
+    "serverMode":"CLIENT",
+    "funcCode":"O_PRIC_CATL",
+    "serverServiceName":"BKG_OA",
+    "uid":"np0963341",
+    "mqIp":"172.27.18.46",
+    "cwa":"A",
+    "mqPort":"1600",
+    "office":"PEK001",
+    "mqChannel":"S_SIH",
+    "airline":"CA",
+    "mqQm":"QM_SIH",
+    "agent":"59477",
+    "mqExpiry":"3000",
+    "level":"12",
+    "orisysinfoOrisys":"CATL",
+    "reqFormat":"1",
+    "orisysinfoHostId":"BKG_OA_ZOGSHEN",
+    "resFormat":"3",
+    "pid":"12345",
+    "desSys":"CATL",
+    "usasSyus":"N1",
+    "msgType":"2",
+    "mqWaitSec":"10",
+    "clientCharSet":"UTF-8"
+
+}

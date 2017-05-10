@@ -1,6 +1,7 @@
 import React,{Component} from 'react' ;
 import outputData from '../../api/output.json' ;
 import inputData from './data/sih-test-tool.json' ;
+import configFormData from './data/sih-test-tool-formdata.json' ;
 
 class SIHTestTool extends Component{
 
@@ -16,7 +17,7 @@ class SIHTestTool extends Component{
 
     componentDidMount(){
         let inputValue = JSON.stringify(inputData,null,2) ;
-        this.setState({inputValue}) ;
+        this.setState({inputValue,formData:configFormData}) ;
     }
 
     handleQuery = e =>{
@@ -127,7 +128,7 @@ class SIHTestTool extends Component{
                     {this.getConfigInput('Level','level')}
                 </div>
                 <div className="form-group">
-                    {this.getConfigInput('Orisysinfo.Orisys','OrisysinfoOrisys')}
+                    {this.getConfigInput('Orisysinfo.Orisys','orisysinfoOrisys')}
                     {this.getConfigInput('ReqFormat','reqFormat')}
                 </div>
                 <div className="form-group">
