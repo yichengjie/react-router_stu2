@@ -9,7 +9,8 @@ class SIHTestTool extends Component{
         this.state = {
             inputValue:'',
             outputValue:null,
-            isShowMsgPageFlag:true
+            isShowMsgPageFlag:true,
+            formData:{}
         } 
     }
 
@@ -60,74 +61,94 @@ class SIHTestTool extends Component{
         ) ;
     }
 
+    handleConfigInputChangeFactory (fieldName){
+        return e => {
+            let value = e.target.value ;
+            let formData = this.state.formData ;
+            let newFormData = Object.assign({},formData,{[fieldName]:value}) ;
+            this.setState({formData:newFormData}) ;
+        }
+    }
 
-    getConfigInput(labelName){
+    getFieldProps(fieldName){
+        return {
+            value:this.state.formData[fieldName],
+            onChange:this.handleConfigInputChangeFactory(fieldName)
+        } ;
+    }
+
+    getConfigInput(labelName,fieldName){
         let retArr = [] ;
         let label = (<label className="col-sm-2 control-label">{labelName}</label>) ;
         retArr.push(label) ;
         let input = (
             <div className="col-sm-4">
-                <input type="text" className="form-control" />
+                <input type="text" className="form-control" {...this.getFieldProps(fieldName)}  />
             </div>
         ) ;
         retArr.push(input) ;
         return retArr ;
     }
 
+    handleSaveConfigInfo = (e) => {
+        let formData = this.state.formData ;
+        console.info(JSON.stringify(formData,null,2)) ;
+    }
+
     renderConfigPage(){
         return (
             <form className="form-horizontal">
                 <div className="form-group">
-                    {this.getConfigInput('Server.Mode')}
-                    {this.getConfigInput('FuncCode')}
+                    {this.getConfigInput('Server.Mode','serverMode')}
+                    {this.getConfigInput('FuncCode','funcCode')}
                 </div>
                 <div className="form-group">
-                    {this.getConfigInput('Server.Servicename')}
-                    {this.getConfigInput('UID')}
+                    {this.getConfigInput('Server.Servicename','serverServiceName')}
+                    {this.getConfigInput('UID','uid')}
                 </div>
                 <div className="form-group">
-                    {this.getConfigInput('MQ.IP')}
-                    {this.getConfigInput('CWA')}
+                    {this.getConfigInput('MQ.IP','mqIp')}
+                    {this.getConfigInput('CWA','cwa')}
                 </div>
                 <div className="form-group">
-                    {this.getConfigInput('MQ.Port')}
-                    {this.getConfigInput('Office')}
+                    {this.getConfigInput('MQ.Port','mqPort')}
+                    {this.getConfigInput('Office','office')}
                 </div>
                 <div className="form-group">
-                    {this.getConfigInput('MQ.Channel')}
-                    {this.getConfigInput('Airline')}
+                    {this.getConfigInput('MQ.Channel','mqChannel')}
+                    {this.getConfigInput('Airline','airline')}
                 </div>
                 <div className="form-group">
-                    {this.getConfigInput('MQ.QM')}
-                    {this.getConfigInput('Agent')}
+                    {this.getConfigInput('MQ.QM','mqQm')}
+                    {this.getConfigInput('Agent','agent')}
                 </div>
                 <div className="form-group">
-                    {this.getConfigInput('MQ.Expiry')}
-                    {this.getConfigInput('Level')}
+                    {this.getConfigInput('MQ.Expiry','mqExpiry')}
+                    {this.getConfigInput('Level','level')}
                 </div>
                 <div className="form-group">
-                    {this.getConfigInput('Orisysinfo.Orisys')}
-                    {this.getConfigInput('ReqFormat')}
+                    {this.getConfigInput('Orisysinfo.Orisys','OrisysinfoOrisys')}
+                    {this.getConfigInput('ReqFormat','reqFormat')}
                 </div>
                 <div className="form-group">
-                    {this.getConfigInput('Orisysinfo.Hostid')}
-                    {this.getConfigInput('ResFormat')}
+                    {this.getConfigInput('Orisysinfo.Hostid','orisysinfoHostId')}
+                    {this.getConfigInput('ResFormat','resFormat')}
                 </div>
                 <div className="form-group">
-                    {this.getConfigInput('PID')}
-                    {this.getConfigInput('DesSys')}
+                    {this.getConfigInput('PID','pid')}
+                    {this.getConfigInput('DesSys','desSys')}
                 </div>
                 <div className="form-group">
-                    {this.getConfigInput('UsasSyus')}
-                    {this.getConfigInput('MsgType')}
+                    {this.getConfigInput('UsasSyus','usasSyus')}
+                    {this.getConfigInput('MsgType','msgType')}
                 </div>
                 <div className="form-group">
-                    {this.getConfigInput('MqWaitSec')}
-                    {this.getConfigInput('ClientCharSet')}
+                    {this.getConfigInput('MqWaitSec','mqWaitSec')}
+                    {this.getConfigInput('ClientCharSet','clientCharSet')}
                 </div>
                 <div className="form-group">
                     <div className="col-sm-offset-2 col-sm-10">
-                        <button type="button" className="btn btn-warning">修改</button>
+                        <button type="button" className="btn btn-warning" onClick ={this.handleSaveConfigInfo}>修改</button>
                         {'  '}
                         <button type="button" className="btn btn-default">重制</button>
                     </div>
