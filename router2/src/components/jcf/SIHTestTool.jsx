@@ -2,6 +2,7 @@ import React,{Component} from 'react' ;
 import outputData from '../../api/output.json' ;
 import inputData from './data/sih-test-tool.json' ;
 import configFormData from './data/sih-test-tool-formdata.json' ;
+import SIHTestToolConfigDao from './dao/SIHTestToolConfigDao.js' ;
 
 class SIHTestTool extends Component{
 
@@ -17,7 +18,11 @@ class SIHTestTool extends Component{
 
     componentDidMount(){
         let inputValue = JSON.stringify(inputData,null,2) ;
-        this.setState({inputValue,formData:configFormData}) ;
+        let dbFormData = SIHTestToolConfigDao.getFormData() ;
+        let formData = (dbFormData == null) ? configFormData : dbFormData ;
+        this.setState({inputValue,formData}) ;
+        //将数据同步到localStorage中
+        SIHTestToolConfigDao.saveFormData(formData) ;
     }
 
     handleQuery = e =>{
@@ -94,11 +99,15 @@ class SIHTestTool extends Component{
     //配置页面点击修改按钮的处理函数
     handleSaveConfigInfo = (e) => {
         let formData = this.state.formData ;
-        console.info(JSON.stringify(formData,null,2)) ;
+        //console.info(JSON.stringify(formData,null,2)) ;
+        //将数据同步到localStorage中
+        SIHTestToolConfigDao.saveFormData(formData) ;
     }
     //配置页面点击重制的处理函数
     handleResetConfigInfo = e => {
         this.setState({formData:configFormData}) ;
+         //将数据同步到localStorage中
+        SIHTestToolConfigDao.saveFormData(configFormData) ;
     }
 
     renderConfigPage(){
