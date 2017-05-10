@@ -91,9 +91,14 @@ class SIHTestTool extends Component{
         return retArr ;
     }
 
+    //配置页面点击修改按钮的处理函数
     handleSaveConfigInfo = (e) => {
         let formData = this.state.formData ;
         console.info(JSON.stringify(formData,null,2)) ;
+    }
+    //配置页面点击重制的处理函数
+    handleResetConfigInfo = e => {
+        this.setState({formData:configFormData}) ;
     }
 
     renderConfigPage(){
@@ -151,7 +156,7 @@ class SIHTestTool extends Component{
                     <div className="col-sm-offset-2 col-sm-10">
                         <button type="button" className="btn btn-warning" onClick ={this.handleSaveConfigInfo}>修改</button>
                         {'  '}
-                        <button type="button" className="btn btn-default">重制</button>
+                        <button type="button" className="btn btn-default" onClick={this.handleResetConfigInfo}>重制</button>
                     </div>
                 </div>
             </form>
