@@ -14,16 +14,13 @@ module.exports = {
     //     'webpack-hot-middleware/client?reload=true',
     //  ]
     entry:{
-      index:  path.resolve(__dirname, '../src/index.js'),
-      vendors: [
-        'react','react-dom'
-      ]
+      index:  path.resolve(__dirname, '../src/index.js')
     },
     // 输出配置
     output: {
         // 输出路径是 myProject/output/static
         path: path.resolve(__dirname, '../output/static'),
-        publicPath: 'static',//(线上环境)
+        publicPath: 'static/',//(线上环境)
         //publicPath: '/',//(开发环境)
         filename: '[name].[hash].js',
         chunkFilename: '[id].[chunkhash].js'
@@ -61,12 +58,13 @@ module.exports = {
     resolve: {
       extensions: ['', '.js', '.jsx']
     },
+    externals: {
+        "react": "React",
+        "react-dom": "ReactDOM",
+        "jquery": "window.$",
+        "jquery": "window.jQuery"
+    },
     plugins: [
-        new webpack.ProvidePlugin({
-            $: "jquery",
-            jQuery: "jquery",
-            "window.jQuery": "jquery"
-        }), 
         new ExtractTextPlugin('main.css'),
     ]
 }

@@ -6,8 +6,8 @@ var path = require('path') ;
 // 创建一个express实例
 var app = express() ;
 //express static 详细讲解 http://www.cnblogs.com/A-dam/p/5053299.html
-var publicPath = path.join(__dirname, '../public') ;
-app.use('/public',express.static(publicPath));//和上面是一样的
+var staticPath = path.join(__dirname, '../static') ;
+app.use('/static',express.static(staticPath));//和上面是一样的
 
 
 // 调用webpack并把配置传递过去
