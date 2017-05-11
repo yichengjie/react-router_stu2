@@ -3,6 +3,7 @@ import outputData from '../../api/output.json' ;
 import inputData from './data/sih-test-tool.json' ;
 import configFormData from './data/sih-test-tool-formdata.json' ;
 import SIHTestToolConfigDao from './dao/SIHTestToolConfigDao.js' ;
+import Notice , {NoticeType} from '../Notice.jsx' ;
 
 class SIHTestTool extends Component{
 
@@ -12,7 +13,10 @@ class SIHTestTool extends Component{
             inputValue:'',
             outputValue:null,
             isShowMsgPageFlag:true,
-            formData:{}
+            formData:{},
+            showNoticeFlag:false,
+            noticeMsg:'',
+            noticeType:''
         } 
     }
 
@@ -21,8 +25,7 @@ class SIHTestTool extends Component{
         let dbFormData = SIHTestToolConfigDao.getFormData() ;
         let formData = (dbFormData == null) ? configFormData : dbFormData ;
         this.setState({inputValue,formData}) ;
-        //将数据同步到localStorage中
-        SIHTestToolConfigDao.saveFormData(formData) ;
+        (dbFormData == null) && this.syncFormDataToDB(formData,false) ;
     }
 
     handleQuery = e =>{
@@ -100,14 +103,23 @@ class SIHTestTool extends Component{
     handleSaveConfigInfo = (e) => {
         let formData = this.state.formData ;
         //console.info(JSON.stringify(formData,null,2)) ;
-        //将数据同步到localStorage中
-        SIHTestToolConfigDao.saveFormData(formData) ;
+        this.syncFormDataToDB(formData) ;
     }
     //配置页面点击重制的处理函数
     handleResetConfigInfo = e => {
         this.setState({formData:configFormData}) ;
-         //将数据同步到localStorage中
-        SIHTestToolConfigDao.saveFormData(configFormData) ;
+        this.syncFormDataToDB(configFormData) ;
+    }
+
+
+    //将数据同步到localStorage中
+    syncFormDataToDB(formData,noticeFlag){
+        SIHTestToolConfigDao.saveFormData(formData) ;
+        if(noticeFlag === false){
+           return ; 
+        }
+        this.showNotice('保存配置成功',NoticeType.success) ;
+       
     }
 
     renderConfigPage(){
@@ -172,20 +184,41 @@ class SIHTestTool extends Component{
         ) ;
     }
 
-    render(){
-        
-        let msgClassName = this.state.isShowMsgPageFlag 
+    showNotice (noticeMsg,type) {
+        let showNoticeFlag = true ;
+        let noticeType = type ;
+        this.setState({showNoticeFlag,noticeMsg,noticeType}) ;
+        setTimeout(this.hideNotice.bind(this),3000) ;
+    }
 
+    hideNotice () {
+        let showNoticeFlag = false ;
+        let noticeMsg = "" ; 
+        let noticeType = NoticeType.info ;
+        this.setState({showNoticeFlag,noticeMsg,noticeType}) ;
+    }
+
+
+    getNoticeProps(){
+       let show = this.state.showNoticeFlag ;
+       let msg = this.state.noticeMsg ;
+       let type = this.state.noticeType ;
+       return {show,msg,type} ;
+    }
+
+    render(){
+        let msgClassName = this.state.isShowMsgPageFlag 
         return (
            <div className="main-edit-container">
                 <div style ={{marginBottom: '10px'}}>
-                    <button type="button" style={{width:'50%'}} 
+                    <button type="button" style={{width:'20%'}} 
                         className={this.getSwitchBtnClassName(true)}
                         onClick={this.handleSwitchPageFactory(true)}>信息显示</button>
-                    <button type="button" style={{width:'50%'}} 
+                    <button type="button" style={{width:'20%'}} 
                         className={this.getSwitchBtnClassName(false)}
                         onClick={this.handleSwitchPageFactory(false)}>参数配置</button>
                 </div>
+                <Notice {...this.getNoticeProps()}/>
                 {this.state.isShowMsgPageFlag ? this.renderShowMsgPage() : this.renderConfigPage()}
             </div>
         ) ;
