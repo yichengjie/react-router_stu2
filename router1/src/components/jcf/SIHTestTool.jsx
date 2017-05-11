@@ -26,7 +26,7 @@ class SIHTestTool extends Component{
         let formData = (dbFormData == null) ? configFormData : dbFormData ;
         this.setState({inputValue,formData}) ;
         if(dbFormData == null){
-            this.syncFormDataToDB(formData,false) ;
+            this.syncFormDataToDB(formData,'同步配置成功!',false) ;
         }
     }
 
@@ -105,22 +105,22 @@ class SIHTestTool extends Component{
     handleSaveConfigInfo = (e) => {
         let formData = this.state.formData ;
         //console.info(JSON.stringify(formData,null,2)) ;
-        this.syncFormDataToDB(formData) ;
+        this.syncFormDataToDB(formData,'保存配置成功',true) ;
     }
     //配置页面点击重制的处理函数
     handleResetConfigInfo = e => {
         this.setState({formData:configFormData}) ;
-        this.syncFormDataToDB(configFormData,false) ;
+        this.syncFormDataToDB(configFormData,'重置配置成功!',true) ;
     }
 
 
     //将数据同步到localStorage中
-    syncFormDataToDB(formData,alertFlag){
+    syncFormDataToDB(formData,msg,alertFlag){
         SIHTestToolConfigDao.saveFormData(formData) ;
         if(alertFlag === false){
            return ; 
         }
-        this.showAlert('保存配置成功',AlertType.success) ;
+        this.showAlert(msg,AlertType.success) ;
        
     }
 
