@@ -62,8 +62,7 @@ class SIHTestTool extends Component{
                     onChange={this.handleInput}></textarea>
                 <br/>
                 <br/>
-                <button className="btn btn-primary main-btn" onClick={this.handleQuery}>GO</button>
-                <br/>
+                <button className="btn btn-primary btn-block" onClick={this.handleQuery}>GO</button>
                 <br/>
                 <pre className="output-region">
                     {outputValue ? JSON.stringify(outputValue,null,2) : ''}
@@ -213,14 +212,13 @@ class SIHTestTool extends Component{
 
     render(){
         let msgClassName = this.state.isShowMsgPageFlag ;
-        let btnStyle = {width:'30%'} ;
         return (
            <div className="main-edit-container">
-                <div style ={{marginBottom: '10px'}}>
-                    <button type="button" style={btnStyle} 
+                <div className="btn-group" style ={{marginBottom: '10px'}}>
+                    <button type="button"
                         className={this.getSwitchBtnClassName(true)}
                         onClick={this.handleSwitchPageFactory(true)}>信息显示</button>
-                    <button type="button" style={btnStyle} 
+                    <button type="button"  
                         className={this.getSwitchBtnClassName(false)}
                         onClick={this.handleSwitchPageFactory(false)}>参数配置</button>
                 </div>
