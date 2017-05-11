@@ -189,10 +189,9 @@ class SIHTestTool extends Component{
         let alertType = type ;
         console.info(`type : ${type}`) ;
         this.setState({showAlertFlag,alertMsg,alertType}) ;
-        setTimeout(this.hideAlert.bind(this),3000) ;
     }
 
-    hideAlert () {
+    hideAlertFn = () => {
         let showAlertFlag = false ;
         let alertMsg = "" ; 
         let alertType = AlertType.info ;
@@ -204,7 +203,8 @@ class SIHTestTool extends Component{
        let show = this.state.showAlertFlag ;
        let msg = this.state.alertMsg ;
        let type = this.state.alertType ;
-       let retObj = {show,msg,type} ;
+       let hideAlertFn = this.hideAlertFn ;
+       let retObj = {show,msg,type,hideAlertFn} ;
        //console.info('alert props type : ' , type) ;
        return retObj;
     }

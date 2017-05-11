@@ -12,28 +12,40 @@ export const AlertType = {
     danger
 } ;
 
-function getAlertClassName (type){
-    let tmpStr = "alert-info" ;
-    let arr = [success,info,warning,danger] ;
-    if(arr.includes(type)){
-       tmpStr = 'alert-'+type ; 
+class Alert extends Component{
+
+    componentWillReceiveProps (nextProps) {
+        let {show} = nextProps ;
+        if(show){
+            setTimeout(function(){
+                this.props.hideAlertFn() ;
+            }.bind(this),3000) ;
+        }
     }
-    return 'alert alert-dismissible ' + tmpStr ;
-}
-
-
-function Alert ({show,type,msg}){
-    return show ? (
-        <div className="alert-container">
-            <div className={getAlertClassName(type)} role="alert">
-                <button type="button" className="close" data-dismiss="alert" 
-                    aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-                 {msg ? msg : '提示信息'}
+   
+    getAlertClassName (type){
+        let tmpStr = "alert-info" ;
+        let arr = [success,info,warning,danger] ;
+        if(arr.includes(type)){
+        tmpStr = 'alert-'+type ; 
+        }
+        return 'alert alert-dismissible ' + tmpStr ;
+    }
+    render(){
+        let {show,msg,type} = this.props ;
+        if(!show) return null ;
+        return (
+            <div className="alert-container">
+                <div className={this.getAlertClassName(type)} role="alert">
+                    <button type="button" className="close" data-dismiss="alert" 
+                        aria-label="Close" onClick={this.props.hideAlertFn}>
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    {msg ? msg : '提示信息'}
+                </div>
             </div>
-        </div>
-    ) : null;
-}
+        ) ;
+    } 
+} 
 
 export default Alert ;

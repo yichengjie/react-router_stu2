@@ -79,5 +79,9 @@ body {
   top: 60px ;
   right: 30px;
   z-index: 1000;
+  min-width: 300px;
+}
+.alert{
+  width: 100% ;
 }
 
