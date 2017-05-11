@@ -3,7 +3,7 @@ import outputData from '../../api/output.json' ;
 import inputData from './data/sih-test-tool.json' ;
 import configFormData from './data/sih-test-tool-formdata.json' ;
 import SIHTestToolConfigDao from './dao/SIHTestToolConfigDao.js' ;
-import Notice , {NoticeType} from '../Notice.jsx' ;
+import Alert , {AlertType} from '../Alert.jsx' ;
 
 class SIHTestTool extends Component{
 
@@ -14,9 +14,9 @@ class SIHTestTool extends Component{
             outputValue:null,
             isShowMsgPageFlag:true,
             formData:{},
-            showNoticeFlag:false,
-            noticeMsg:'',
-            noticeType:''
+            showAlertFlag:false,
+            alertMsg:'',
+            alertType:''
         } 
     }
 
@@ -113,12 +113,12 @@ class SIHTestTool extends Component{
 
 
     //将数据同步到localStorage中
-    syncFormDataToDB(formData,noticeFlag){
+    syncFormDataToDB(formData,alertFlag){
         SIHTestToolConfigDao.saveFormData(formData) ;
-        if(noticeFlag === false){
+        if(alertFlag === false){
            return ; 
         }
-        this.showNotice('保存配置成功',NoticeType.success) ;
+        this.showAlert('保存配置成功',AlertType.success) ;
        
     }
 
@@ -184,26 +184,29 @@ class SIHTestTool extends Component{
         ) ;
     }
 
-    showNotice (noticeMsg,type) {
-        let showNoticeFlag = true ;
-        let noticeType = type ;
-        this.setState({showNoticeFlag,noticeMsg,noticeType}) ;
-        setTimeout(this.hideNotice.bind(this),3000) ;
+    showAlert (alertMsg,type) {
+        let showAlertFlag = true ;
+        let alertType = type ;
+        console.info(`type : ${type}`) ;
+        this.setState({showAlertFlag,alertMsg,alertType}) ;
+        setTimeout(this.hideAlert.bind(this),3000) ;
     }
 
-    hideNotice () {
-        let showNoticeFlag = false ;
-        let noticeMsg = "" ; 
-        let noticeType = NoticeType.info ;
-        this.setState({showNoticeFlag,noticeMsg,noticeType}) ;
+    hideAlert () {
+        let showAlertFlag = false ;
+        let alertMsg = "" ; 
+        let alertType = AlertType.info ;
+        this.setState({showAlertFlag,alertMsg,alertType}) ;
     }
 
 
-    getNoticeProps(){
-       let show = this.state.showNoticeFlag ;
-       let msg = this.state.noticeMsg ;
-       let type = this.state.noticeType ;
-       return {show,msg,type} ;
+    getAlertProps(){
+       let show = this.state.showAlertFlag ;
+       let msg = this.state.alertMsg ;
+       let type = this.state.alertType ;
+       let retObj = {show,msg,type} ;
+       //console.info('alert props type : ' , type) ;
+       return retObj;
     }
 
     render(){
@@ -218,7 +221,7 @@ class SIHTestTool extends Component{
                         className={this.getSwitchBtnClassName(false)}
                         onClick={this.handleSwitchPageFactory(false)}>参数配置</button>
                 </div>
-                <Notice {...this.getNoticeProps()}/>
+                <Alert {...this.getAlertProps()}/>
                 {this.state.isShowMsgPageFlag ? this.renderShowMsgPage() : this.renderConfigPage()}
             </div>
         ) ;

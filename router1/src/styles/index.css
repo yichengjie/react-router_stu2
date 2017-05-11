@@ -74,7 +74,7 @@ body {
   width: 100% ;
 }
 
-.notice-container{
+.alert-container{
   position: fixed ;
   top: 60px ;
   right: 30px;

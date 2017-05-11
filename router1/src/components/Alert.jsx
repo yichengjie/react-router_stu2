@@ -5,14 +5,14 @@ let info = "info" ;
 let warning = "warning" ;
 let danger = "danger" ;
 
-export const NoticeType = {
+export const AlertType = {
     success,
     info,
     warning,
     danger
 } ;
 
-function getNotieClassName (type){
+function getAlertClassName (type){
     let tmpStr = "alert-info" ;
     let arr = [success,info,warning,danger] ;
     if(arr.includes(type)){
@@ -22,10 +22,10 @@ function getNotieClassName (type){
 }
 
 
-function Notice ({show,type,msg}){
+function Alert ({show,type,msg}){
     return show ? (
-        <div className="notice-container">
-            <div className={getNotieClassName(type)} role="alert">
+        <div className="alert-container">
+            <div className={getAlertClassName(type)} role="alert">
                 <button type="button" className="close" data-dismiss="alert" 
                     aria-label="Close">
                     <span aria-hidden="true">&times;</span>
@@ -36,4 +36,4 @@ function Notice ({show,type,msg}){
     ) : null;
 }
 
-export default Notice ;
+export default Alert ;
