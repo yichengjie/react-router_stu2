@@ -40,6 +40,7 @@ app.use(devMiddleware)
 // 注册中间件
 app.use(hotMiddleware)
 
+
 // 监听 3000端口，开启服务器
 app.listen(3000, function (err) {
     if (err) {
