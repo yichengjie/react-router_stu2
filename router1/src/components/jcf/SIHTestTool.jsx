@@ -25,7 +25,9 @@ class SIHTestTool extends Component{
         let dbFormData = SIHTestToolConfigDao.getFormData() ;
         let formData = (dbFormData == null) ? configFormData : dbFormData ;
         this.setState({inputValue,formData}) ;
-        (dbFormData == null) && this.syncFormDataToDB(formData,false) ;
+        if(dbFormData == null){
+            this.syncFormDataToDB(formData,false) ;
+        }
     }
 
     handleQuery = e =>{
@@ -108,7 +110,7 @@ class SIHTestTool extends Component{
     //配置页面点击重制的处理函数
     handleResetConfigInfo = e => {
         this.setState({formData:configFormData}) ;
-        this.syncFormDataToDB(configFormData) ;
+        this.syncFormDataToDB(configFormData,false) ;
     }
 
 

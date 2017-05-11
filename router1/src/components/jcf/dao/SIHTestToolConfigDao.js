@@ -1,17 +1,22 @@
 let dbKey = "SIHTestToolConfigFormData" ;
 function getFormData(){
      var storage = window.localStorage;  
-     var strStoreData = storage? storage.getItem(dbKey): Cookie.read(dbKey);
-
-     console.info('strStoreData : ' , strStoreData) ;
-
-     return strStoreData ? null : JSON.parse(strStoreData) ;
+     var formDataStr = storage? storage.getItem(dbKey): Cookie.read(dbKey);
+     if(formDataStr == null){
+        return null ;
+     }
+     return JSON.parse(formDataStr) ;
 }
 
 function saveFormData(formData){
      var storage = window.localStorage;  
      let formDataStr = JSON.stringify(formData) ;
-     storage? storage.setItem(dbKey,formDataStr): Cookie.write(dbKey,formDataStr);
+     if(storage != null){
+        storage.setItem(dbKey,formDataStr)
+     }else{
+        Cookie.write(dbKey,formDataStr);
+     }
+     return true ;
 }
 
 export default {
