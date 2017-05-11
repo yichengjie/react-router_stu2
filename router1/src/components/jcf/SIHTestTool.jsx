@@ -210,14 +210,15 @@ class SIHTestTool extends Component{
     }
 
     render(){
-        let msgClassName = this.state.isShowMsgPageFlag 
+        let msgClassName = this.state.isShowMsgPageFlag ;
+        let btnStyle = {width:'30%'} ;
         return (
            <div className="main-edit-container">
                 <div style ={{marginBottom: '10px'}}>
-                    <button type="button" style={{width:'20%'}} 
+                    <button type="button" style={btnStyle} 
                         className={this.getSwitchBtnClassName(true)}
                         onClick={this.handleSwitchPageFactory(true)}>信息显示</button>
-                    <button type="button" style={{width:'20%'}} 
+                    <button type="button" style={btnStyle} 
                         className={this.getSwitchBtnClassName(false)}
                         onClick={this.handleSwitchPageFactory(false)}>参数配置</button>
                 </div>
