@@ -36,7 +36,7 @@ class SIHTestTool extends Component{
     }
 
     async handleQuery (event){
-       this.setState({queryingFlag:true}) ;
+       this.setState({queryingFlag:true,outputValue:{info:"数据加载中，请耐心等待..."}}) ;
        let {outputData,flag} = await SIHApi.querySIHData() ;
         this.setState({
             outputValue:outputData,
@@ -115,6 +115,13 @@ class SIHTestTool extends Component{
     handleResetConfigInfo = e => {
         this.setState({formData:configFormData}) ;
         this.syncFormDataToDB(configFormData,'重置配置成功!',true) ;
+    }
+
+    handleFormatInputDataTemplate = e => {
+        let inputValue = this.state.inputValue;
+        let inputObj = JSON.parse(inputValue) ;
+        let inputStr = JSON.stringify(inputObj,null,2) ;
+        this.setState({inputValue:inputStr}) ;
     }
 
 
@@ -244,12 +251,16 @@ class SIHTestTool extends Component{
        return retObj;
     }
 
+
+
     renderMsgSaveParamBtn(){
         if(this.state.isShowMsgPageFlag){
             let arr = [] ;
             arr.push(<button className="btn btn-default" 
+                         onClick= {this.handleFormatInputDataTemplate}>格式化请求JSON</button>) ;
+            arr.push(<button className="btn btn-default" 
                 onClick= {this.handleSaveInputDataTemplate}>保存请求JSON</button>) ;
-            arr.push(<button className="btn btn-danger" 
+            arr.push(<button className="btn btn-default" 
                          onClick= {this.handleResetInputDataTemplate}>重置请求JSON</button>) ;
             return arr ;
         }
