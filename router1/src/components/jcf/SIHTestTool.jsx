@@ -1,5 +1,4 @@
 import React,{Component} from 'react' ;
-//import inputData from './data/sih-test-tool.json' ;
 import configFormData from './data/sih-test-tool-formdata.json' ;
 import SIHTestToolDao from './dao/SIHTestToolDao.js' ;
 import Alert , {AlertType} from '../Alert.jsx' ;
@@ -53,8 +52,12 @@ class SIHTestTool extends Component{
     //点击保存inputData处理函数
     handleSaveInputDataTemplate = e =>{
        let inputDataStr = this.state.inputValue ;
-       SIHApi.saveSIHInputDataTemplate(inputDataStr) ; 
-       this.showAlert("保存成功!",AlertType.success) ;
+       try {
+            SIHApi.saveSIHInputDataTemplate(inputDataStr) ; 
+            this.showAlert("保存成功!",AlertType.success) ;
+       } catch (error) {
+           this.showAlert('填写的JSON数据不合法，请仔细检查！',AlertType.danger) ; 
+       }
     }
 
     handleResetInputDataTemplate = e =>{
@@ -125,20 +128,41 @@ class SIHTestTool extends Component{
 
     handleFormatInputDataTemplate = e => {
         let inputValue = this.state.inputValue;
-        let inputObj = JSON.parse(inputValue) ;
-        let inputStr = JSON.stringify(inputObj,null,2) ;
-        this.setState({inputValue:inputStr}) ;
+        try {
+            let inputObj = JSON.parse(inputValue) ;
+            let inputStr = JSON.stringify(inputObj,null,2) ;
+            this.setState({inputValue:inputStr}) ;
+        } catch (error) {
+           this.showAlert('填写的JSON数据不合法，请仔细检查！',AlertType.danger) ; 
+           console.error(error) ;
+        }
+        
+    }
+
+    handleValidateInputDataTemplate = e => {
+        let inputValue = this.state.inputValue;
+        try {
+            JSON.parse(inputValue) ;
+            this.showAlert('JSON数据合法！',AlertType.success) ;
+        } catch (error) {
+           this.showAlert('填写的JSON数据不合法，请仔细检查！',AlertType.danger) ; 
+           console.error(error) ;
+        }
     }
 
 
     //将数据同步到localStorage中
     syncFormDataToDB(formData,msg,alertFlag){
-        SIHTestToolDao.saveConfigPageFormData(formData) ;
-        if(alertFlag === false){
-           return ; 
+        try {
+            SIHTestToolDao.saveConfigPageFormData(formData) ;
+            if(alertFlag === false){
+                return ; 
+            }
+            this.showAlert(msg,AlertType.success) ;
+        } catch (error) {
+            this.showAlert("保存数据到本地数据库出错！",AlertType.danger) ;
+            console.error(error) ;
         }
-        this.showAlert(msg,AlertType.success) ;
-       
     }
 
     renderQueryBtnOrProgressBar(){
@@ -235,7 +259,7 @@ class SIHTestTool extends Component{
     showAlert (alertMsg,type) {
         let showAlertFlag = true ;
         let alertType = type ;
-        //console.info(`type : ${type}`) ;
+        console.info(`type : ${type}`) ;
         this.setState({showAlertFlag,alertMsg,alertType}) ;
     }
 
@@ -262,6 +286,9 @@ class SIHTestTool extends Component{
             let style = {marginLeft:'20px'} ;
             return (
                 <div className="btn-group" style={style}>
+                    <button className="btn btn-xs btn-default" 
+                         onClick= {this.handleValidateInputDataTemplate}>
+                         验证JSON合法</button>
                     <button className="btn btn-xs btn-default" 
                          onClick= {this.handleFormatInputDataTemplate}>
                          格式化请求JSON</button>
