@@ -36,9 +36,15 @@ class SIHTestTool extends Component{
     }
 
     async handleQuery (event){
+       console.info('-----------请求参数 start -----------') ;
+       console.info('config page formData : ') ;
+       console.info(this.state.formData) ;
+       console.info('msg page request json data : ') ;
+       console.info(this.state.inputValue) ;
+       console.info('-----------请求参数 end -----------') ;
        this.setState({queryingFlag:true,outputValue:{info:"数据加载中，请耐心等待..."}}) ;
        let {outputData,flag} = await SIHApi.querySIHData() ;
-        this.setState({
+       this.setState({
             outputValue:outputData,
             queryingFlag:false
         }) ;
