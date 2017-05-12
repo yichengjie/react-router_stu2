@@ -70,7 +70,7 @@ class SIHTestTool extends Component{
 
     getSwitchBtnClassName(isMsgPageBtn){
        let a =  this.state.isShowMsgPageFlag  ;
-       let retStr =  'btn ' + ((a === isMsgPageBtn) ? 'btn-info' : 'btn-default') ;
+       let retStr =  'btn ' + ((a === isMsgPageBtn) ? 'btn-primary' : 'btn-default') ;
        return retStr ;
     }
 
@@ -257,18 +257,22 @@ class SIHTestTool extends Component{
        return retObj;
     }
 
-
-
     renderMsgSaveParamBtn(){
         if(this.state.isShowMsgPageFlag){
-            let arr = [] ;
-            arr.push(<button className="btn btn-default" 
-                         onClick= {this.handleFormatInputDataTemplate}>格式化请求JSON</button>) ;
-            arr.push(<button className="btn btn-default" 
-                onClick= {this.handleSaveInputDataTemplate}>保存请求JSON</button>) ;
-            arr.push(<button className="btn btn-default" 
-                         onClick= {this.handleResetInputDataTemplate}>重置请求JSON</button>) ;
-            return arr ;
+            let style = {marginLeft:'20px'} ;
+            return (
+                <div className="btn-group" style={style}>
+                    <button className="btn btn-xs btn-default" 
+                         onClick= {this.handleFormatInputDataTemplate}>
+                         格式化请求JSON</button>
+                    <button className="btn  btn-xs btn-default" 
+                        onClick= {this.handleSaveInputDataTemplate}>
+                        保存请求JSON</button>
+                    <button className="btn  btn-xs btn-warning" 
+                         onClick= {this.handleResetInputDataTemplate}>
+                         重置请求JSON</button>
+                </div>
+            ) ;
         }
         return null ;
     }
@@ -280,12 +284,12 @@ class SIHTestTool extends Component{
                 <div className="btn-group" style ={{marginBottom: '10px'}}>
                     <button type="button"
                         className={this.getSwitchBtnClassName(true)}
-                        onClick={this.handleSwitchPageFactory(true)}>信息显示</button>
+                        onClick={this.handleSwitchPageFactory(true)}>信息显示页面</button>
                     <button type="button"  
                         className={this.getSwitchBtnClassName(false)}
-                        onClick={this.handleSwitchPageFactory(false)}>参数配置</button>
-                    {this.renderMsgSaveParamBtn()}
+                        onClick={this.handleSwitchPageFactory(false)}>参数配置页面</button>
                 </div>
+                {this.renderMsgSaveParamBtn()}
                 <Alert {...this.getAlertProps()}/>
                 {this.state.isShowMsgPageFlag ? this.renderShowMsgPage() : this.renderConfigPage()}
             </div>
