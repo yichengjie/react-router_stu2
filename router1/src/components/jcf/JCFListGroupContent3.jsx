@@ -1,5 +1,5 @@
 import React,{Component} from 'react' ;
-import outputData from '../../api/output.json' ;
+import outputData from './data/sih-output.json' ;
 import inputData from './data/input3.json' ;
 
 class JCFListGroupContent3 extends Component{

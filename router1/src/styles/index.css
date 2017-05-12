@@ -64,6 +64,8 @@ body {
 .inputTextarea{
   width: 100% ;
   height: 230px;
+  margin-bottom: 0 ;
+  padding-bottom: 0 ;
 }
 .output-region{
   /*flex-basis: 2;*/
@@ -79,5 +81,11 @@ body {
 }
 .alert{
   width: 100% ;
+}
+.oper-status-container{
+  margin: 10px 0 ;
+}
+.progress{
+  margin-bottom: 0 ;
 }
 

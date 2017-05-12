@@ -1,9 +1,11 @@
 import React,{Component} from 'react' ;
-import outputData from '../../api/output.json' ;
 import inputData from './data/sih-test-tool.json' ;
 import configFormData from './data/sih-test-tool-formdata.json' ;
 import SIHTestToolConfigDao from './dao/SIHTestToolConfigDao.js' ;
 import Alert , {AlertType} from '../Alert.jsx' ;
+import ProgressBar from '../ProgressBar.jsx' ;
+import SIHApi from './api/SIHTestToolAPI.js' ;
+
 
 class SIHTestTool extends Component{
 
@@ -16,8 +18,10 @@ class SIHTestTool extends Component{
             formData:{},
             showAlertFlag:false,
             alertMsg:'',
-            alertType:''
-        } 
+            alertType:'',
+            queryingFlag:false,
+        } ;
+        this.handleQuery = this.handleQuery.bind(this) ;
     }
 
     componentDidMount(){
@@ -30,8 +34,13 @@ class SIHTestTool extends Component{
         }
     }
 
-    handleQuery = e =>{
-        this.setState({outputValue:outputData}) ;
+    async handleQuery (event){
+       this.setState({queryingFlag:true}) ;
+       let {outputData,flag} = await SIHApi.querySIHData() ;
+        this.setState({
+            outputValue:outputData,
+            queryingFlag:false
+        }) ;
     }
 
     handleInput = e => {
@@ -53,23 +62,7 @@ class SIHTestTool extends Component{
         }
     }
 
-    renderShowMsgPage(){
-        let {inputValue,outputValue} = this.state ;
-        return (
-            <div>
-                <textarea className="inputTextarea" 
-                    value={inputValue}
-                    onChange={this.handleInput}></textarea>
-                <br/>
-                <br/>
-                <button className="btn btn-primary btn-block" onClick={this.handleQuery}>GO</button>
-                <br/>
-                <pre className="output-region">
-                    {outputValue ? JSON.stringify(outputValue,null,2) : ''}
-                </pre>
-            </div>
-        ) ;
-    }
+   
 
     handleConfigInputChangeFactory (fieldName){
         return e => {
@@ -121,6 +114,33 @@ class SIHTestTool extends Component{
         }
         this.showAlert(msg,AlertType.success) ;
        
+    }
+
+    renderQueryBtnOrProgressBar(){
+        if(this.state.queryingFlag){
+            return <ProgressBar/>
+        }
+        return (
+            <button className="btn btn-primary btn-block"
+                     onClick={this.handleQuery}>GO</button>
+        ) ;
+    }
+
+     renderShowMsgPage(){
+        let {inputValue,outputValue} = this.state ;
+        return (
+            <div>
+                <textarea className="inputTextarea" 
+                    value={inputValue}
+                    onChange={this.handleInput}></textarea>
+                <div className="oper-status-container">
+                   {this.renderQueryBtnOrProgressBar()} 
+                </div>
+                <pre className="output-region">
+                    {outputValue ? JSON.stringify(outputValue,null,2) : ''}
+                </pre>
+            </div>
+        ) ;
     }
 
     renderConfigPage(){

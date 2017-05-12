@@ -1,6 +1,7 @@
 import React,{Component} from 'react' ;
-import outputData from '../../api/output.json' ;
+import outputData from './data/sih-output.json' ;
 import inputData from './data/input2.json' ;
+
 
 class JCFListGroupContent2 extends Component{
      constructor (props){
