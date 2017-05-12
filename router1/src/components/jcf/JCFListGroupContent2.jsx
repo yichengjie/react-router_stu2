@@ -34,7 +34,7 @@ class JCFListGroupContent2 extends Component{
                     onChange={this.handleInput}></textarea>
                 <br/>
                 <br/>
-                <button className="btn btn-primary main-btn" onClick={this.handleQuery}>GO</button>
+                <button className="btn btn-primary btn-block" onClick={this.handleQuery}>GO</button>
                 <br/>
                 <br/>
                 <pre className="output-region">

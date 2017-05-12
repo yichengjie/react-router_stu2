@@ -208,7 +208,7 @@ class SIHTestTool extends Component{
     showAlert (alertMsg,type) {
         let showAlertFlag = true ;
         let alertType = type ;
-        console.info(`type : ${type}`) ;
+        //console.info(`type : ${type}`) ;
         this.setState({showAlertFlag,alertMsg,alertType}) ;
     }
 
