@@ -1,7 +1,7 @@
 import React,{Component} from 'react' ;
-import inputData from './data/sih-test-tool.json' ;
+//import inputData from './data/sih-test-tool.json' ;
 import configFormData from './data/sih-test-tool-formdata.json' ;
-import SIHTestToolConfigDao from './dao/SIHTestToolConfigDao.js' ;
+import SIHTestToolDao from './dao/SIHTestToolDao.js' ;
 import Alert , {AlertType} from '../Alert.jsx' ;
 import ProgressBar from '../ProgressBar.jsx' ;
 import SIHApi from './api/SIHTestToolAPI.js' ;
@@ -12,7 +12,7 @@ class SIHTestTool extends Component{
     constructor (props){
         super(props) ;
         this.state = {
-            inputValue:'',
+            inputValue:'数据加载中,请耐心等待...',
             outputValue:null,
             isShowMsgPageFlag:true,
             formData:{},
@@ -24,9 +24,10 @@ class SIHTestTool extends Component{
         this.handleQuery = this.handleQuery.bind(this) ;
     }
 
-    componentDidMount(){
+    async componentDidMount(){
+        let {inputData,flag} = await SIHApi.getSIHInputDataTemplate() ;
         let inputValue = JSON.stringify(inputData,null,2) ;
-        let dbFormData = SIHTestToolConfigDao.getFormData() ;
+        let dbFormData = SIHTestToolDao.getConfigPageFormData() ;
         let formData = (dbFormData == null) ? configFormData : dbFormData ;
         this.setState({inputValue,formData}) ;
         if(dbFormData == null){
@@ -41,6 +42,19 @@ class SIHTestTool extends Component{
             outputValue:outputData,
             queryingFlag:false
         }) ;
+    }
+
+    //点击保存inputData处理函数
+    handleSaveInputDataTemplate = e =>{
+       let inputDataStr = this.state.inputValue ;
+       SIHApi.saveSIHInputDataTemplate(inputDataStr) ; 
+       this.showAlert("保存成功!",AlertType.success) ;
+    }
+
+    handleResetInputDataTemplate = e =>{
+        let newInputDataTemplateStr = SIHApi.resetSIHInputDataTemplate() ;
+        this.setState({inputValue:newInputDataTemplateStr}) ;
+        this.showAlert("重置成功!",AlertType.success) ;
     }
 
     handleInput = e => {
@@ -61,8 +75,6 @@ class SIHTestTool extends Component{
             }
         }
     }
-
-   
 
     handleConfigInputChangeFactory (fieldName){
         return e => {
@@ -108,7 +120,7 @@ class SIHTestTool extends Component{
 
     //将数据同步到localStorage中
     syncFormDataToDB(formData,msg,alertFlag){
-        SIHTestToolConfigDao.saveFormData(formData) ;
+        SIHTestToolDao.saveConfigPageFormData(formData) ;
         if(alertFlag === false){
            return ; 
         }
@@ -196,9 +208,11 @@ class SIHTestTool extends Component{
                 </div>
                 <div className="form-group">
                     <div className="col-sm-offset-2 col-sm-10">
-                        <button type="button" className="btn btn-warning" onClick ={this.handleSaveConfigInfo}>修改</button>
+                        <button type="button" className="btn btn-warning" 
+                            onClick ={this.handleSaveConfigInfo}>修改</button>
                         {'  '}
-                        <button type="button" className="btn btn-default" onClick={this.handleResetConfigInfo}>重制</button>
+                        <button type="button" className="btn btn-default" 
+                            onClick={this.handleResetConfigInfo}>重置</button>
                     </div>
                 </div>
             </form>
@@ -230,6 +244,18 @@ class SIHTestTool extends Component{
        return retObj;
     }
 
+    renderMsgSaveParamBtn(){
+        if(this.state.isShowMsgPageFlag){
+            let arr = [] ;
+            arr.push(<button className="btn btn-default" 
+                onClick= {this.handleSaveInputDataTemplate}>保存请求JSON</button>) ;
+            arr.push(<button className="btn btn-danger" 
+                         onClick= {this.handleResetInputDataTemplate}>重置请求JSON</button>) ;
+            return arr ;
+        }
+        return null ;
+    }
+
     render(){
         let msgClassName = this.state.isShowMsgPageFlag ;
         return (
@@ -241,6 +267,7 @@ class SIHTestTool extends Component{
                     <button type="button"  
                         className={this.getSwitchBtnClassName(false)}
                         onClick={this.handleSwitchPageFactory(false)}>参数配置</button>
+                    {this.renderMsgSaveParamBtn()}
                 </div>
                 <Alert {...this.getAlertProps()}/>
                 {this.state.isShowMsgPageFlag ? this.renderShowMsgPage() : this.renderConfigPage()}
