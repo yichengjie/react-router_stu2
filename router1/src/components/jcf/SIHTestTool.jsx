@@ -4,6 +4,7 @@ import SIHTestToolDao from './dao/SIHTestToolDao.js' ;
 import Alert , {AlertType} from '../Alert.jsx' ;
 import ProgressBar from '../ProgressBar.jsx' ;
 import SIHApi from './api/SIHTestToolAPI.js' ;
+import Panel from '../Panel.jsx' ;
 
 
 class SIHTestTool extends Component{
@@ -12,7 +13,7 @@ class SIHTestTool extends Component{
         super(props) ;
         this.state = {
             inputValue:'数据加载中,请耐心等待...',
-            outputValue:null,
+            outputObj:null,
             isShowMsgPageFlag:true,
             formData:{},
             showAlertFlag:false,
@@ -41,10 +42,10 @@ class SIHTestTool extends Component{
        console.info('msg page request json data : ') ;
        console.info(this.state.inputValue) ;
        console.info('-----------请求参数 end -----------') ;
-       this.setState({queryingFlag:true,outputValue:{info:"数据加载中，请耐心等待..."}}) ;
+       this.setState({queryingFlag:true,outputObj:{info:"数据加载中，请耐心等待..."}}) ;
        let {outputData,flag} = await SIHApi.querySIHData() ;
        this.setState({
-            outputValue:outputData,
+            outputObj:outputData,
             queryingFlag:false
         }) ;
     }
@@ -176,7 +177,7 @@ class SIHTestTool extends Component{
     }
 
      renderShowMsgPage(){
-        let {inputValue,outputValue} = this.state ;
+        let {inputValue,outputObj} = this.state ;
         return (
             <div>
                 <textarea className="inputTextarea" 
@@ -185,9 +186,22 @@ class SIHTestTool extends Component{
                 <div className="oper-status-container">
                    {this.renderQueryBtnOrProgressBar()} 
                 </div>
-                <pre className="output-region">
-                    {outputValue ? JSON.stringify(outputValue,null,2) : ''}
-                </pre>
+                <div className="output-region">
+                    <div className="output-req-header">
+                        <Panel title ="SIH请求头:">
+                            <textarea className="prettify-json" disabled="disabled" 
+                                value={outputObj ? JSON.stringify(outputObj,null,2) : ''}>
+                            </textarea>
+                        </Panel>
+                    </div>
+                    <div className="output-res-content">
+                        <Panel title ="SIH处理返回:">
+                            <textarea className="prettify-json" disabled="disabled"
+                                value={outputObj ? JSON.stringify(outputObj,null,2) : ''}>
+                            </textarea>
+                        </Panel>
+                    </div>
+                </div>
             </div>
         ) ;
     }

@@ -5,6 +5,7 @@ import ReactDOM from 'react-dom';
 //引入组件
 import App from './components/App.jsx' ;
 import './styles/index.css' ;
+import './styles/oc-panel.css' ;
 //import BasicExample from './components/BasicExample.jsx' ;
 
 

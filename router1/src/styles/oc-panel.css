@@ -1,0 +1,22 @@
+.oc-panel{
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 3px;
+    border:1px solid rgba(221,221,221,1)
+}
+
+.oc-panel-title{
+    background-color: rgba(245,245,245,1);
+    width: 100%;
+    height: 40px;
+    line-height: 40px;
+    padding: 0 10px;
+}
+.oc-panel-body{
+    width: 100%;
+    position: absolute;
+    top: 40px;
+    bottom: 0px;
+    left: 0px;
+}
