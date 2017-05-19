@@ -178,32 +178,31 @@ class SIHTestTool extends Component{
 
      renderShowMsgPage(){
         let {inputValue,outputObj} = this.state ;
-        return (
-            <div>
-                <textarea className="inputTextarea" 
+        let textareaComp = <textarea className="inputTextarea" 
                     value={inputValue}
-                    onChange={this.handleInput}></textarea>
-                <div className="oper-status-container">
+                    onChange={this.handleInput}></textarea> ;
+        let operBtnComp = <div className="oper-status-container">
                    {this.renderQueryBtnOrProgressBar()} 
+                </div> ;
+        let outputViewComp = (
+            <div className="output-region">
+                <div className="output-req-header">
+                    <Panel title ="SIH请求头:">
+                        <textarea className="prettify-json" disabled="disabled" 
+                            value={outputObj ? JSON.stringify(outputObj,null,2) : ''}>
+                        </textarea>
+                    </Panel>
                 </div>
-                <div className="output-region">
-                    <div className="output-req-header">
-                        <Panel title ="SIH请求头:">
-                            <textarea className="prettify-json" disabled="disabled" 
-                                value={outputObj ? JSON.stringify(outputObj,null,2) : ''}>
-                            </textarea>
-                        </Panel>
-                    </div>
-                    <div className="output-res-content">
-                        <Panel title ="SIH处理返回:">
-                            <textarea className="prettify-json" disabled="disabled"
-                                value={outputObj ? JSON.stringify(outputObj,null,2) : ''}>
-                            </textarea>
-                        </Panel>
-                    </div>
+                <div className="output-res-content">
+                    <Panel title ="SIH处理返回:">
+                        <textarea className="prettify-json" disabled="disabled"
+                            value={outputObj ? JSON.stringify(outputObj,null,2) : ''}>
+                        </textarea>
+                    </Panel>
                 </div>
             </div>
         ) ;
+        return [textareaComp,operBtnComp,outputViewComp];
     }
 
     renderConfigPage(){

@@ -22,16 +22,18 @@ class JCFListGroup extends Component {
     }
     renderListGroupContent(){
         let {match} = this.props ;
-        return (
-            <div>
-                <Route path={`${match.url}/sih-test-tool`} component={SIHTestTool}/>
-                <Route path={`${match.url}/test02`} component={JCFListGroupContent2}/>
-                <Route path={`${match.url}/test03`} component={JCFListGroupContent3}/>
-                <Route exact path={match.url} render={() => (
+        let retArr = [] ;
+        let r1 = <Route path={`${match.url}/sih-test-tool`} component={SIHTestTool}/> ;
+        let r2 = <Route path={`${match.url}/test02`} component={JCFListGroupContent2}/> ;
+        let r3 = <Route path={`${match.url}/test03`} component={JCFListGroupContent3}/> ;
+        let r4 = <Route exact path={match.url} render={() => (
                     <h3>请选择测试项目.</h3>
-                )}/> 
-            </div>
-        ) ;
+                )}/> ;
+        retArr.push(r1) ;  
+        retArr.push(r2) ; 
+        retArr.push(r3) ; 
+        retArr.push(r4) ;     
+        return retArr ;
     }
     render(){
         return (
