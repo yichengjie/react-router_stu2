@@ -1,12 +1,23 @@
 import  React,{Component} from 'react' ;
 import { Menu, Icon, Switch } from 'antd';
 const SubMenu = Menu.SubMenu;
+import { Route, Link} from 'react-router-dom' ;
+import SIHTestTool from './SIHTestTool.jsx' ;
+import Base64Tool from './Base64Tool.jsx' ;
 
 class Siderbar extends React.Component {
-  state = {
-    current: 'sub102',
-    username: 'yicj'
+  constructor(props){
+     super(props) ;
+     let {location} = props ;
+     let pathname = location.pathname ;
+     console.info('pathname : ' , pathname) ;
+     this.state = {
+       current: pathname || '/sihtool',
+       username: 'yicj'
+     }
   }
+
+  
   handleClick = (e) => {
     console.log('click ', e);
     this.setState({
@@ -27,8 +38,14 @@ class Siderbar extends React.Component {
                 mode="inline"
               >
                 <SubMenu key="sub1" title={<span><Icon type="mail" /><span>MQ相关测试工具</span></span>}>
-                  <Menu.Item key="sub101">SIH工具</Menu.Item>
-                  <Menu.Item key="sub102">Base64工具</Menu.Item>
+                  <Menu.Item key="/sihtool" to>
+                     <Link to="/sihtool">SIH工具</Link>
+                  </Menu.Item>
+                  <Menu.Item key="/base64">
+                    <Link to="/base64">
+                       Base64工具
+                    </Link>
+                  </Menu.Item>
                 </SubMenu>
                 <SubMenu key="sub2" title={<span><Icon type="appstore" /><span>通用工具</span></span>}>
                   <Menu.Item key="sub201">Option 5</Menu.Item>
@@ -44,6 +61,13 @@ class Siderbar extends React.Component {
                   <Menu.Item key="sub3003">Option 11</Menu.Item>
                   <Menu.Item key="sub3004">Option 12</Menu.Item>
                 </SubMenu>
+
+                <SubMenu key="sub4" title={<span><Icon type="setting" /><span>其他2</span></span>}>
+                  <Menu.Item key="sub401">Option 9</Menu.Item>
+                  <Menu.Item key="sub4002">Option 10</Menu.Item>
+                  <Menu.Item key="sub4003">Option 11</Menu.Item>
+                  <Menu.Item key="sub4004">Option 12</Menu.Item>
+                </SubMenu>
               </Menu>
           </div>
           <div id="rightWrap">
@@ -53,9 +77,9 @@ class Siderbar extends React.Component {
                 </SubMenu>
             </Menu>
             <div className="right-box">
-               我是右侧内容区域的占位
-
-
+               <Route exact path="/" component={SIHTestTool}/>
+               <Route exact path="/sihtool" component={SIHTestTool}/>
+               <Route exact path="/base64" component={Base64Tool}/>
             </div>
           </div>
       </div>
