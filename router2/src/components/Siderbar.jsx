@@ -58,9 +58,8 @@ class Siderbar extends React.Component {
                   <Menu.Item key="sub1-sihtool" to>
                      <Link to="/sub1-sihtool">SIH工具</Link>
                   </Menu.Item>
-                  
                 </SubMenu>
-                <SubMenu key="sub2" title={<span><Icon type="appstore" /><span>通用工具</span></span>}>
+                <SubMenu key="sub2" title={<span><Icon type="appstore" /><span>实用工具</span></span>}>
                   <Menu.Item key="sub2-base64">
                     <Link to="/sub2-base64"> Base64工具</Link>
                   </Menu.Item>
