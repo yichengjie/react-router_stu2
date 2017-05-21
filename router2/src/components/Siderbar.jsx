@@ -15,7 +15,7 @@ class Siderbar extends React.Component {
      let currentOpenKey = this.getCurrentOpenKeyByLocation(location) ;
      this.state = {
        current,
-       username: 'yicj',
+       username: 'FGUI',
        currentOpenKey
      }
   }
@@ -50,7 +50,6 @@ class Siderbar extends React.Component {
               <Menu
                 theme="dark"
                 onClick={this.handleClick}
-                style={{ width: 185 }}
                 defaultOpenKeys={[this.state.currentOpenKey]}
                 selectedKeys={[this.state.current]}
                 mode="inline"

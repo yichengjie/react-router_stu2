@@ -1,0 +1,12 @@
+@import "./sidebar.scss" ;
+.breaty-json{
+    white-space: pre ;
+    overflow: auto ;
+    @include box-sizing(border-box) ;
+}
+.base64-out{
+    display: inline-block ;
+    width: 200px ;
+    height: 200px ;
+    border: 1px solid #333;
+}
