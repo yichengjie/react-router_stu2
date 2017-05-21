@@ -1,12 +1,15 @@
 @import "./sidebar.scss" ;
-.breaty-json{
+@import "./base64tool.scss" ;
+
+.beautify-json {
     white-space: pre ;
+    outline: 1px solid #ccc; 
+    padding: 5px; margin: 5px; 
     overflow: auto ;
-    @include box-sizing(border-box) ;
-}
-.base64-out{
-    display: inline-block ;
-    width: 200px ;
-    height: 200px ;
-    border: 1px solid #333;
+    font-family: Consolas, Menlo, Courier, monospace;
+    .string { color: green; }
+    .number { color: darkorange; }
+    .boolean { color: blue; }
+    .null { color: magenta; }
+    .key { color: red; }
 }

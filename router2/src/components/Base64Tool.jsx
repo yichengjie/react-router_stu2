@@ -1,33 +1,47 @@
 import  React,{Component} from 'react' ;
+import {jsonSyntaxHighlight} from '../common/common.js' ;
+import { Input,Button } from 'antd';
+var Base64 = require('js-base64').Base64;
 class Base64Tool extends Component {
     constructor(props){
         super(props) ;
         this.state = {
-            json:{
-                "name": "monkey",  
-                "age": "24",  
-                "height": "164.0cm" ,
-                "name1": "monkey",  
-                "age1": "24",  
-                "height1": "164.0cm" ,
-                "name2": "monkey",  
-                "age2": "24",  
-                "height2": "164.0cm" ,
-                "name3": "monkey",  
-                "age3": "24",  
-                "height3": "164.0cm" 
-            }  
+            inputValue:''
         }   
     }
-    formatToJsonStr(jsObj){
-        return JSON.stringify(jsObj,null,2) ;
+    handleInputChange = (e) => {
+        let value = e.target.value ;
+        this.setState({inputValue:value}) ;
     }
+
+    handleEncodeOper = (e) => {
+        let encodeStr = Base64.encode(this.state.inputValue);
+        this.setState({inputValue:encodeStr}) ;
+    }
+
+    handleDecodeOper = (e) => {
+        let decodeStr = Base64.decode(this.state.inputValue);
+        this.setState({inputValue:decodeStr}) ;
+    }
+
+    handleClearOper = (e) => {
+        this.setState({inputValue:''}) ;
+    }
+    
     render(){
         return (
             <div>
-                <h1>Base64 工具</h1>
-                <div className="breaty-json base64-out">
-                    {this.formatToJsonStr(this.state.json)}
+                <h5>请输入原文</h5>
+                <Input type="textarea" rows={8} 
+                    value={this.state.inputValue} 
+                    onChange={this.handleInputChange}/>
+                <div className="oper-btn-container">
+                    <Button type="primary" className="oper-item" 
+                     onClick ={this.handleEncodeOper}>Encode</Button>
+                    <Button className="oper-item" 
+                     onClick = {this.handleDecodeOper}>Decode</Button>
+                    <Button type="danger" className="oper-item"
+                      onClick = {this.handleClearOper}>清空</Button>
                 </div>
             </div>
         )
