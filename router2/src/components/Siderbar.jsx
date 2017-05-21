@@ -11,9 +11,12 @@ class Siderbar extends React.Component {
      let {location} = props ;
      let pathname = location.pathname ;
      console.info('pathname : ' , pathname) ;
+     let current = this.getCurrentByLocation(location) ;
+     let currentOpenKey = this.getCurrentOpenKeyByLocation(location) ;
      this.state = {
-       current: pathname || '/sihtool',
-       username: 'yicj'
+       current,
+       username: 'yicj',
+       currentOpenKey
      }
   }
 
@@ -24,6 +27,21 @@ class Siderbar extends React.Component {
       current: e.key,
     });
   }
+
+  getCurrentOpenKeyByLocation(location){
+     let current = this.getCurrentByLocation(location) || 'sub1-xxx' ;
+     let index = current.indexOf('-') ;
+     return current.substring(0,index) ;
+  }
+
+  getCurrentByLocation({pathname}){
+      pathname = pathname;
+      let len = pathname.length ;
+      let current = pathname.substring(1,len) ;
+      return current || 'sub1-sihtool'
+  }
+
+
   render() {
     return (
       <div>
@@ -33,40 +51,27 @@ class Siderbar extends React.Component {
                 theme="dark"
                 onClick={this.handleClick}
                 style={{ width: 185 }}
-                defaultOpenKeys={['sub1']}
+                defaultOpenKeys={[this.state.currentOpenKey]}
                 selectedKeys={[this.state.current]}
                 mode="inline"
               >
                 <SubMenu key="sub1" title={<span><Icon type="mail" /><span>MQ相关测试工具</span></span>}>
-                  <Menu.Item key="/sihtool" to>
-                     <Link to="/sihtool">SIH工具</Link>
+                  <Menu.Item key="sub1-sihtool" to>
+                     <Link to="/sub1-sihtool">SIH工具</Link>
                   </Menu.Item>
-                  <Menu.Item key="/base64">
-                    <Link to="/base64">
-                       Base64工具
-                    </Link>
+                  <Menu.Item key="sub1-base64">
+                    <Link to="/sub1-base64"> Base64工具</Link>
                   </Menu.Item>
                 </SubMenu>
                 <SubMenu key="sub2" title={<span><Icon type="appstore" /><span>通用工具</span></span>}>
-                  <Menu.Item key="sub201">Option 5</Menu.Item>
-                  <Menu.Item key="sub202">Option 6</Menu.Item>
-                  <SubMenu key="sub2sub1" title="Submenu">
-                    <Menu.Item key="sub2sub101">Option 7</Menu.Item>
-                    <Menu.Item key="sub2sub102">Option 8</Menu.Item>
-                  </SubMenu>
+                  <Menu.Item key="sub2-menu1">Option 5</Menu.Item>
+                  <Menu.Item key="sub2-menu">Option 6</Menu.Item>
                 </SubMenu>
                 <SubMenu key="sub3" title={<span><Icon type="setting" /><span>其他</span></span>}>
-                  <Menu.Item key="sub301">Option 9</Menu.Item>
-                  <Menu.Item key="sub3002">Option 10</Menu.Item>
-                  <Menu.Item key="sub3003">Option 11</Menu.Item>
-                  <Menu.Item key="sub3004">Option 12</Menu.Item>
-                </SubMenu>
-
-                <SubMenu key="sub4" title={<span><Icon type="setting" /><span>其他2</span></span>}>
-                  <Menu.Item key="sub401">Option 9</Menu.Item>
-                  <Menu.Item key="sub4002">Option 10</Menu.Item>
-                  <Menu.Item key="sub4003">Option 11</Menu.Item>
-                  <Menu.Item key="sub4004">Option 12</Menu.Item>
+                  <Menu.Item key="sub3-menu1">Option 9</Menu.Item>
+                  <Menu.Item key="sub3-menu2">Option 10</Menu.Item>
+                  <Menu.Item key="sub3-menu3">Option 11</Menu.Item>
+                  <Menu.Item key="sub3-menu4">Option 12</Menu.Item>
                 </SubMenu>
               </Menu>
           </div>
@@ -78,8 +83,8 @@ class Siderbar extends React.Component {
             </Menu>
             <div className="right-box">
                <Route exact path="/" component={SIHTestTool}/>
-               <Route exact path="/sihtool" component={SIHTestTool}/>
-               <Route exact path="/base64" component={Base64Tool}/>
+               <Route exact path="/sub1-sihtool" component={SIHTestTool}/>
+               <Route exact path="/sub1-base64" component={Base64Tool}/>
             </div>
           </div>
       </div>

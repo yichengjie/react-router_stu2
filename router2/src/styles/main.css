@@ -33,7 +33,7 @@
     -moz-box-sizing: border-box;
     box-sizing: border-box;    
     position: absolute ;
-    padding: 20px 20px 0 20px;
+    padding: 0px 20px 0 20px;
     top: 0 ;
     left: 185px; 
     right: 0 ;
@@ -45,9 +45,10 @@
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;  
-    padding: 20px 20px 0;
+    padding: 10px;
+    padding-bottom: 0;
     position: absolute;
-    top: 73px;
+    top: 48px;
     left: 0;
     right: 0;
     bottom: 0;
