@@ -32,7 +32,7 @@ class Base64Tool extends Component {
         return (
             <div>
                 <h5>请输入原文</h5>
-                <Input type="textarea" rows={8} 
+                <Input type="textarea" rows={25} 
                     value={this.state.inputValue} 
                     onChange={this.handleInputChange}/>
                 <div className="oper-btn-container">
