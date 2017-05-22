@@ -23,25 +23,10 @@ $sidebarWidth : 185px;
 #rightWrap {
     @include box-sizing(border-box) ;
     position: absolute ;
-    padding: 0px 10px 0 10px;
+    padding: 20px 10px 0 10px;
     top: 0 ;
     left: $sidebarWidth; 
     right: 0 ;
     bottom: 0 ;
-    overflow-y: auto;
-    .ant-menu-submenu{
-        float: right;
-    }
-}
-
-.right-box {
-    @include box-sizing(border-box) ;
-    padding: 10px;
-    padding-bottom: 0;
-    position: absolute;
-    top: 48px;
-    left: 0;
-    right: 0;
-    bottom: 0;
     overflow-y: auto;
 }
