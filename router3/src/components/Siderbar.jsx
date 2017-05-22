@@ -2,7 +2,7 @@ import  React,{Component} from 'react' ;
 import { Menu, Icon, Switch } from 'antd';
 const SubMenu = Menu.SubMenu;
 import { Route, Link} from 'react-router-dom' ;
-import SIHTestTool from './sih-test-tool/SIHTestTool.jsx' ;
+import SIHTestTool from './sih-test-tool/index.jsx' ;
 import Base64Tool from './Base64Tool.jsx' ;
 
 class Siderbar extends React.Component {
