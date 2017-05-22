@@ -47,6 +47,7 @@ module.exports = {
                 name: 'fonts/[name].[hash:7].[ext]'
              }
             },
+            {test: /\.json$/,loader: 'json'},
             {test: /\.(png|jpg|gif|svg)$/,loader: 'file',
              query: {
                 limit: 10000,

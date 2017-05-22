@@ -24,8 +24,14 @@ export function simpleFormat2JsonStr(jsObj){
     return JSON.stringify(jsObj,null,4) ;
 }
 
+export function getContextPath() {
+    let $contextPath = $("#contextPath") ;
+    return $contextPath.val() ;
+}
+
 export default {
     jsonSyntaxHighlight,
-    simpleFormat2JsonStr
+    simpleFormat2JsonStr,
+    getContextPath
 } ;
 
