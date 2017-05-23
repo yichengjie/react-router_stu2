@@ -1,6 +1,7 @@
 import React,{Component} from 'react' ;
 import { Input,Button ,notification} from 'antd';
 import SIHApi from './api/SIHTestToolAPI-test.js' ;
+import ProgressBar from '../ProgressBar.jsx' ;
 
 
 class ShowInfoPage extends Component {
@@ -8,13 +9,12 @@ class ShowInfoPage extends Component {
         super(props) ;
         this.state = {
            inputValue:'',/**用户填写的请求信息 */
-           queryingFlag:false,/**查询中flag */
+           isQuerying:false,/**查询中flag */
            reqHeaderValue:'',/*mq的请求头信息*/
            outputObj:null,/**mq请求返回信息 */
         } 
         this.handleClickQueryBtn = this.handleClickQueryBtn.bind(this) ;
     }
-   
     
     async componentDidMount(){
         let {inputData,flag} = await SIHApi.getSIHInputDataTemplate() ;
@@ -36,7 +36,7 @@ class ShowInfoPage extends Component {
            return false;
         }
         let waitInfo = {info:"数据加载中，请耐心等待..."} ; 
-        this.setState({reqHeaderValue:'',outputObj:waitInfo}) ;
+        this.setState({reqHeaderValue:'',isQuerying:true,outputObj:waitInfo}) ;
 
         let requestParamObj = {
             formDataValue:this.state.formData,
@@ -45,7 +45,8 @@ class ShowInfoPage extends Component {
         let {outputData,reqMsgStr,flag} = await SIHApi.querySIHData(requestParamObj) ;
         this.setState({
             outputObj:outputData,
-            reqHeaderValue:reqMsgStr
+            reqHeaderValue:reqMsgStr,
+            isQuerying:false
         }) ;
     }
 
@@ -66,6 +67,18 @@ class ShowInfoPage extends Component {
         return null ;
     }
 
+    renderQueryBtnOrProgress(){
+       let isQuerying =  this.state.isQuerying ;
+       if(isQuerying){
+            return <ProgressBar isQuerying={this.state.isQuerying}/> ;
+       }else{
+            return (
+                <Button type="primary" className="btn-block" 
+                    onClick = {this.handleClickQueryBtn}>GO</Button>
+            ) ;
+       }
+    }
+
     render(){
         return (
             <div className="sih-test-tool-showInfoPage">
@@ -79,8 +92,7 @@ class ShowInfoPage extends Component {
                     readOnly="readOnly" placeholder="SIH处理返回结果" value={
                        this.getJSONStrByJSObj(this.state.outputObj)
                     }/>
-                <Button type="primary" className="btn-block" 
-                    onClick = {this.handleClickQueryBtn}>GO</Button>
+                {this.renderQueryBtnOrProgress()}
                 <Input  type="textarea"  rows={3}  readOnly="readOnly"
                      value={this.state.reqHeaderValue}/>
             </div>
