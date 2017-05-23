@@ -29,7 +29,7 @@ class ShowInfoPage extends Component {
     }
     //当点击查询时的处理函数
     async handleClickQueryBtn (event){
-        console.info('handleClickQueryBtn is called ..') ;
+        //console.info('handleClickQueryBtn is called ..') ;
         let validFlag = this.__validateStrIsJson(this.state.inputValue) ;
         if(!validFlag){
            notification.error({message:"输入的JSON字符串不合法!"}) ;
@@ -61,7 +61,7 @@ class ShowInfoPage extends Component {
 
     getJSONStrByJSObj(jsObj){
         if(jsObj != null){
-            return JSON.stringify(this.state.outputObj,null,2) ;
+            return JSON.stringify(jsObj,null,2) ;
         }
         return null ;
     }
