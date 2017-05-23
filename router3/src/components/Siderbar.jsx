@@ -4,6 +4,7 @@ const SubMenu = Menu.SubMenu;
 import { Route, Link} from 'react-router-dom' ;
 import SIHTestTool from './sih-test-tool/index.jsx' ;
 import Base64Tool from './Base64Tool.jsx' ;
+import {getContextPath} from '../common/common.js' ;
 
 class Siderbar extends React.Component {
   constructor(props){
@@ -43,10 +44,12 @@ class Siderbar extends React.Component {
 
 
   render() {
+    let contextPath = getContextPath() ;
+    contextPath = '' ;
     return (
       <div>
           <div id="leftMenu"> 
-              <img src='/static/images/logo.png' width="50" id="logo"/>
+              <img src={`${contextPath}/static/images/logo.png`} width="50" id="logo"/>
               <Menu
                 theme="dark"
                 onClick={this.handleClick}

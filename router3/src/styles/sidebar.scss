@@ -23,7 +23,7 @@ $sidebarWidth : 185px;
 #rightWrap {
     @include box-sizing(border-box) ;
     position: absolute ;
-    padding: 20px 10px 0 10px;
+    padding: 20px 20px 0 20px;
     top: 0 ;
     left: $sidebarWidth; 
     right: 0 ;

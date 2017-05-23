@@ -1,6 +1,6 @@
 import CommonAPI from './CommonAPI.js' ;
-import HttpClientUtil from '../../common/HttpClientUtil.js' ;
-import {getContextPath} from '../../common/common.js' ;
+import HttpClientUtil from '../../../common/HttpClientUtil.js';
+import {getContextPath} from '../../../common/common.js' ;
 
 function querySIHData(jsData){
     let contextPath = getContextPath() ;

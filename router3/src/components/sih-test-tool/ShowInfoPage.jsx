@@ -68,14 +68,14 @@ class ShowInfoPage extends Component {
 
     render(){
         return (
-            <div>
-                <Input type="textarea"  rows={28} 
+            <div className="sih-test-tool-showInfoPage">
+                <Input type="textarea"  rows={20} 
                     className="sih-test-tool-textarea"
                     placeholder="请输入SIH请求JSON" 
                     value = {this.state.inputValue}
                     onChange={this.handleChangeInputValue}/>
                 <div className="sih-test-tool-split"></div>
-                <Input type="textarea"  rows={28} className="sih-test-tool-textarea" 
+                <Input type="textarea"  rows={20} className="sih-test-tool-textarea" 
                     readOnly="readOnly" placeholder="SIH处理返回结果" value={
                        this.getJSONStrByJSObj(this.state.outputObj)
                     }/>

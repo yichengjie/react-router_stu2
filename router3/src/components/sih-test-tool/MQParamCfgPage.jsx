@@ -52,7 +52,7 @@ class MQParamCfgPage extends Component {
 
     render(){
         return (
-            <Form className="ant-advanced-search-form">
+            <Form className="ant-advanced-search-form sih-test-tool-cfgPage">
                 <Row gutter={40}>
                     {/*第一行*/}
                     {this.getConfigInput('Server.Mode','serverMode')}
