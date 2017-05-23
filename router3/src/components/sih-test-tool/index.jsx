@@ -2,6 +2,7 @@ import  React,{Component} from 'react' ;
 import { Tabs, Icon } from 'antd';
 import ShowInfoPage from './ShowInfoPage.jsx' ;
 import MQParamCfgPage from './MQParamCfgPage.jsx' ;
+import SIHAPI from './api/SIHTestToolAPI-test.js' ;
 
 const TabPane = Tabs.TabPane;
 class SIHTestTool extends Component {
@@ -10,9 +11,19 @@ class SIHTestTool extends Component {
         this.state = {
            formData:{},
         } ;
+        this.handleModifyFormData = this.handleModifyFormData.bind(this) ;
     }
 
-   
+    componentDidMount(){
+        let sihFormData = SIHAPI.getSIHFormData() ;
+        this.setState({formData:sihFormData}) ;
+    }
+
+    handleModifyFormData(newFormData){
+        this.setState({formData:{...newFormData}}) ;
+        //将数据保存到localStorage中
+        SIHAPI.saveFormData2DB(newFormData) ;
+    }
 
     render(){
         return (
@@ -21,7 +32,8 @@ class SIHTestTool extends Component {
                     <ShowInfoPage formData ={this.state.formData} />
                 </TabPane>
                 <TabPane tab={<span><Icon type="setting" />MQ参数配置</span>} key="2">
-                    <MQParamCfgPage formData = {this.state.formData} />
+                    <MQParamCfgPage formData = {this.state.formData}
+                      handleModifyFormData = {this.handleModifyFormData} />
                 </TabPane>
             </Tabs>
         )

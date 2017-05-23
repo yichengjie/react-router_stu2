@@ -1,84 +1,112 @@
 import React,{Component} from 'react' ;
+import { Form, Row, Col, Input, Button, Icon,notification } from 'antd';
+const FormItem = Form.Item;
 import SIHAPI from './api/SIHTestToolAPI-test.js' ;
-
 class MQParamCfgPage extends Component {
+    constructor(props){
+        super(props) ;
+        this.formItemLayout = {
+          labelCol: { span: 10 },
+          wrapperCol: { span: 14 },
+        };
+    }
+
+    componentDidMount(){
+        let sihFormData = this.props.formData ;
+        let form = this.props.form ;
+        form.setFieldsValue(sihFormData) ;
+    }
 
     //配置页面点击重制的处理函数
     handleResetConfigInfo = (e) => {
        let formDataOrigin = SIHAPI.getSIHFormDataOrigin() ;
-       this.setState({formData:formDataOrigin}) ;
-       SIHAPI.saveFormData2DB(formDataOrigin) ;
+       let form = this.props.form ;
+       form.setFieldsValue(formDataOrigin) ;
+       //数据同步到localStorage
+       this.props.handleModifyFormData(formDataOrigin) ;
+       notification.success({message:"重置成功!"}) ;
     }
 
    //配置页面点击修改按钮的处理函数
     handleSaveConfigInfo = (e) => {
-        let formData = this.state.formData ;
-        SIHAPI.saveFormData2DB(formData) ;
+        let form = this.props.form ;
+        let formData = form.getFieldsValue() ;
+        //数据同步到localStorage
+        this.props.handleModifyFormData(formData) ;
+        notification.success({message:"保存成功!"}) ;
+    }
+
+    getConfigInput(label,propName){
+        let formItemLayout = this.formItemLayout ;
+        const { getFieldDecorator } = this.props.form;
+        return (
+            <Col span={12}>
+                <FormItem {...formItemLayout} label={label}>
+                    {getFieldDecorator(propName)(
+                        <Input />
+                    )}
+                </FormItem>
+            </Col>
+        ) ;
     }
 
     render(){
         return (
-            <form className="form-horizontal">
-                <div className="form-group">
+            <Form className="ant-advanced-search-form">
+                <Row gutter={40}>
+                    {/*第一行*/}
                     {this.getConfigInput('Server.Mode','serverMode')}
                     {this.getConfigInput('FuncCode','funcCode')}
-                </div>
-                <div className="form-group">
+                    {/*第二行*/}
                     {this.getConfigInput('Server.Servicename','serverServiceName')}
                     {this.getConfigInput('UID','uid')}
-                </div>
-                <div className="form-group">
+                    {/*第三行*/}
                     {this.getConfigInput('MQ.IP','mqIp')}
                     {this.getConfigInput('CWA','cwa')}
-                </div>
-                <div className="form-group">
+                    {/*第四行*/}
                     {this.getConfigInput('MQ.Port','mqPort')}
                     {this.getConfigInput('Office','office')}
-                </div>
-                <div className="form-group">
+                    {/*第五行*/}
                     {this.getConfigInput('MQ.Channel','mqChannel')}
                     {this.getConfigInput('Airline','airline')}
-                </div>
-                <div className="form-group">
+                    {/*第六行*/}
                     {this.getConfigInput('MQ.QM','mqQm')}
                     {this.getConfigInput('Agent','agent')}
-                </div>
-                <div className="form-group">
+                    {/*第七行*/}
                     {this.getConfigInput('MQ.Expiry','mqExpiry')}
                     {this.getConfigInput('Level','level')}
-                </div>
-                <div className="form-group">
+                    {/*第八行*/}
                     {this.getConfigInput('Orisysinfo.Orisys','oriSys')}
                     {this.getConfigInput('ReqFormat','reqFormat')}
-                </div>
-                <div className="form-group">
+                    {/*第久行*/}
                     {this.getConfigInput('Orisysinfo.Hostid','orisysinfoHostId')}
                     {this.getConfigInput('ResFormat','resFormat')}
-                </div>
-                <div className="form-group">
+                    {/*第十行*/}
                     {this.getConfigInput('PID','pid')}
                     {this.getConfigInput('DesSys','desSys')}
-                </div>
-                <div className="form-group">
+                    {/*第十一行*/}
                     {this.getConfigInput('UsasSyus','usasSys')}
                     {this.getConfigInput('MsgType','msgType')}
-                </div>
-                <div className="form-group">
+                    {/*第十一行*/}
                     {this.getConfigInput('MqWaitSec','mqWaitSec')}
                     {this.getConfigInput('ClientCharSet','charSet')}
-                </div>
-                <div className="form-group">
-                    <div className="col-sm-offset-2 col-sm-10">
-                        <button type="button" className="btn btn-warning" 
-                            onClick ={this.handleSaveConfigInfo}>修改</button>
-                        {'  '}
-                        <button type="button" className="btn btn-default" 
-                            onClick={this.handleResetConfigInfo}>重置</button>
-                    </div>
-                </div>
-            </form>
+                </Row>
+
+                <Row>
+                    <Col span={24} style={{ textAlign: 'right' }}>
+                        <Button type="primary" htmlType="submit"
+                         onClick ={this.handleSaveConfigInfo}>保存</Button>
+                        <Button style={{ marginLeft: 8 }} 
+                            onClick={this.handleResetConfigInfo}>
+                            重置
+                        </Button>
+                    </Col>
+                </Row>
+            </Form>
         ) ;
     }
 }
 
-export default MQParamCfgPage ;
+const WrappedAdvancedSearchForm = Form.create()(MQParamCfgPage);
+
+export default WrappedAdvancedSearchForm ;

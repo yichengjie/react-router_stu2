@@ -3,7 +3,7 @@ import sihFormData from '../data/sih-formdata.json' ;
 import SIHTestToolDao from './SIHTestToolDao.js' ;
 
 function getSIHInputDataTemplate(){
-    let inputData = sihInputData ;
+    let inputData = getSIHInputDataOrigin() ;
     //这里暂时不从本地数据库中读取
     // let dbInputDataTemplate = SIHTestToolDao.getMsgPageInputDataTemplate()
     // if(dbInputDataTemplate != null){
@@ -18,19 +18,28 @@ function getSIHInputDataTemplate(){
     }) ;
 }
 
+
+function getSIHInputDataOrigin(){
+    return {...sihInputData} ;
+}
+
 //获取formData原始数据
 function getSIHFormDataOrigin(){
-    return sihFormData ;
+    //console.info('usasSys 11 : ' + sihFormData['usasSys']) ;
+    return {...sihFormData} ;
 }
 
 //获取SIHFormData数据
 function getSIHFormData(){
     let dbFormData = SIHTestToolDao.getConfigPageFormData() ;
-    let formData =  sihFormData ;
+    let formData =  getSIHFormDataOrigin() ;
     if(dbFormData != null){
-        formData = Object.assign({},sihFormData,dbFormData) ;
+        let keys = Object.keys(getSIHFormDataOrigin()) ;
+        for(let key of keys){
+            formData[key] = dbFormData[key] ||'' ;
+        }
     }else{
-        SIHApi.saveFormData2DB(formData) ;
+        saveFormData2DB(formData) ;
     }
     return formData ;
 }
