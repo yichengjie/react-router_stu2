@@ -94,7 +94,7 @@ class ShowInfoPage extends Component {
                     }/>
                 {this.renderQueryBtnOrProgress()}
                 <Input  type="textarea"  rows={3}  readOnly="readOnly"
-                     value={this.state.reqHeaderValue}/>
+                     value={this.state.reqHeaderValue} placeholder="MQ请求头信息"/>
             </div>
         ) ;
     }
