@@ -39,7 +39,7 @@ class ShowInfoPage extends Component {
         this.setState({reqHeaderValue:'',isQuerying:true,outputObj:waitInfo}) ;
 
         let requestParamObj = {
-            formDataValue:this.state.formData,
+            formDataValue:this.props.formData,
             inputValue:this.state.inputValue
         } ;
         let {outputData,reqMsgStr,flag} = await SIHApi.querySIHData(requestParamObj) ;
@@ -95,6 +95,10 @@ class ShowInfoPage extends Component {
                 {this.renderQueryBtnOrProgress()}
                 <Input  type="textarea"  rows={3}  readOnly="readOnly"
                      value={this.state.reqHeaderValue} placeholder="MQ请求头信息"/>
+                                     
+                <pre>
+                    {JSON.stringify(this.props.formData,null,2)}
+                </pre>
             </div>
         ) ;
     }
