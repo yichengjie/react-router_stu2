@@ -2,7 +2,7 @@ import  React,{Component} from 'react' ;
 import { Tabs, Icon } from 'antd';
 import ShowInfoPage from './ShowInfoPage.jsx' ;
 import MQParamCfgPage from './MQParamCfgPage.jsx' ;
-import SIHAPI from './api/SIHTestToolAPI-test.js' ;
+import {SIHAPI} from '../online-switch-dev.js' ;
 
 const TabPane = Tabs.TabPane;
 class SIHTestTool extends Component {
@@ -36,7 +36,7 @@ class SIHTestTool extends Component {
                       handleModifyFormData = {this.handleModifyFormData} />
                 </TabPane>
             </Tabs>
-        )
+        );
     }
 }
 export default SIHTestTool

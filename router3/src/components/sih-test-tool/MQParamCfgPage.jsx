@@ -1,7 +1,7 @@
 import React,{Component} from 'react' ;
 import { Form, Row, Col, Input, Button, Icon,notification } from 'antd';
 const FormItem = Form.Item;
-import SIHAPI from './api/SIHTestToolAPI-test.js' ;
+import {SIHAPI} from '../online-switch-dev.js' ;
 class MQParamCfgPage extends Component {
     constructor(props){
         super(props) ;

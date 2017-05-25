@@ -1,6 +1,6 @@
 import React,{Component} from 'react' ;
 import { Input,Button ,notification} from 'antd';
-import SIHApi from './api/SIHTestToolAPI-test.js' ;
+import {SIHAPI} from '../online-switch-dev.js' ;
 import ProgressBar from '../ProgressBar.jsx' ;
 
 

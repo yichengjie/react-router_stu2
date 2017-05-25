@@ -4,7 +4,8 @@ const SubMenu = Menu.SubMenu;
 import { Route, Link} from 'react-router-dom' ;
 import SIHTestTool from './sih-test-tool/index.jsx' ;
 import Base64Tool from './Base64Tool.jsx' ;
-import {getContextPath} from '../common/common.js' ;
+import {getContextPath} from './online-switch-dev.js' ;
+
 
 class Siderbar extends React.Component {
   constructor(props){
@@ -45,7 +46,6 @@ class Siderbar extends React.Component {
 
   render() {
     let contextPath = getContextPath() ;
-    contextPath = '' ;
     return (
       <div>
           <div id="leftMenu"> 
