@@ -6,6 +6,7 @@ import SIHTestTool from './sih-test-tool/index.jsx' ;
 import Base64Tool from './Base64Tool.jsx' ;
 import JSONTool from './JSONTool.jsx' ;
 import MD5Tools from './MD5Tools.jsx' ;
+import TimeStampConvertTool from './TimeStampConvertTool.jsx' ;
 import OnlineSwitchDev from './online-switch-dev.js' ;
 let {getContextPath} = OnlineSwitchDev ;
 
@@ -61,18 +62,23 @@ class Siderbar extends React.Component {
               >
                 <SubMenu key="sub1" title={<span><Icon type="mail" /><span>MQ相关测试工具</span></span>}>
                   <Menu.Item key="sub1-sihtool" to>
-                     <Link to="/sub1-sihtool">SIH工具</Link>
+                     <Link to="/sub1-sihtool">SIH</Link>
                   </Menu.Item>
                   <Menu.Item key="sub1-base64">
-                    <Link to="/sub1-base64"> Base64工具</Link>
+                    <Link to="/sub1-base64"> Base64</Link>
                   </Menu.Item>
                   <Menu.Item key="sub1-json">
-                     <Link to="/sub1-json">JSON工具</Link>
+                     <Link to="/sub1-json">JSON</Link>
                   </Menu.Item>
 
                   <Menu.Item key="sub1-md5">
-                     <Link to="/sub1-md5">MD5工具</Link>
+                     <Link to="/sub1-md5">MD5</Link>
                   </Menu.Item>
+
+                  <Menu.Item key="sub1-timestampconvert">
+                     <Link to="/sub1-timestampconvert">TimeStamp</Link>
+                  </Menu.Item>
+
                 </SubMenu>
                 <SubMenu key="sub2" title={<span><Icon type="appstore" /><span>实用工具</span></span>}>
                   <Menu.Item key="sub2-json">待开发</Menu.Item>
@@ -91,6 +97,7 @@ class Siderbar extends React.Component {
              <Route exact path="/sub1-base64" component={Base64Tool}/>
              <Route exact path="/sub1-json" component={JSONTool}/>
              <Route exact path="/sub1-md5" component={MD5Tools}/>
+             <Route exact path="/sub1-timestampconvert" component={TimeStampConvertTool}/>
           </div>
       </div>
     );
