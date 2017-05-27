@@ -7,6 +7,8 @@ import Base64Tool from './Base64Tool.jsx' ;
 import JSONTool from './JSONTool.jsx' ;
 import MD5Tools from './MD5Tools.jsx' ;
 import TimeStampConvertTool from './TimeStampConvertTool.jsx' ;
+import QRCodeSimple from './QRCodeSimple.jsx' ;
+import MyVCard from './MyVCard.jsx' ;
 import OnlineSwitchDev from './online-switch-dev.js' ;
 let {getContextPath} = OnlineSwitchDev ;
 
@@ -79,6 +81,13 @@ class Siderbar extends React.Component {
                      <Link to="/sub1-timestampconvert">TimeStamp</Link>
                   </Menu.Item>
 
+                  <Menu.Item key="sub1-qrcodesimple">
+                     <Link to="/sub1-qrcodesimple">简单文字二维码</Link>
+                  </Menu.Item>
+                  
+                  <Menu.Item key="sub1-myvcard">
+                     <Link to="/sub1-myvcard">名片二维码</Link>
+                  </Menu.Item>
                 </SubMenu>
                 <SubMenu key="sub2" title={<span><Icon type="appstore" /><span>实用工具</span></span>}>
                   <Menu.Item key="sub2-json">待开发</Menu.Item>
@@ -98,6 +107,8 @@ class Siderbar extends React.Component {
              <Route exact path="/sub1-json" component={JSONTool}/>
              <Route exact path="/sub1-md5" component={MD5Tools}/>
              <Route exact path="/sub1-timestampconvert" component={TimeStampConvertTool}/>
+             <Route exact path="/sub1-qrcodesimple" component={QRCodeSimple}/>
+             <Route exact path="/sub1-myvcard" component={MyVCard}/>
           </div>
       </div>
     );
