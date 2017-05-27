@@ -1,19 +1,9 @@
 @import "./sidebar.scss" ;
 @import "./base64tool.scss" ;
 @import "./sihTestTool.scss" ;
+@import "./jsonTool.scss" ; 
 
-.beautify-json {
-    white-space: pre ;
-    outline: 1px solid #ccc; 
-    padding: 5px; margin: 5px; 
-    overflow: auto ;
-    font-family: Consolas, Menlo, Courier, monospace;
-    .string { color: green; }
-    .number { color: darkorange; }
-    .boolean { color: blue; }
-    .null { color: magenta; }
-    .key { color: red; }
-}
+
 
 .btn-block{
     display: block ;

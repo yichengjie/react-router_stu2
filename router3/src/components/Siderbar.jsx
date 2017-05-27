@@ -62,14 +62,15 @@ class Siderbar extends React.Component {
                   <Menu.Item key="sub1-sihtool" to>
                      <Link to="/sub1-sihtool">SIH工具</Link>
                   </Menu.Item>
+                  <Menu.Item key="sub1-base64">
+                    <Link to="/sub1-base64"> Base64工具</Link>
+                  </Menu.Item>
+                  <Menu.Item key="sub1-json">
+                     <Link to="/sub1-json">JSON工具</Link>
+                  </Menu.Item>
                 </SubMenu>
                 <SubMenu key="sub2" title={<span><Icon type="appstore" /><span>实用工具</span></span>}>
-                  <Menu.Item key="sub2-base64">
-                    <Link to="/sub2-base64"> Base64工具</Link>
-                  </Menu.Item>
-                  <Menu.Item key="sub2-json">
-                     <Link to="/sub2-json">JSON工具</Link>
-                  </Menu.Item>
+                  <Menu.Item key="sub2-json">待开发</Menu.Item>
                 </SubMenu>
                 <SubMenu key="sub3" title={<span><Icon type="setting" /><span>其他</span></span>}>
                   <Menu.Item key="sub3-menu1">Option 9</Menu.Item>
@@ -82,8 +83,8 @@ class Siderbar extends React.Component {
           <div id="rightWrap">
              <Route exact path="/" component={SIHTestTool}/>
              <Route exact path="/sub1-sihtool" component={SIHTestTool}/>
-             <Route exact path="/sub2-base64" component={Base64Tool}/>
-             <Route exact path="/sub2-json" component={JSONTool}/>
+             <Route exact path="/sub1-base64" component={Base64Tool}/>
+             <Route exact path="/sub1-json" component={JSONTool}/>
           </div>
       </div>
         

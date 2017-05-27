@@ -24,6 +24,16 @@ export function simpleFormat2JsonStr(jsObj){
     return JSON.stringify(jsObj,null,4) ;
 }
 
+export function validateJSONStr(jsonStr){
+    try {
+        JSON.parse(jsonStr) ; 
+        return true ; 
+    } catch (error) {
+        return false; 
+    }
+}
+
+
 export function getContextPath() {
     let $contextPath = $("#contextPath") ;
     return $contextPath.val() ;
@@ -32,6 +42,7 @@ export function getContextPath() {
 export default {
     jsonSyntaxHighlight,
     simpleFormat2JsonStr,
-    getContextPath
+    getContextPath,
+    validateJSONStr
 } ;
 

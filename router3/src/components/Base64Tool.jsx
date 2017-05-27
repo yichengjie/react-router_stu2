@@ -1,5 +1,4 @@
 import  React,{Component} from 'react' ;
-import {jsonSyntaxHighlight} from '../common/common.js' ;
 import { Input,Button } from 'antd';
 var Base64 = require('js-base64').Base64;
 class Base64Tool extends Component {
@@ -32,7 +31,7 @@ class Base64Tool extends Component {
         return (
             <div>
                 <h5>请输入原文</h5>
-                <Input type="textarea" rows={25} 
+                <Input type="textarea" rows={23} 
                     value={this.state.inputValue} 
                     onChange={this.handleInputChange}/>
                 <div className="oper-btn-container">
