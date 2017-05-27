@@ -4,8 +4,9 @@ const SubMenu = Menu.SubMenu;
 import { Route, Link} from 'react-router-dom' ;
 import SIHTestTool from './sih-test-tool/index.jsx' ;
 import Base64Tool from './Base64Tool.jsx' ;
-import {getContextPath} from './online-switch-dev.js' ;
-
+import JSONTool from './JSONTool.jsx' ;
+import OnlineSwitchDev from './online-switch-dev.js' ;
+let {getContextPath} = OnlineSwitchDev ;
 
 class Siderbar extends React.Component {
   constructor(props){
@@ -24,7 +25,7 @@ class Siderbar extends React.Component {
 
   
   handleClick = (e) => {
-    console.log('click ', e);
+    //console.log('click ', e);
     this.setState({
       current: e.key,
     });
@@ -66,7 +67,9 @@ class Siderbar extends React.Component {
                   <Menu.Item key="sub2-base64">
                     <Link to="/sub2-base64"> Base64工具</Link>
                   </Menu.Item>
-                  <Menu.Item key="sub2-menu">JSON工具</Menu.Item>
+                  <Menu.Item key="sub2-json">
+                     <Link to="/sub2-json">JSON工具</Link>
+                  </Menu.Item>
                 </SubMenu>
                 <SubMenu key="sub3" title={<span><Icon type="setting" /><span>其他</span></span>}>
                   <Menu.Item key="sub3-menu1">Option 9</Menu.Item>
@@ -80,6 +83,7 @@ class Siderbar extends React.Component {
              <Route exact path="/" component={SIHTestTool}/>
              <Route exact path="/sub1-sihtool" component={SIHTestTool}/>
              <Route exact path="/sub2-base64" component={Base64Tool}/>
+             <Route exact path="/sub2-json" component={JSONTool}/>
           </div>
       </div>
         

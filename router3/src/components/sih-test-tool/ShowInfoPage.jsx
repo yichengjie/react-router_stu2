@@ -1,7 +1,8 @@
 import React,{Component} from 'react' ;
 import { Input,Button ,notification} from 'antd';
-import {SIHAPI} from '../online-switch-dev.js' ;
 import ProgressBar from '../ProgressBar.jsx' ;
+import OnlineSwitchDev from '../online-switch-dev.js' ;
+let SIHAPI = OnlineSwitchDev.SIHAPI ;
 
 
 class ShowInfoPage extends Component {
@@ -17,9 +18,9 @@ class ShowInfoPage extends Component {
     }
     
     async componentDidMount(){
-        let {inputData,flag} = await SIHApi.getSIHInputDataTemplate() ;
+        let {inputData,flag} = await SIHAPI.getSIHInputDataTemplate() ;
         let inputValue = JSON.stringify(inputData,null,2) ;
-        let formData = SIHApi.getSIHFormData() ;
+        let formData = SIHAPI.getSIHFormData() ;
         this.setState({inputValue,formData}) ;
     }
     //处理请求信息修改的回掉函数
@@ -42,7 +43,7 @@ class ShowInfoPage extends Component {
             formDataValue:this.props.formData,
             inputValue:this.state.inputValue
         } ;
-        let {outputData,reqMsgStr,flag} = await SIHApi.querySIHData(requestParamObj) ;
+        let {outputData,reqMsgStr,flag} = await SIHAPI.querySIHData(requestParamObj) ;
         this.setState({
             outputObj:outputData,
             reqHeaderValue:reqMsgStr,
@@ -95,10 +96,6 @@ class ShowInfoPage extends Component {
                 {this.renderQueryBtnOrProgress()}
                 <Input  type="textarea"  rows={3}  readOnly="readOnly"
                      value={this.state.reqHeaderValue} placeholder="MQ请求头信息"/>
-                                     
-                <pre>
-                    {JSON.stringify(this.props.formData,null,2)}
-                </pre>
             </div>
         ) ;
     }

@@ -2,7 +2,8 @@ import  React,{Component} from 'react' ;
 import { Tabs, Icon } from 'antd';
 import ShowInfoPage from './ShowInfoPage.jsx' ;
 import MQParamCfgPage from './MQParamCfgPage.jsx' ;
-import {SIHAPI} from '../online-switch-dev.js' ;
+import OnlineSwitchDev from '../online-switch-dev.js' ;
+let SIHAPI = OnlineSwitchDev.SIHAPI ;
 
 const TabPane = Tabs.TabPane;
 class SIHTestTool extends Component {
@@ -11,6 +12,7 @@ class SIHTestTool extends Component {
         this.state = {
            formData:{},
         } ;
+
         this.handleModifyFormData = this.handleModifyFormData.bind(this) ;
     }
 
