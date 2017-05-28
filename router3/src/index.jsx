@@ -6,7 +6,11 @@ import ReactDOM from 'react-dom';
 import App from './components/App.jsx' ;
 import './styles/main.scss' ;
 
+let appNode = document.createElement('div') ;
+appNode.id = 'app' ;
+document.body.appendChild(appNode) ;
+
 ReactDOM.render(
   <App />,
-  document.getElementById('app')
+  appNode
 );
