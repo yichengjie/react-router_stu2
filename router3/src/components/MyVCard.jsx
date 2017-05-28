@@ -96,8 +96,8 @@ class MyVCard extends Component{
             },
         };
         return (
-            <div className="json-tool-container">
-                 <div className="json-tool-box">
+            <div className="vcard-tool-container">
+                 <div className="vcard-tool-box">
                      <Form onSubmit={this.handleSubmit} className="login-form sih-test-tool-cfgPage">
                         <FormItem {...formItemLayout} label="姓">
                             {getFieldDecorator('firstName')(<Input />)}
@@ -132,8 +132,7 @@ class MyVCard extends Component{
                         </FormItem>
                     </Form>
                  </div>
-                 <div className="sih-test-tool-split"></div>
-                 <div className="json-tool-box">
+                 <div className="vcard-tool-box">
                     <h5>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;微信扫描二维码:</h5>
                     <canvas  ref={(canvas) => { this.canvas = canvas; }} ></canvas>
                  </div>
