@@ -1,26 +1,25 @@
 import React,{Component} from 'react' ;
 import ReactDOM from 'react-dom';
-import { Input,Button,notification } from 'antd';
+import { Input,Button,notification,Form, Icon } from 'antd';
+const FormItem = Form.Item;
 let QRCode = require('qrcode') ;
-
-
-function getVcardStr(){
-    let userInfo = {
+let templateVcardObj = {
         firstName:'易',/**姓 */
         lastName:'成杰',/**名 */
         company:'FBI',/**公司 */
         work:'web dev',/** 职务*/
         tel1:'15712867682',/** 电话*/
         tel2:'',/** 电话*/
-        expressAddr:'北五环',/** 公司地址*/
+        expressAddr:'北五环',/** 快递地址*/
         workAddr:'朝阳',
         homeAddr:'河南',
         email:'626659321@qq.com'
     } ;
-    let {firstName,lastName,company,work = 'Shrimp Man',email}  = userInfo;
-    let {tel1,tel2,companyAddr,expressAddr,workAddr,homeAddr} = userInfo ;
 
-    let fullName = lastName + firstName;
+function getVcardStr(userInfo){
+    let {firstName='张',lastName='三',company='FBI',work = 'Shrimp Man',email='666@qq.com'}  = userInfo;
+    let {tel1='123',tel2='',expressAddr='CN',workAddr='CN',homeAddr='CN'} = userInfo ;
+    let fullName =  firstName + lastName ;
     let retStr = `BEGIN:VCARD
         VERSION:2.1
         N:${firstName};${lastName};;Mr.
@@ -50,11 +49,6 @@ class MyVCard extends Component{
         } ;
     }
 
-    componentDidMount(){
-       let vcardStr = getVcardStr() ;
-       this.createQRCode(vcardStr) ;
-    }
-
     createQRCode(str){
         if(str == null || str.trim() == ''){
             return false;
@@ -78,24 +72,74 @@ class MyVCard extends Component{
     }
 
     handleCreateQRCode = ()=>{
-        this.createQRCode(this.state.inputValue) ;
+        let formData = this.props.form.getFieldsValue() ;
+        let vcardStr = getVcardStr(formData) ;
+        this.createQRCode(vcardStr) ;
     }
 
     render(){
+        const { getFieldDecorator } = this.props.form;
+        const formItemLayout = {
+            labelCol: {
+                xs: { span: 24 },
+                sm: { span: 6 },
+            },
+            wrapperCol: {
+                xs: { span: 24 },
+                sm: { span: 14 },
+            },
+        };
+        const tailFormItemLayout = {
+            wrapperCol: {
+                xs: {span: 24,offset: 0,},
+                sm: {span: 14,offset: 6,},
+            },
+        };
         return (
-            <div>
-                <h5>请输入原文</h5>
-                <div className="oper-btn-container">
-                    <Button type="primary" className="oper-item" 
-                     onClick ={this.handleCreateQRCode}>生产二维码</Button>
-                    <Button type="danger" className="oper-item"
-                      onClick = {this.handleClearOper}>清空</Button>
-                </div>
-                <h5>二维码:</h5>
-                <canvas  ref={(canvas) => { this.canvas = canvas; }} ></canvas>
+            <div className="json-tool-container">
+                 <div className="json-tool-box">
+                     <Form onSubmit={this.handleSubmit} className="login-form sih-test-tool-cfgPage">
+                        <FormItem {...formItemLayout} label="姓">
+                            {getFieldDecorator('firstName')(<Input />)}
+                        </FormItem>
+                        <FormItem {...formItemLayout} label="名">
+                            {getFieldDecorator('lastName')(<Input />)}
+                        </FormItem>
+                        <FormItem {...formItemLayout} label="公司">
+                            {getFieldDecorator('company')(<Input />)}
+                        </FormItem>
+                        <FormItem {...formItemLayout} label="职务">
+                            {getFieldDecorator('work')(<Input />)}
+                        </FormItem>
+                        <FormItem {...formItemLayout} label="电话">
+                            {getFieldDecorator('tel1')(<Input />)}
+                        </FormItem>
+                        <FormItem {...formItemLayout} label="快递地址">
+                            {getFieldDecorator('expressAddr')(<Input />)}
+                        </FormItem>
+                        <FormItem {...formItemLayout} label="工作地点">
+                            {getFieldDecorator('workAddr')(<Input />)}
+                        </FormItem>
+                        <FormItem {...formItemLayout} label="家庭地点">
+                            {getFieldDecorator('homeAddr')(<Input />)}
+                        </FormItem>
+                        <FormItem {...formItemLayout} label="邮箱">
+                            {getFieldDecorator('email')(<Input />)}
+                        </FormItem>
+                        <FormItem {...tailFormItemLayout}>
+                            <Button type="primary" 
+                                onClick ={this.handleCreateQRCode} size="large">生产二维码</Button>
+                        </FormItem>
+                    </Form>
+                 </div>
+                 <div className="sih-test-tool-split"></div>
+                 <div className="json-tool-box">
+                    <h5>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;微信扫描二维码:</h5>
+                    <canvas  ref={(canvas) => { this.canvas = canvas; }} ></canvas>
+                 </div>
             </div>
         ) ;
     }
 }
 
-export default MyVCard ;
+export default Form.create()(MyVCard)  ;

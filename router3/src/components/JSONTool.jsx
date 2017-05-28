@@ -60,7 +60,6 @@ class JSONTool extends Component{
                         placeholder="请输入JSON" 
                         value = {this.state.inputValue}
                         onChange={this.handleInputChange}/>
-                <div className="sih-test-tool-split"></div>
                 </div>
                 <div className="sih-test-tool-split"></div>
                 <div className="json-tool-box json-tool-output beautify-json"
