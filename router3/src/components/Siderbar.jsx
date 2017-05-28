@@ -9,6 +9,8 @@ import MD5Tools from './MD5Tools.jsx' ;
 import TimeStampConvertTool from './TimeStampConvertTool.jsx' ;
 import QRCodeSimple from './QRCodeSimple.jsx' ;
 import MyVCard from './MyVCard.jsx' ;
+import UUIDTool from './UUIDTool.jsx' ;
+
 import OnlineSwitchDev from './online-switch-dev.js' ;
 let {getContextPath} = OnlineSwitchDev ;
 
@@ -77,6 +79,10 @@ class Siderbar extends React.Component {
                      <Link to="/sub1-md5">MD5</Link>
                   </Menu.Item>
 
+                  <Menu.Item key="sub1-uuid">
+                     <Link to="/sub1-uuid">UUID</Link>
+                  </Menu.Item>
+
                   <Menu.Item key="sub1-timestampconvert">
                      <Link to="/sub1-timestampconvert">TimeStamp</Link>
                   </Menu.Item>
@@ -106,6 +112,7 @@ class Siderbar extends React.Component {
              <Route exact path="/sub1-base64" component={Base64Tool}/>
              <Route exact path="/sub1-json" component={JSONTool}/>
              <Route exact path="/sub1-md5" component={MD5Tools}/>
+             <Route exact path="/sub1-uuid" component={UUIDTool}/>
              <Route exact path="/sub1-timestampconvert" component={TimeStampConvertTool}/>
              <Route exact path="/sub1-qrcodesimple" component={QRCodeSimple}/>
              <Route exact path="/sub1-myvcard" component={MyVCard}/>
