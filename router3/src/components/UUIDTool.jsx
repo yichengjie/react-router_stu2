@@ -62,9 +62,31 @@ class UUIDTool extends Component{
                     <Button type="primary" className="oper-item" 
                      onClick ={this.handleCreateUUID}>确定</Button>
                 </div>  
+                <Authority auth="1-1-1" allAuth="1-1-2">
+                    <h4>你有权限看见这个</h4>
+                </Authority>
             </div>
         ) ;
     }
 }
+
+
+class Authority extends Component{
+    checkAuth(){
+        let auth = this.props.auth ;
+        let allAuth = this.props.allAuth ;
+        if(allAuth === auth){
+            return true ;
+        }
+        return false ;
+    }
+    render(){
+        if(this.checkAuth()){
+            return this.props.children
+        }
+        return null ;
+    }
+}
+
 
 export default UUIDTool ;
