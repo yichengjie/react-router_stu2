@@ -15,6 +15,7 @@ class Layout3 extends Component {
       mode: collapsed ? 'vertical' : 'inline',
     });
   }
+  
   render() {
     return (
       <Layout>
@@ -48,8 +49,8 @@ class Layout3 extends Component {
             </Menu.Item>
           </Menu>
         </Sider>
-        <Layout>
 
+        <Layout>
           <Content style={{ margin: '0 16px' }}>
             <Breadcrumb style={{ margin: '12px 0' }}>
               <Breadcrumb.Item>User</Breadcrumb.Item>
