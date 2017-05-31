@@ -86,23 +86,15 @@ class Siderbar extends React.Component {
                   <Menu.Item key="sub1-timestampconvert">
                      <Link to="/sub1-timestampconvert">TimeStamp</Link>
                   </Menu.Item>
+                </SubMenu>
 
-                  <Menu.Item key="sub1-qrcodesimple">
-                     <Link to="/sub1-qrcodesimple">简单文字二维码</Link>
+                <SubMenu key="other" title={<span><Icon type="setting" /><span>其他</span></span>}>
+                   <Menu.Item key="other-qrcodesimple">
+                     <Link to="/other-qrcodesimple">简单文字二维码</Link>
                   </Menu.Item>
-                  
-                  <Menu.Item key="sub1-myvcard">
-                     <Link to="/sub1-myvcard">名片二维码</Link>
+                  <Menu.Item key="other-myvcard">
+                     <Link to="/other-myvcard">名片二维码</Link>
                   </Menu.Item>
-                </SubMenu>
-                <SubMenu key="sub2" title={<span><Icon type="appstore" /><span>实用工具</span></span>}>
-                  <Menu.Item key="sub2-json">待开发</Menu.Item>
-                </SubMenu>
-                <SubMenu key="sub3" title={<span><Icon type="setting" /><span>其他</span></span>}>
-                  <Menu.Item key="sub3-menu1">Option 9</Menu.Item>
-                  <Menu.Item key="sub3-menu2">Option 10</Menu.Item>
-                  <Menu.Item key="sub3-menu3">Option 11</Menu.Item>
-                  <Menu.Item key="sub3-menu4">Option 12</Menu.Item>
                 </SubMenu>
               </Menu>
           </div>
@@ -114,8 +106,8 @@ class Siderbar extends React.Component {
              <Route exact path="/sub1-md5" component={MD5Tools}/>
              <Route exact path="/sub1-uuid" component={UUIDTool}/>
              <Route exact path="/sub1-timestampconvert" component={TimeStampConvertTool}/>
-             <Route exact path="/sub1-qrcodesimple" component={QRCodeSimple}/>
-             <Route exact path="/sub1-myvcard" component={MyVCard}/>
+             <Route exact path="/other-qrcodesimple" component={QRCodeSimple}/>
+             <Route exact path="/other-myvcard" component={MyVCard}/>
           </div>
       </div>
     );
