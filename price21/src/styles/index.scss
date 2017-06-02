@@ -1,0 +1,111 @@
+@import './mixin.scss' ;
+body{
+    margin: 50px;
+}
+.price-div{
+    .row{
+        margin: 10px 0px;
+    }
+}
+.table{
+    margin: 0;
+}
+
+.grey{
+    color: grey;
+}
+
+.input-label{
+    display: inline-block ;
+    margin: 0;
+    margin-right: 10px;
+    font-size: 14px;
+    font-weight: 400;
+}
+.radio-label{
+    @extend .input-label ;
+    span{
+        @extend .input-label ;
+        margin-left: 5px;
+    }
+}
+.price-div-title{
+    display: block ;
+    position: relative ;
+    @include box-sizing(border-box);
+    border-bottom: 1px solid #333 ;
+    height: 40px ;
+    line-height: 40px ;
+    margin-bottom: 10px;
+    .desc{
+        font-size: 14px;
+        font-weight: 500 ;
+    }
+    .icon{
+        position: absolute;
+        right: 10px;
+        top:20px;
+        cursor: pointer;
+    }
+}
+
+.hand{
+    cursor: pointer;
+}
+
+.full-content{
+    display: inline-block ;
+    width: 100% ;
+}
+
+.mlr5{
+    display: inline-block ;
+    margin: 0 5px;
+}
+.mr5{
+    display: inline-block ;
+    margin-right: 5px;
+}
+.ml5{
+    display: inline-block ;
+    margin-left: 5px;
+}
+
+.mr10{
+    display: inline-block ;
+    margin-right: 10px;
+}
+.ml10{
+    display: inline-block ;
+    margin-left: 10px;
+}
+.mlr10{
+    display: inline-block ;
+    margin: 0 10px;
+}
+
+.mr15{
+    display: inline-block ;
+    margin-right: 15px;
+}
+.ml15{
+    display: inline-block ;
+    margin-left: 15px;
+}
+.mlr15{
+    display: inline-block ;
+    margin: 0 15px;
+}
+
+.mr20{
+    display: inline-block ;
+    margin-right: 20px;
+}
+.ml20{
+    display: inline-block ;
+    margin-left: 20px;
+}
+.mlr20{
+    display: inline-block ;
+    margin: 0 20px;
+}

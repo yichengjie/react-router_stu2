@@ -1,6 +1,8 @@
 import  React,{Component} from 'react'
 import PriceDiv from './PriceDiv.jsx' ;
 
+
+
 class Category4 extends Component {
     constructor(props){
         super(props) ;
@@ -94,9 +96,9 @@ class Category4 extends Component {
                     </div>
                     <div className="row">
                         <label className="input-label">适用时刻</label>
-                        <input type="text" style={{width:"50px"}}/>
-                        <span className="mlr5">-</span>
-                        <input type="text" style={{width:"50px"}}/>
+                        <input type="text"/>
+                        <span className="mlr10">-</span>
+                        <input type="text"/>
                         <span className="mlr10">
                             <i className="glyphicon glyphicon-plus hand grey"></i>
                         </span>
