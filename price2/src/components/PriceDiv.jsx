@@ -3,12 +3,13 @@ var classNames = require('classnames');
 class PriceDiv extends Component {
     constructor(props){
         super(props) ;
+
         this.state = {
             isHide:false
         } ;
     }
     static defaultProps = {
-        label:'提示信息'
+        label:'提示信息',
     }
 
     handleCollapseOper = (e) => {
