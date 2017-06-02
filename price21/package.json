@@ -7,8 +7,5 @@
     "build": "webpack --config build/webpack.prod.conf.js  --progress --profile --colors",
     "dev": "node build/dev-server.js"
   },
-  "devDependencies": {
-    "less": "^2.7.2",
-    "less-loader": "^4.0.4"
-  }
+  "devDependencies": {}
 }
