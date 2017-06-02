@@ -4,6 +4,7 @@ import React,{Component} from 'react';
 import ReactDOM from 'react-dom';
 //引入组件
 import Category4 from './components/Category4.jsx' ;
+import HelloComp from './components/HelloComp.jsx' ;
 import './styles/index.scss' ;
 
 let appNode = document.createElement('div') ;
@@ -12,6 +13,6 @@ appNode.className= 'container' ;
 document.body.appendChild(appNode) ;
 
 ReactDOM.render(
-  <Category4 />,
+  <HelloComp />,
   appNode
 );
