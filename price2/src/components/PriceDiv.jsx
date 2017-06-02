@@ -30,9 +30,9 @@ class PriceDiv extends Component {
         }) ;
         return (
             <div className="price-div">
-               <div className="price-div-title">
+               <div className="price-div-title hand" onClick={this.handleCollapseOper}>
                     <span className="desc">{label}</span>
-                    <i onClick={this.handleCollapseOper} className={iconClassName}>
+                    <i  className={iconClassName}>
                     </i>
                </div>
                <div className={contentClassName}>
