@@ -1,5 +1,7 @@
 import  React,{Component} from 'react'
 import PriceDiv from './PriceDiv.jsx' ;
+import { Input,Select,Row,Col } from 'antd';
+const Option = Select.Option;
 
 
 
@@ -17,15 +19,22 @@ class Category4 extends Component {
         return (
             <div>
                 <PriceDiv label ="公共信息">
-                    <div className="row">
-                        <select name="" id="">
-                            <option value="1">不限</option>
-                            <option value="2">适用</option>
-                            <option value="3">不适用</option>
-                        </select>
-                        <label className="input-label ml10">机型</label>
-                        <input type="text"/>
-                    </div>
+                    <Row>
+                        <Col span ={3}>
+                            <Select size="small" defaultValue="1" style={{ width: 120 }} 
+                                >
+                               <Option value="1">不限</Option>
+                               <Option value="2">适用</Option>
+                               <Option value="3">不适用</Option>
+                            </Select>
+                        </Col>
+                        <Col span={3}>
+                            <label className="input-label ml10">机型</label>
+                        </Col>
+                        <Col span={6}>
+                            <Input type="text" size="small"/>
+                        </Col>
+                    </Row>
                     <div className="row">
                          <select name="" id="">
                             <option value="1">可适用</option>

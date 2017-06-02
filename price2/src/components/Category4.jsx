@@ -1,4 +1,6 @@
-import  React,{Component} from 'react'
+import  React,{Component} from 'react' ;
+import Input from './Input.jsx' ;
+import Radio,{RadioGroup} from './Radio.jsx' ;
 import PriceDiv from './PriceDiv.jsx' ;
 
 class Category4 extends Component {
@@ -22,7 +24,7 @@ class Category4 extends Component {
                             <option value="3">不适用</option>
                         </select>
                         <label className="input-label ml10">机型</label>
-                        <input type="text"/>
+                        <Input style={{width:"100px"}} value="222" />
                     </div>
                     <div className="row">
                          <select name="" id="">
@@ -32,21 +34,17 @@ class Category4 extends Component {
                         </select>
                         <label className="input-label ml10">代码共享航班</label>
                         <label className="input-label ml10">承运人</label>
-                        <input type="text"/>
+                        <Input style={{width:"100px"}} value="1" />
                     </div>
                 </PriceDiv>
                 <PriceDiv label ="去程信息">
                     <div className="row">
                         <label className="input-label">航班计划适用于</label>
-                        <label className="radio-label">
-                            <input type="radio" name="hbjhsyy"/><span>正班/加班</span>
-                        </label>
-                        <label className="radio-label">
-                            <input type="radio" name ="hbjhsyy"/><span>正班</span>
-                        </label>
-                        <label className="radio-label">
-                            <input type="radio" name ="hbjhsyy"/><span>加班</span>
-                        </label>
+                        <RadioGroup name ="xxx" value="2">
+                            <Radio value="1">正班/加班</Radio>
+                            <Radio value="2">正班</Radio>
+                            <Radio value="3">加班</Radio>
+                        </RadioGroup>
                     </div>
                     <div className="row">
                         <label className="input-label">航班号</label>
