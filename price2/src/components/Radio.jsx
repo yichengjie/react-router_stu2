@@ -4,7 +4,10 @@ import shallowEqual from 'shallowequal';
 export class RadioGroup extends Component{
     constructor(props){
         super(props) ;
-        let {value} = props ;
+        let {value,defaultValue} = props ;
+        if(defaultStatus !== undefined){
+            value = defaultValue ; 
+        }
         this.state = {
             value
         } ;
@@ -56,7 +59,7 @@ class Radio extends Component{
     render(){
         let {children,name,value,checked} = this.props ;
         return (
-            <label className="radio-label">
+            <label className="radio-label hand">
                 <input type ="radio" 
                     checked={checked}
                     name = {name} 

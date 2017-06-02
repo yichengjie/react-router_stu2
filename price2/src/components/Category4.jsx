@@ -56,9 +56,7 @@ class Category4 extends Component {
                 <PriceDiv label ="去程信息">
                     <div className="row">
                         <label className="input-label">航班计划适用于</label>
-                        <RadioGroup name ="flightPlanApplyTo" 
-                            value={this.state.flightPlanApplyTo} 
-                            onChange={this.handleChangeFactory('flightPlanApplyTo')}>
+                        <RadioGroup name ="flightPlanApplyTo" defaultValue ="2">
                             <Radio value="1">正班/加班</Radio>
                             <Radio value="2">正班</Radio>
                             <Radio value="3">加班</Radio>
