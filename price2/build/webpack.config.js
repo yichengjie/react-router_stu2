@@ -38,8 +38,7 @@ module.exports = {
             },
             //这里的提取css在开发环境下实际上是不需要的
             { test: /\.css$/, loader: ExtractTextPlugin.extract("style", "css!postcss")},
-            { test: /\.scss$/, loader: ExtractTextPlugin.extract("style", "css!postcss!sass")},
-
+            { test: /\.less$/, loader: ExtractTextPlugin.extract("style", "css!postcss!less")},
             { test: /\.(png|jpg)$/, loader: 'url?limit=8192'},
             {test: /\.(eot|svg|ttf|woff|woff2)$/,loader: 'url',
              query: {

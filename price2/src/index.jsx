@@ -4,7 +4,7 @@ import React,{Component} from 'react';
 import ReactDOM from 'react-dom';
 //引入组件
 import Category4 from './components/Category4.jsx' ;
-import './styles/index.scss' ;
+import './styles/index.less' ;
 
 let appNode = document.createElement('div') ;
 appNode.id = 'app' ;

@@ -8,16 +8,17 @@ class Category4 extends Component {
         super(props) ;
         this.state = {
             adviceType:'1',
-            flightPlanApplyTo:"1"
+            flightPlanApplyTo:"1",
+            flightPlanApplyTo2:"2"
         } ;
     }
 
-    componentDidMount(){
-        setTimeout(function(){
-            console.info("hello world ..... ") ;
-            this.setState({flightPlanApplyTo:"3"}) ;
-        }.bind(this),2000) ;
-    }
+    // componentDidMount(){
+    //     setTimeout(function(){
+    //         console.info("hello world ..... ") ;
+    //         this.setState({flightPlanApplyTo:"3"}) ;
+    //     }.bind(this),2000) ;
+    // }
 
     handleChange = (value)=>{
         this.setState({adviceType:value}) ;
@@ -56,7 +57,9 @@ class Category4 extends Component {
                 <PriceDiv label ="去程信息">
                     <div className="row">
                         <label className="input-label">航班计划适用于</label>
-                        <RadioGroup name ="flightPlanApplyTo" defaultValue ="2">
+                        <RadioGroup name ="flightPlanApplyTo" 
+                            defaultValue ="2" 
+                        >
                             <Radio value="1">正班/加班</Radio>
                             <Radio value="2">正班</Radio>
                             <Radio value="3">加班</Radio>
@@ -146,15 +149,13 @@ class Category4 extends Component {
                 <PriceDiv label ="回程信息" isHide ={true}>
                     <div className="row">
                         <label className="input-label">航班计划适用于</label>
-                        <label className="radio-label">
-                            <input type="radio" name="hbjhsyy2"/><span>正班/加班</span>
-                        </label>
-                        <label className="radio-label">
-                            <input type="radio" name ="hbjhsyy2"/><span>正班</span>
-                        </label>
-                        <label className="radio-label">
-                            <input type="radio" name ="hbjhsyy2"/><span>加班</span>
-                        </label>
+                        <RadioGroup  
+                            options ={[{label:'label1',value:'1'},"2","3"]} 
+                            name ="flightPlanApplyTo2" 
+                            value={this.state.flightPlanApplyTo2}
+                            onChange ={this.handleChangeFactory('flightPlanApplyTo2')}
+                            >
+                        </RadioGroup>
                     </div>
                     <div className="row">
                         <label className="input-label">航班号</label>

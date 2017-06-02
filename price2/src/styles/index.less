@@ -1,4 +1,4 @@
-@import './mixin.scss' ;
+@import './mixin.less' ;
 body{
     margin: 50px;
 }
@@ -23,16 +23,16 @@ body{
     font-weight: 400;
 }
 .radio-label{
-    @extend .input-label ;
+    .input-label ;
     span{
-        @extend .input-label ;
+        .input-label ;
         margin-left: 5px;
     }
 }
 .price-div-title{
     display: block ;
     position: relative ;
-    @include box-sizing(border-box);
+    .box-sizing(border-box);
     border-bottom: 1px solid #333 ;
     height: 40px ;
     line-height: 40px ;
