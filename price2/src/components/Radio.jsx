@@ -1,24 +1,43 @@
 import React,{Component} from 'react' ;
-//onChange={this.onChange} value={this.state.value}
+import shallowEqual from 'shallowequal';
 
 export class RadioGroup extends Component{
     constructor(props){
         super(props) ;
-        
+        let {value} = props ;
+        this.state = {
+            value
+        } ;
+        this.handleChange = this.handleChange.bind(this) ;
     }
-    static defaultProps = {
-        onChange(value){console.info(`you shoule override method [onChange()] value:${value}`)}
-    } ;
+    shouldComponentUpdate(nextProps, nextState) {
+        return !shallowEqual(this.props, nextProps) ||
+        !shallowEqual(this.state, nextState);
+    }
+    //当接受到新的值的时候
+    componentWillReceiveProps(nextProps) {
+        if ('value' in nextProps) {
+            this.setState({
+                value: nextProps.value,
+            });
+        }
+    }
+    handleChange(value) {
+        this.setState({value}) ;
+        let {onChange} = this.props ;
+        onChange && onChange(value) ;
+    }
     render(){
         let retArr = [] ;
-        let {children,name,value,onChange} = this.props ;
+        let {children,name,onChange} = this.props ;
+        let {value} = this.state ;
         React.Children.forEach(children,function(radio,index){
             let curValue = radio.props.value ;
             let checked = false;
             if(curValue === value){
                 checked = true ;
             }
-            let newProps = {name,key:index,checked,onChange} ;
+            let newProps = {name,key:index,checked,onChange:this.handleChange} ;
             retArr[index] = React.cloneElement(radio,newProps) ;
         }.bind(this)) ;
         return (<span className="radio-group-container">{retArr}</span>) ;
@@ -28,22 +47,14 @@ export class RadioGroup extends Component{
 class Radio extends Component{
     constructor(props){
         super(props) ;
-        let checked = this.props.checked ;
-        this.state = {
-            checked
-        } ;
         this.handleChange = this.handleChange.bind(this) ;
     }
-
     handleChange(e){
-        let value = e.target.value ;
-        console.info('value : ' + value) ;
+        let value = e.target.value +'';
         this.props.onChange(value) ;
     }
-
     render(){
-        let {children,name,value} = this.props ;
-        let checked = this.state.checked ;
+        let {children,name,value,checked} = this.props ;
         return (
             <label className="radio-label">
                 <input type ="radio" 

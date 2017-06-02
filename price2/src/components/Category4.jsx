@@ -7,12 +7,28 @@ class Category4 extends Component {
     constructor(props){
         super(props) ;
         this.state = {
-            adviceType:'1'
+            adviceType:'1',
+            flightPlanApplyTo:"1"
         } ;
     }
+
+    componentDidMount(){
+        setTimeout(function(){
+            console.info("hello world ..... ") ;
+            this.setState({flightPlanApplyTo:"3"}) ;
+        }.bind(this),2000) ;
+    }
+
     handleChange = (value)=>{
         this.setState({adviceType:value}) ;
     }
+    handleChangeFactory(fieldName){
+        return function(value){
+            //console.info(`fieldName:${fieldName} , value : ${value}`) ;
+            this.setState({[fieldName]:value}) ;
+        }.bind(this) ;
+    }
+
     render(){
         return (
             <div>
@@ -40,7 +56,9 @@ class Category4 extends Component {
                 <PriceDiv label ="去程信息">
                     <div className="row">
                         <label className="input-label">航班计划适用于</label>
-                        <RadioGroup name ="xxx" value="2">
+                        <RadioGroup name ="flightPlanApplyTo" 
+                            value={this.state.flightPlanApplyTo} 
+                            onChange={this.handleChangeFactory('flightPlanApplyTo')}>
                             <Radio value="1">正班/加班</Radio>
                             <Radio value="2">正班</Radio>
                             <Radio value="3">加班</Radio>

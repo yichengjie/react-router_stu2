@@ -14,7 +14,7 @@ class HelloComp extends Component {
             <div>
                 <Input value ={this.state.value}/>
                 <h1>hello world 我会自动刷新哦</h1>
-                <RadioGroup  value={this.state.radio}>
+                <RadioGroup  >
                     <Radio value={1}>A</Radio>
                     <Radio value={2}>B</Radio>
                     <Radio value={3}>C</Radio>
