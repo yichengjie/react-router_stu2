@@ -11,16 +11,17 @@ class Category4 extends Component {
             adviceType:'1',
             flightPlanApplyTo:"1",
             flightPlanApplyTo2:"2",
-            applyWeek:['星期一']
+            applyWeek:['1'],
+            applyWeek2:['星期二']
         } ;
     }
 
-    // componentDidMount(){
-    //     setTimeout(function(){
-    //         console.info("hello world ..... ") ;
-    //         this.setState({flightPlanApplyTo:"3",applyWeek:['星期二','星期四']}) ;
-    //     }.bind(this),2000) ;
-    // }
+    componentDidMount(){
+        setTimeout(function(){
+            console.info("hello world ..... ") ;
+            this.setState({flightPlanApplyTo:"3",applyWeek:['1','2']}) ;
+        }.bind(this),2000) ;
+    }
    
     handleChangeFactory(fieldName){
         return function(value){
@@ -57,8 +58,8 @@ class Category4 extends Component {
                     <div className="row">
                         <label className="input-label">航班计划适用于</label>
                         <RadioGroup name ="flightPlanApplyTo" 
-                            value ={this.state.flightPlanApplyTo}
-                            onChange={this.handleChangeFactory('flightPlanApplyTo')}>
+                            defaultValue="2"
+                            >
                             <Radio value="1">正班/加班</Radio>
                             <Radio value="2">正班</Radio>
                             <Radio value="3">加班</Radio>
@@ -86,8 +87,15 @@ class Category4 extends Component {
                     </div>
                     <div className="row">
                         <label className="input-label">适用星期</label>
-                        <CheckboxGroup value={this.state.applyWeek} 
-                            options={allWeekInfo} onChange={this.handleChangeFactory('applyWeek')}>
+                        <CheckboxGroup value ={this.state.applyWeek}
+                            onChange={this.handleChangeFactory('applyWeek')}>
+                            <Checkbox value="1">星期一</Checkbox>
+                            <Checkbox value="2">星期二</Checkbox>
+                            <Checkbox value="3">星期三</Checkbox>
+                            <Checkbox value="4">星期四</Checkbox>
+                            <Checkbox value="5">星期五</Checkbox>
+                            <Checkbox value="6">星期六</Checkbox>
+                            <Checkbox value="7">星期日</Checkbox>
                         </CheckboxGroup>
                     </div>
                     <div className="row">
@@ -160,13 +168,10 @@ class Category4 extends Component {
                     </div>
                     <div className="row">
                         <label className="input-label">适用星期</label>
-                        <Checkbox>星期一</Checkbox>
-                        <Checkbox>星期二</Checkbox>
-                        <Checkbox>星期三</Checkbox>
-                        <Checkbox>星期四</Checkbox>
-                        <Checkbox>星期五</Checkbox>
-                        <Checkbox>星期六</Checkbox>
-                        <Checkbox>星期日</Checkbox>
+                        <CheckboxGroup value={this.state.applyWeek2} 
+                            options={allWeekInfo} 
+                            onChange={this.handleChangeFactory('applyWeek2')}>
+                        </CheckboxGroup>
                     </div>
                     <div className="row">
                         <label className="input-label">适用时刻</label>

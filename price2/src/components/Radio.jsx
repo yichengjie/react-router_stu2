@@ -69,7 +69,7 @@ export class RadioGroup extends Component{
         let retArr = [] ;
         let {value} = this.state ;
         React.Children.forEach(children,function(radio,index){
-            let curValue = radio.props.value ;
+            let curValue = radio.props.value || radio.props.children;
             let checked = false;
             if(curValue === value){
                 checked = true ;
@@ -80,6 +80,8 @@ export class RadioGroup extends Component{
         return (<span className="radio-group-container">{retArr}</span>) ;
     }
 }
+
+
 
 class Radio extends Component{
     constructor(props){
@@ -92,6 +94,9 @@ class Radio extends Component{
     }
     render(){
         let {children,name,value,checked,disabled,defaultChecked} = this.props ;
+        if(value == undefined){
+            value = children ;
+        }
         return (
             <label className="radio-label hand">
                 <input type ="radio" 

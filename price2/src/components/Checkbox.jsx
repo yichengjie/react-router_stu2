@@ -65,10 +65,9 @@ export class CheckboxGroup extends Component{
 
 
     render(){
-        let {options,defaultValue,children} = this.props ;
+        let {options,defaultValue,children,disabled} = this.props ;
         let {value} = this.state ;
         if(options && options.length > 0){
-             let {disabled} = this.props ;
              children = options.map(function(option,index){
                 let obj = analysisLabelValueObj(option) ;
                 let curValue = obj.value ;
@@ -85,7 +84,15 @@ export class CheckboxGroup extends Component{
             }.bind(this)) ;
             return <span className="radio-group-container">{children}</span> ;
         }
-        return null ;
+        let retArr = [] ;
+        React.Children.forEach(children,function(child,index){
+            //value 为Checkbox组件的value或则是chidren值
+            let curValue = child.props.value || child.props.children;
+            let curChecked = checkArrayContainsElement(value,curValue) ;
+            let newProps = {key:index,checked:curChecked,disabled,onChange:this.onCheckboxChange} ;
+            retArr[index] = React.cloneElement(child,newProps) ;
+        }.bind(this)) ;
+        return (<span className="radio-group-container">{retArr}</span>) ;
     }
 }
 
@@ -99,12 +106,19 @@ class Checkbox extends Component{
         let {value,checked} = e.target ;
         this.props.onChange(value,checked) ;
     }
+    getCheckboxValue(){
+        return this.refs.input.value ;
+    }
     render(){
         let {children,value,disabled,onChange,checked,defaultChecked} = this.props ;
+        if(value == undefined){
+            value = children ;
+        }
         return (
              <label className="radio-label hand">
                 <input type="checkbox" 
                     value={value} 
+                    ref="input"
                     disabled={disabled} 
                     onChange={this.handleChange}
                     checked={checked}
