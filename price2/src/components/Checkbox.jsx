@@ -1,8 +1,39 @@
 import React,{Component} from 'react' ;
-
-//<CheckboxGroup options={plainOptions} defaultValue={['Apple']} onChange={onChange} />
-
-
+/**
+ * Checkbox使用说明
+ *   1.<Checkbox value="1" checked={checked} defaultChecked={true}>星期一</Checkbox>
+ *     其中value,checked,defaultChecked均为可选，需注意【checked,defaultChecked】二选一
+ * CheckboxGroup 使用说明 
+ * 画原型界面阶段，我没可以不用使用标准的 value + onChange 使用，
+ * 直接使用defaultValue='xxx'即可默认选中.
+ * 当使用了value属性后，如果没有配合onChange组件值将会被锁定，不能被改变
+ * 方式一:
+ * options中必须传入数组，数组元素:
+ *   1.当为string时，Checkbox的label和value都将是元素string字符串  
+ *   2.{label:'',value:''} 键值对,Checkbox的label和value对应，
+ *   如果value不存在，则value将与label相同,下面options中的三种元素均有效
+ *    <CheckboxGroup value={this.state.applyWeek2} 
+ *       options ={[{label:'label1',value:'1'},"2",{label:'label3'}]}
+ *       onChange={this.handleChangeFactory('applyWeek2')}>
+ *    </CheckboxGroup>
+ * 方式二:
+ *   当Checkbox的value缺省时，value将被置为与label相同，下面几种写法均有效
+ *   (1)<CheckboxGroup value ={this.state.applyWeek}
+ *           onChange={this.handleChangeFactory('applyWeek')}>
+ *           <Checkbox value="1">星期一</Checkbox>
+ *           <Checkbox value="2">星期二</Checkbox>
+ *       </CheckboxGroup>
+ *  (2)
+ *     <CheckboxGroup defaultValue="2">
+ *         <Checkbox value="1">星期一</Checkbox>
+ *         <Checkbox value="2">星期二</Checkbox>
+ *     </CheckboxGroup>
+ * (3)
+ *    <CheckboxGroup>
+ *        <Checkbox value="1">星期一</Checkbox>
+ *        <Checkbox value="2">星期二</Checkbox>
+ *    </CheckboxGroup>
+ */
 function checkArrayContainsElement(arr,element){
     if(arr && arr.length > 0){
         if(arr.includes(element)){
@@ -22,6 +53,9 @@ function analysisLabelValueObj(obj){
     }else{
         value = obj.value ;
         label = obj.label ;
+        if(value == undefined){
+            value = obj.label ;
+        }
     }
     return {label,value} ;
 }
@@ -130,3 +164,4 @@ class Checkbox extends Component{
 }
 
 export default Checkbox ;
+

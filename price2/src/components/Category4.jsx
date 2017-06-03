@@ -16,12 +16,11 @@ class Category4 extends Component {
         } ;
     }
 
-    componentDidMount(){
-        setTimeout(function(){
-            console.info("hello world ..... ") ;
-            this.setState({flightPlanApplyTo:"3",applyWeek:['1','2']}) ;
-        }.bind(this),2000) ;
-    }
+    // componentDidMount(){
+    //     setTimeout(function(){
+    //         this.setState({flightPlanApplyTo:"3",applyWeek:['1','2']}) ;
+    //     }.bind(this),2000) ;
+    // }
    
     handleChangeFactory(fieldName){
         return function(value){
@@ -58,7 +57,8 @@ class Category4 extends Component {
                     <div className="row">
                         <label className="input-label">航班计划适用于</label>
                         <RadioGroup name ="flightPlanApplyTo" 
-                            defaultValue="2"
+                            value={this.state.flightPlanApplyTo}
+                            onChange={this.handleChangeFactory('flightPlanApplyTo')}
                             >
                             <Radio value="1">正班/加班</Radio>
                             <Radio value="2">正班</Radio>

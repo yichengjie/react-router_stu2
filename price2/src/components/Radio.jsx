@@ -1,5 +1,48 @@
 import React,{Component} from 'react' ;
 import shallowEqual from 'shallowequal';
+/**
+ * Radio使用说明
+ *   1.<Radio value="1" checked={checked} defaultChecked={true}>星期一</Radio>
+ *     其中value,checked,defaultChecked均为可选，需注意【checked,defaultChecked】二选一
+ * RadioGroup 使用说明 
+ * 画原型界面阶段，我没可以不用使用标准的 value + onChange 使用，
+ * 直接使用defaultValue='xxx'即可默认选中.
+ * 当使用了value属性后，如果没有配合onChange组件值将会被锁定，不能被改变
+ * 方式一:
+ * options中必须传入数组，数组元素:
+ *   1.当为string时，Radio的label和value都将是元素string字符串  
+ *   2.{label:'',value:''} 键值对,Radio的label和value对应，
+ *   如果value不存在，则value将与label相同,下面options中的三种元素均有效
+ *    <RadioGroup  
+ *           options ={[{label:'label1',value:'1'},"2",{label:'label3'}]} 
+ *           name ="flightPlanApplyTo2" 
+ *           value={this.state.flightPlanApplyTo2}
+ *           onChange ={this.handleChangeFactory('flightPlanApplyTo2')}
+ *       >
+ *   </RadioGroup>
+ * 方式二:
+ *   当Radio的value缺省时，value将被置为与label相同，下面几种写法均有效
+ *   (1)<RadioGroup name ="flightPlanApplyTo" 
+ *         value={this.state.flightPlanApplyTo}
+ *         onChange={this.handleChangeFactory('flightPlanApplyTo')}
+ *         >
+ *         <Radio value="1">正班/加班</Radio>
+ *         <Radio value="2">正班</Radio>
+ *         <Radio value="3">加班</Radio>
+ *       </RadioGroup>
+ *  (2)<RadioGroup name ="flightPlanApplyTo" 
+ *        defaultValue="2"
+ *       >
+ *       <Radio value="1">正班/加班</Radio>
+ *       <Radio value="2">正班</Radio>
+ *       <Radio value="3">加班</Radio>
+ *    </RadioGroup>
+ * (3)<RadioGroup name ="flightPlanApplyTo">
+ *       <Radio>正班/加班</Radio>
+ *       <Radio>正班</Radio>
+ *       <Radio>加班</Radio>
+ *    </RadioGroup>
+ */
 //解析出label和value
 function analysisLabelValueObj(obj){
     let value , label ;
@@ -9,6 +52,9 @@ function analysisLabelValueObj(obj){
     }else{
         value = obj.value ;
         label = obj.label ;
+        if(value == undefined){
+            value = obj.label ;
+        }
     }
     return {label,value} ;
 }
