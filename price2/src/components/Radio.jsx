@@ -1,5 +1,17 @@
 import React,{Component} from 'react' ;
 import shallowEqual from 'shallowequal';
+//解析出label和value
+function analysisLabelValueObj(obj){
+    let value , label ;
+    if(typeof obj === 'string'){
+        value = obj ;
+        label = obj ;
+    }else{
+        value = obj.value ;
+        label = obj.label ;
+    }
+    return {label,value} ;
+}
 
 export class RadioGroup extends Component{
     constructor(props){
@@ -27,7 +39,9 @@ export class RadioGroup extends Component{
         }
     }
     onRadioChange(value) {
-        this.setState({value}) ;
+        if(this.props.value == undefined){
+             this.setState({value}) ;
+        }
         let {onChange} = this.props ;
         onChange && onChange(value) ;
     }
@@ -37,31 +51,18 @@ export class RadioGroup extends Component{
         // 如果存在 options, 优先使用
         if (options && options.length > 0) {
             children = options.map((option, index) => {
-                if (typeof option === 'string') { // 此处类型自动推导为 string
-                return (
-                    <Radio
+                let obj = analysisLabelValueObj(option) ;
+                let curValue = obj.value ;
+                let curLabel = obj.label ;
+                return (<Radio
                         key={index}
                         disabled={disabled}
-                        value={option}
+                        value={curValue}
                         onChange={this.onRadioChange}
-                        checked={this.state.value === option}
+                        checked={curValue === option}
                         >
-                        {option}
-                    </Radio>
-                );
-                } else { // 此处类型自动推导为 { label: string value: string }
-                    return (
-                        <Radio
-                            key={index}
-                            disabled={option.disabled || this.props.disabled}
-                            value={option.value}
-                            onChange={this.onRadioChange}
-                            checked={this.state.value === option.value}
-                            >
-                            {option.label}
-                        </Radio>
-                    );
-                }
+                        {curLabel}
+                    </Radio>) ;
             });
         }
 
@@ -90,10 +91,11 @@ class Radio extends Component{
         this.props.onChange(value) ;
     }
     render(){
-        let {children,name,value,checked,disabled} = this.props ;
+        let {children,name,value,checked,disabled,defaultChecked} = this.props ;
         return (
             <label className="radio-label hand">
                 <input type ="radio" 
+                    defaultChecked={defaultChecked}
                     checked={checked}
                     name = {name} 
                     value ={value}

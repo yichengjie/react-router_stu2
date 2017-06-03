@@ -1,28 +1,27 @@
 import  React,{Component} from 'react' ;
 import Input from './Input.jsx' ;
 import Radio,{RadioGroup} from './Radio.jsx' ;
+import Checkbox,{CheckboxGroup} from './Checkbox.jsx' ;
 import PriceDiv from './PriceDiv.jsx' ;
-
+let allWeekInfo = ['星期一','星期二','星期三','星期四','星期五','星期六','星期日'] ;
 class Category4 extends Component {
     constructor(props){
         super(props) ;
         this.state = {
             adviceType:'1',
             flightPlanApplyTo:"1",
-            flightPlanApplyTo2:"2"
+            flightPlanApplyTo2:"2",
+            applyWeek:['星期一']
         } ;
     }
 
     // componentDidMount(){
     //     setTimeout(function(){
     //         console.info("hello world ..... ") ;
-    //         this.setState({flightPlanApplyTo:"3"}) ;
+    //         this.setState({flightPlanApplyTo:"3",applyWeek:['星期二','星期四']}) ;
     //     }.bind(this),2000) ;
     // }
-
-    handleChange = (value)=>{
-        this.setState({adviceType:value}) ;
-    }
+   
     handleChangeFactory(fieldName){
         return function(value){
             //console.info(`fieldName:${fieldName} , value : ${value}`) ;
@@ -58,8 +57,8 @@ class Category4 extends Component {
                     <div className="row">
                         <label className="input-label">航班计划适用于</label>
                         <RadioGroup name ="flightPlanApplyTo" 
-                            defaultValue ="2" 
-                        >
+                            value ={this.state.flightPlanApplyTo}
+                            onChange={this.handleChangeFactory('flightPlanApplyTo')}>
                             <Radio value="1">正班/加班</Radio>
                             <Radio value="2">正班</Radio>
                             <Radio value="3">加班</Radio>
@@ -87,27 +86,9 @@ class Category4 extends Component {
                     </div>
                     <div className="row">
                         <label className="input-label">适用星期</label>
-                        <label className="radio-label">
-                            <input type="checkbox"/><span>星期一</span>
-                        </label>
-                        <label className="radio-label">
-                            <input type="checkbox"/><span>星期二</span>
-                        </label>
-                        <label className="radio-label">
-                            <input type="checkbox"/><span>星期三</span>
-                        </label>
-                        <label className="radio-label">
-                            <input type="checkbox"/><span>星期四</span>
-                        </label>
-                        <label className="radio-label">
-                            <input type="checkbox"/><span>星期五</span>
-                        </label>
-                        <label className="radio-label">
-                            <input type="checkbox"/><span>星期六</span>
-                        </label>
-                        <label className="radio-label">
-                            <input type="checkbox"/><span>星期日</span>
-                        </label>
+                        <CheckboxGroup value={this.state.applyWeek} 
+                            options={allWeekInfo} onChange={this.handleChangeFactory('applyWeek')}>
+                        </CheckboxGroup>
                     </div>
                     <div className="row">
                         <label className="input-label">适用时刻</label>
@@ -179,27 +160,13 @@ class Category4 extends Component {
                     </div>
                     <div className="row">
                         <label className="input-label">适用星期</label>
-                        <label className="radio-label">
-                            <input type="checkbox"/><span>星期一</span>
-                        </label>
-                        <label className="radio-label">
-                            <input type="checkbox"/><span>星期二</span>
-                        </label>
-                        <label className="radio-label">
-                            <input type="checkbox"/><span>星期三</span>
-                        </label>
-                        <label className="radio-label">
-                            <input type="checkbox"/><span>星期四</span>
-                        </label>
-                        <label className="radio-label">
-                            <input type="checkbox"/><span>星期五</span>
-                        </label>
-                        <label className="radio-label">
-                            <input type="checkbox"/><span>星期六</span>
-                        </label>
-                        <label className="radio-label">
-                            <input type="checkbox"/><span>星期日</span>
-                        </label>
+                        <Checkbox>星期一</Checkbox>
+                        <Checkbox>星期二</Checkbox>
+                        <Checkbox>星期三</Checkbox>
+                        <Checkbox>星期四</Checkbox>
+                        <Checkbox>星期五</Checkbox>
+                        <Checkbox>星期六</Checkbox>
+                        <Checkbox>星期日</Checkbox>
                     </div>
                     <div className="row">
                         <label className="input-label">适用时刻</label>
