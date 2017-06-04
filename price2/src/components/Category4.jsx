@@ -11,7 +11,7 @@ class Category4 extends Component {
             adviceType:'1',
             flightPlanApplyTo:"1",
             flightPlanApplyTo2:"2",
-            applyWeek:['1'],
+            applyWeek:['星期一'],
             applyWeek2:['星期二']
         } ;
     }
@@ -88,14 +88,8 @@ class Category4 extends Component {
                     <div className="row">
                         <label className="input-label">适用星期</label>
                         <CheckboxGroup value ={this.state.applyWeek}
+                            options={allWeekInfo}
                             onChange={this.handleChangeFactory('applyWeek')}>
-                            <Checkbox value="1">星期一</Checkbox>
-                            <Checkbox value="2">星期二</Checkbox>
-                            <Checkbox value="3">星期三</Checkbox>
-                            <Checkbox value="4">星期四</Checkbox>
-                            <Checkbox value="5">星期五</Checkbox>
-                            <Checkbox value="6">星期六</Checkbox>
-                            <Checkbox value="7">星期日</Checkbox>
                         </CheckboxGroup>
                     </div>
                     <div className="row">
