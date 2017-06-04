@@ -1,7 +1,7 @@
 import  React,{Component} from 'react' ;
-import Input from './Input.jsx' ;
-import Radio,{RadioGroup} from './Radio.jsx' ;
-import Checkbox,{CheckboxGroup} from './Checkbox.jsx' ;
+import Input from './input/Input.jsx' ;
+import Radio,{RadioGroup} from './radio/Radio.jsx' ;
+import Checkbox,{CheckboxGroup} from './checkbox/Checkbox.jsx' ;
 import PriceDiv from './PriceDiv.jsx' ;
 let allWeekInfo = ['星期一','星期二','星期三','星期四','星期五','星期六','星期日'] ;
 class Category4 extends Component {
