@@ -73,6 +73,17 @@ function analysisLabelValueObj(obj){
 }
 
 export class CheckboxGroup extends Component{
+    static defaultProps = {
+        options: [],
+        prefixCls: 'ant-checkbox-group',
+    };
+    static propTypes = {
+        defaultValue: PropTypes.array,
+        value: PropTypes.array,
+        options: PropTypes.array.isRequired,
+        onChange: PropTypes.func,
+    };
+
     constructor(props){
         super(props) ;
         let {value = [],defaultValue=[]} = props ;
@@ -111,7 +122,10 @@ export class CheckboxGroup extends Component{
 
     render(){
         let {options,defaultValue,children,disabled} = this.props ;
+        let {className,prefixCls} = this.props ;
         let {value} = this.state ;
+        const classString = classNames(prefixCls, className);
+
         if(options && options.length > 0){
              children = options.map(function(option,index){
                 let obj = analysisLabelValueObj(option) ;
@@ -127,7 +141,7 @@ export class CheckboxGroup extends Component{
                         </Checkbox>
                 );
             }.bind(this)) ;
-            return <span className="radio-group-container">{children}</span> ;
+            return <span className={classString}>{children}</span> ;
         }
         let retArr = [] ;
         React.Children.forEach(children,function(child,index){
@@ -137,7 +151,7 @@ export class CheckboxGroup extends Component{
             let newProps = {key:index,checked:curChecked,disabled,onChange:this.onCheckboxChange} ;
             retArr[index] = React.cloneElement(child,newProps) ;
         }.bind(this)) ;
-        return (<span className="radio-group-container">{retArr}</span>) ;
+        return (<span className={classString}>{retArr}</span>) ;
     }
 }
 
@@ -145,11 +159,16 @@ export class CheckboxGroup extends Component{
 class Checkbox extends Component{
     static defaultProps = {
         prefixCls: 'ant-checkbox',
-        indeterminate: false,
     };
-    static contextTypes = {
-        checkboxGroup: PropTypes.any,
+    static propTypes = {
+        defaultValue: PropTypes.string,
+        value: PropTypes.string,/**页面上的值统一看着string不做数字的特殊处理 */
+        onChange: PropTypes.func,
+        disabled: PropTypes.bool,
+        checked: PropTypes.bool,
+        defaultChecked: PropTypes.bool,
     };
+
     constructor(props){
         super(props) ;
         this.handleChange = this.handleChange.bind(this) ;
@@ -159,19 +178,22 @@ class Checkbox extends Component{
         this.props.onChange(value,checked) ;
     }
     render(){
-        let {prefixCls} = this.props ;
         let {children,value,disabled,onChange,checked,defaultChecked} = this.props ;
+        let {prefixCls,className} = this.props ;
+
         if(value == undefined){
             value = children ;
         }
         const checkboxClass = classNames(prefixCls,{
             [`${prefixCls}-checked`]:checked
         });
+        const inputClassName = classNames(className,{[`${prefixCls}-input`]:true}) ;
+
         return (
              <label className={`${prefixCls}-wrapper`}>
                  <span className={checkboxClass}>
                     <input type="checkbox"
-                        className={`${prefixCls}-input`} 
+                        className={inputClassName} 
                         value={value} 
                         disabled={disabled} 
                         onChange={this.handleChange}
