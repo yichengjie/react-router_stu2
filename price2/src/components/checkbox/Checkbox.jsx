@@ -148,7 +148,8 @@ export class CheckboxGroup extends Component{
             //value 为Checkbox组件的value或则是chidren值
             let curValue = child.props.value || child.props.children;
             let curChecked = checkArrayContainsElement(value,curValue) ;
-            let newProps = {key:index,checked:curChecked,disabled,onChange:this.onCheckboxChange} ;
+            let newProps = {key:index,checked:curChecked,
+                    disabled,onChange:this.onCheckboxChange} ;
             retArr[index] = React.cloneElement(child,newProps) ;
         }.bind(this)) ;
         return (<span className={classString}>{retArr}</span>) ;
@@ -187,13 +188,11 @@ class Checkbox extends Component{
         const checkboxClass = classNames(prefixCls,{
             [`${prefixCls}-checked`]:checked
         });
-        const inputClassName = classNames(className,{[`${prefixCls}-input`]:true}) ;
-
         return (
              <label className={`${prefixCls}-wrapper`}>
                  <span className={checkboxClass}>
                     <input type="checkbox"
-                        className={inputClassName} 
+                        className={`${prefixCls}-input`} 
                         value={value} 
                         disabled={disabled} 
                         onChange={this.handleChange}

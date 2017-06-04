@@ -1,5 +1,8 @@
 import React,{Component} from 'react' ;
 import shallowEqual from 'shallowequal';
+import PropTypes from 'prop-types';
+import classNames from 'classnames';
+import './style/index.jsx' ;
 /**
  * Radio使用说明
  *   1.<Radio value="1" checked={checked} defaultChecked={true}>星期一</Radio>
@@ -43,6 +46,15 @@ import shallowEqual from 'shallowequal';
  *       <Radio>加班</Radio>
  *    </RadioGroup>
  */
+/**
+ * <label class="ant-radio-wrapper">
+ *      <span class="ant-radio">
+ *          <input type="radio" class="ant-radio-input" value="on">
+ *          <span class="ant-radio-inner"></span>
+ *      </span>
+ *      <span>Radio</span>
+ * </label>
+ */
 //解析出label和value
 function analysisLabelValueObj(obj){
     let value , label ;
@@ -60,6 +72,16 @@ function analysisLabelValueObj(obj){
 }
 
 export class RadioGroup extends Component{
+    static defaultProps = {
+        options: [],
+        prefixCls: 'ant-radio-group',
+    };
+    static propTypes = {
+        defaultValue: PropTypes.array,
+        value: PropTypes.string,
+        options: PropTypes.array.isRequired,
+        onChange: PropTypes.func,
+    };
     constructor(props){
         super(props) ;
         let {value,defaultValue,name} = props ;
@@ -94,6 +116,8 @@ export class RadioGroup extends Component{
     render(){
         let props = this.props ;
         let {children,name,onChange,options,disabled} = props ;
+        let {className,prefixCls} = this.props ;
+        const classString = classNames(prefixCls, className);
         // 如果存在 options, 优先使用
         if (options && options.length > 0) {
             children = options.map((option, index) => {
@@ -110,6 +134,7 @@ export class RadioGroup extends Component{
                         {curLabel}
                     </Radio>) ;
             });
+            return <span className={classString}>{children}</span> ;
         }
 
         let retArr = [] ;
@@ -123,13 +148,24 @@ export class RadioGroup extends Component{
             let newProps = {name,key:index,checked,disabled,onChange:this.onRadioChange} ;
             retArr[index] = React.cloneElement(radio,newProps) ;
         }.bind(this)) ;
-        return (<span className="radio-group-container">{retArr}</span>) ;
+        return (<span className={classString}>{retArr}</span>) ;
     }
 }
 
 
 
 class Radio extends Component{
+    static defaultProps = {
+        prefixCls: 'ant-radio',
+    };
+    static propTypes = {
+        defaultValue: PropTypes.string,
+        value: PropTypes.string,/**页面上的值统一看着string不做数字的特殊处理 */
+        onChange: PropTypes.func,
+        disabled: PropTypes.bool,
+        checked: PropTypes.bool,
+        defaultChecked: PropTypes.bool,
+    };
     constructor(props){
         super(props) ;
         this.handleChange = this.handleChange.bind(this) ;
@@ -140,18 +176,28 @@ class Radio extends Component{
     }
     render(){
         let {children,name,value,checked,disabled,defaultChecked} = this.props ;
+        let {prefixCls,className} = this.props ;
         if(value == undefined){
             value = children ;
         }
+        
+        const radioClass = classNames(prefixCls,{
+            [`${prefixCls}-checked`]:checked
+        });
+        const inputClassName = classNames(className,{[`${prefixCls}-input`]:true}) ;
         return (
-            <label className="radio-label hand">
-                <input type ="radio" 
-                    defaultChecked={defaultChecked}
-                    checked={checked}
-                    name = {name} 
-                    value ={value}
-                    disabled={disabled} 
-                    onChange={this.handleChange}/>
+            <label className={`${prefixCls}-wrapper`}>
+                <span className={radioClass}>
+                    <input type ="radio" 
+                        className={inputClassName}
+                        defaultChecked={defaultChecked}
+                        checked={checked}
+                        name = {name} 
+                        value ={value}
+                        disabled={disabled} 
+                        onChange={this.handleChange}/>
+                     <span className={`${prefixCls}-inner`}></span>
+                </span>
                 <span>{children}</span>
             </label>
         ) ;

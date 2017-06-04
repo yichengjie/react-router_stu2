@@ -3,7 +3,7 @@ import Input from './input/Input.jsx' ;
 import Radio,{RadioGroup} from './radio/Radio.jsx' ;
 import Checkbox,{CheckboxGroup} from './checkbox/Checkbox.jsx' ;
 import PriceDiv from './PriceDiv.jsx' ;
-let allWeekInfo = [{label:'星期一',value:1},'星期二','星期三','星期四','星期五','星期六','星期日'] ;
+let allWeekInfo = [{label:'星期一',value:"1"},'星期二','星期三','星期四','星期五','星期六','星期日'] ;
 class Category4 extends Component {
     constructor(props){
         super(props) ;
@@ -11,7 +11,7 @@ class Category4 extends Component {
             adviceType:'1',
             flightPlanApplyTo:"1",
             flightPlanApplyTo2:"2",
-            applyWeek:[1],
+            applyWeek:["1"],
             applyWeek2:['星期二']
         } ;
     }
