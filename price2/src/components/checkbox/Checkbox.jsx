@@ -1,4 +1,7 @@
 import React,{Component} from 'react' ;
+import PropTypes from 'prop-types';
+import classNames from 'classnames';
+import './style/index.jsx' ;
 /**
  * Checkbox使用说明
  *   1.<Checkbox value="1" checked={checked} defaultChecked={true}>星期一</Checkbox>
@@ -33,6 +36,15 @@ import React,{Component} from 'react' ;
  *        <Checkbox value="1">星期一</Checkbox>
  *        <Checkbox value="2">星期二</Checkbox>
  *    </CheckboxGroup>
+ */
+ /**
+ * <label class="ant-checkbox-wrapper">
+ *     <span class="ant-checkbox ant-checkbox-checked">
+ *        <input type="checkbox" class="ant-checkbox-input" value="on">
+ *        <span class="ant-checkbox-inner"></span>
+ *     </span>
+ *     <span>Checkbox</span>
+ * </label>
  */
 function checkArrayContainsElement(arr,element){
     if(arr && arr.length > 0){
@@ -97,7 +109,6 @@ export class CheckboxGroup extends Component{
         onChange && onChange(arr) ;
     }
 
-
     render(){
         let {options,defaultValue,children,disabled} = this.props ;
         let {value} = this.state ;
@@ -132,6 +143,13 @@ export class CheckboxGroup extends Component{
 
 
 class Checkbox extends Component{
+    static defaultProps = {
+        prefixCls: 'ant-checkbox',
+        indeterminate: false,
+    };
+    static contextTypes = {
+        checkboxGroup: PropTypes.any,
+    };
     constructor(props){
         super(props) ;
         this.handleChange = this.handleChange.bind(this) ;
@@ -140,23 +158,27 @@ class Checkbox extends Component{
         let {value,checked} = e.target ;
         this.props.onChange(value,checked) ;
     }
-    getCheckboxValue(){
-        return this.refs.input.value ;
-    }
     render(){
+        let {prefixCls} = this.props ;
         let {children,value,disabled,onChange,checked,defaultChecked} = this.props ;
         if(value == undefined){
             value = children ;
         }
+        const checkboxClass = classNames(prefixCls,{
+            [`${prefixCls}-checked`]:checked
+        });
         return (
-             <label className="radio-label hand">
-                <input type="checkbox" 
-                    value={value} 
-                    ref="input"
-                    disabled={disabled} 
-                    onChange={this.handleChange}
-                    checked={checked}
-                    defaultChecked={defaultChecked}/>
+             <label className={`${prefixCls}-wrapper`}>
+                 <span className={checkboxClass}>
+                    <input type="checkbox"
+                        className={`${prefixCls}-input`} 
+                        value={value} 
+                        disabled={disabled} 
+                        onChange={this.handleChange}
+                        checked={checked}
+                        defaultChecked={defaultChecked}/>
+                     <span className={`${prefixCls}-inner`}></span>
+                 </span>
                 <span>{children}</span>
             </label>
         ) ;
