@@ -24,11 +24,11 @@ config.plugins = [
         filename: 'vendors.js',
     }),
     // 压缩代码
-    // new webpack.optimize.UglifyJsPlugin({
-    //     compress: {
-    //         warnings: false
-    //     }
-    // }),
+    new webpack.optimize.UglifyJsPlugin({
+        compress: {
+            warnings: false
+        }
+    }),
     new webpack.optimize.OccurenceOrderPlugin(),
     // 提取css为单文件
     //new ExtractTextPlugin("../[name].[contenthash].css"),

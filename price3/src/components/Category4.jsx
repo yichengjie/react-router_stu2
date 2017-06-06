@@ -1,7 +1,11 @@
 import  React,{Component} from 'react' ;
 //import { Input,Button } from '../common/index.js';
-import { Input,Button } from 'antd';
+import { Input,Button ,DatePicker} from 'antd';
 
+
+function onChange(date, dateString) {
+  console.log(date, dateString);
+}
 
 class Category4 extends Component {
   constructor(props){
@@ -10,7 +14,7 @@ class Category4 extends Component {
   render() {
     return (
       <div className="container">
-          <Input style={{width:'150px'}} value={1} />
+          <DatePicker onChange={onChange} />
           <br/>
           <Button type="primary">button ceshi</Button>
       </div> 
