@@ -4,7 +4,9 @@
     "description": "webpack app description",
     "main": "index.js",
     "scripts":{
-        "build":"webpack --config build/webpack.prod.conf.js  --progress --profile --colors",
+       "clean":"node build/clean-dist.js",
+        "prod":"webpack --config build/webpack.prod.conf.js  --progress --profile --colors",
+        "build":"npm run clean && npm run prod",
         "dev":"node build/dev-server.js"
     }
 }
