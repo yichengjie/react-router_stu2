@@ -1,6 +1,7 @@
 import {require_condition} from './assert'
-import * as ReactUtils from './react'
-import * as Errors from './errors'
+import * as ReactUtils from './react' ;
+import * as Errors from './errors' ;
+
 
 export {require_condition, ReactUtils, Errors}
 
@@ -108,5 +109,6 @@ export function range(start, stop, step) {
 }
 
 export {default as DateUtils} from './date'
-export * from './popper-mixins'
+export {PopperMixin,PopperReactMixin} from './popper-mixins' ;
+//export * from './popper-mixins'
 export {IDGenerator} from './IDGenerator'

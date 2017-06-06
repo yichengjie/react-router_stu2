@@ -34,7 +34,6 @@ module.exports = {
                     path.resolve(__dirname,'../src')
                 ],
                 exclude: /node_modules/,
-                loaders:['react-hot','babel']
             },
             //这里的提取css在开发环境下实际上是不需要的
             { test: /\.css$/, loader: ExtractTextPlugin.extract("style", "css!postcss")},
