@@ -14,7 +14,6 @@ export { default as Input } from './input';
 export { default as Icon } from './icon';
 export { default as Menu } from './menu';
 export { default as Tooltip } from './tooltip';
-export { default as InputNumber } from './input-number';
 export { default as Checkbox } from './checkbox';
 export { default as Switch } from './switch';
 export { default as Tag } from './tag';
