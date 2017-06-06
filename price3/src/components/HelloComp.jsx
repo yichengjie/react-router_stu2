@@ -1,14 +1,29 @@
 import  React,{Component} from 'react' ;
-import { Button } from '../common/index.js';
+import { TimeSelect } from '../common/index.js';
 
 class HelloComp extends Component {
-    render(){
-        console.info('hello world sdf sdf') ;
+    constructor(props) {
+        super(props)
+        this.state = {
+            value: new Date(2016, 9, 10, 14, 30),
+        }
+    }
+
+    handleUpdate(value) {
+        console.debug('time-select update: ', value)
+    }
+
+    render() {
         return (
-            <div>
-                <Button type="primary" size ="small" >test</Button>
-                <h1>hello world fdfsd </h1>
-            </div>
+            <TimeSelect
+            start="08:30"
+            step="00:15"
+            end="18:30"
+            maxTime="12:30"
+            onChange={this.handleUpdate.bind(this)}
+            value={this.state.value}
+            placeholder="选择时间"
+            />
         )
     }
 }

@@ -10,9 +10,7 @@ import Suggestions from './Suggestions';
 
 class AutoComplete extends Component {
 
-  static defaultProps = {
-    triggerOnFocus: true,
-  };
+  
 
   constructor(props) {
     super(props);
@@ -192,6 +190,10 @@ class AutoComplete extends Component {
     )
   }
 }
+
+AutoComplete.defaultProps = {
+    triggerOnFocus: true,
+};
 
 AutoComplete.childContextTypes = {
   component: PropTypes.any
