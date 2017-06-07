@@ -1,10 +1,13 @@
 import  React,{Component} from 'react'
+import Sidebar from './Sidebar.jsx' ;
+import Category4 from './Category4.jsx' ;
+
 class HelloComp extends Component {
     render(){
         return (
-            <div>
-                <h1>hello world fdfsd sdd</h1>
-            </div>
+            <Sidebar>
+                <Category4 />   
+            </Sidebar>
         )
     }
 }
