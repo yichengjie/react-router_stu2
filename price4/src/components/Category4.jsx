@@ -1,8 +1,9 @@
 import  React,{Component} from 'react' ;
-import {Select,Input,Radio,Checkbox,Icon,Button,Table} from 'antd';
+import {Select,Input,Radio,Checkbox,Icon,Button,Table,DatePicker} from 'antd';
 const Option = Select.Option;
 const RadioGroup = Radio.Group;
 const CheckboxGroup = Checkbox.Group;
+const { MonthPicker, RangePicker } = DatePicker;
 
 
 function CategorySection (props){
@@ -135,6 +136,9 @@ class Category4 extends Component {
                     <Table dataSource={dataSource} size="small" 
                         columns={columns} pagination={false}
                         bordered={true}/>
+               </div>
+               <div className="category-section-row">
+                   <DatePicker  />
                </div>
                
             </div>
