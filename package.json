@@ -72,6 +72,7 @@
     "omit.js": "^0.1.0",
     "prop-types": "^15.5.8",
     "qrcode": "^0.8.2",
+    "rc-dialog": "^6.5.10",
     "react": "^15.5.4",
     "react-click-outside": "^2.3.1",
     "react-dom": "^15.5.4",

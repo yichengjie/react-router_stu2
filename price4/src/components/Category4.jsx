@@ -1,15 +1,16 @@
 import  React,{Component} from 'react' ;
-import {Select,Input,Radio,Checkbox,Icon,Button,Table,DatePicker} from 'antd';
+import moment from 'moment';
+import {Select,Input,Radio,Checkbox,Icon,Button,Table,TimePicker} from 'antd';
 const Option = Select.Option;
 const RadioGroup = Radio.Group;
 const CheckboxGroup = Checkbox.Group;
-const { MonthPicker, RangePicker } = DatePicker;
 
+const format = 'HH:mm';
 
 function CategorySection (props){
     return (
         <div className="category-section-title">
-            <h5>{props.children}</h5>
+            <span className="title">{props.children}</span>
         </div>
     ) ; 
 }
@@ -60,6 +61,16 @@ const columns = [{
     title: '适用航段',
     dataIndex: 'name5',
     key: 'name5',
+},{
+  title: '操作',
+  key: 'action',
+  render: (text, record) => (
+    <span>
+      <a href="#">删</a>
+      <span className="ant-divider" />
+      <a href="#">改</a>
+    </span>
+  ),
 }];
 
 
@@ -67,26 +78,29 @@ class Category4 extends Component {
     render(){
         return (
             <div className="category-container">
-               <CategorySection>公共信息</CategorySection>
+               <CategorySection>基础信息</CategorySection>
                <div className="category-section-row">
-                   <Select defaultValue="" style={{ width: "120px" }} >
+                   <label className="mr15">机型</label>
+                   <Select defaultValue="" style={{ width: "100px" }} >
                       <Option value="">不限</Option>
                       <Option value="1">适用</Option>
                       <Option value="2">不适用</Option>
                    </Select>
-                   <label className="mlr15">机型</label>
+                   <span className="mr10"></span>
                    <Input style={{width:"150px"}}/>
-                </div>
-                <div className="category-section-row">
-                    <Select defaultValue="" style={{ width: "120px" }} >
+
+                   <span className="mlr15"></span>
+
+                   <label className="mlr15">代码共享航班</label>
+                   <Select defaultValue="" style={{ width: "100px" }} >
                       <Option value="">可适用</Option>
                       <Option value="1">不适用</Option>
                       <Option value="2">仅适用</Option>
                    </Select>
-                   <label className="mlr15">代码共享航班</label>
-                   <label className="mlr15">承运人</label>
-                   <Input style={{width:"150px"}}/> 
+                   <span className="mr15"></span>
+                   <Input style={{width:"150px"}} placeholder="承运人"/> 
                 </div>
+               
                <CategorySection>去程信息</CategorySection> 
                <div className="category-section-row">
                     <label className="mr20">航班计划适用于</label>
@@ -95,27 +109,29 @@ class Category4 extends Component {
                         <Radio value={2}>正班</Radio>
                         <Radio value={3}>加班</Radio>
                     </RadioGroup>
-               </div>
-               <div className="category-section-row">
-                  <label className="mr20">航班号</label> 
-                  <Select defaultValue="" style={{ width: "120px" }} >
+
+                    <span className="mlr10"></span>
+
+                    <label className="mlr10">航班号</label> 
+                    <Select defaultValue="" style={{ width: "100px" }} >
+                        <Option value="">不限</Option>
+                        <Option value="1">适用</Option>
+                        <Option value="2">不适用</Option>
+                    </Select>
+                    <span className="ml10"></span>
+                    <Input style={{width:'60px'}} />
+                    <span className="mlr5">-</span>
+                    <Input style={{width:'60px'}} />
+                    
+                    <span className="mlr10"></span>
+                    <label className="mlr10">适用航段</label> 
+                    <Select defaultValue="" style={{ width: "100px" }} >
                       <Option value="">不限</Option>
                       <Option value="1">适用</Option>
                       <Option value="2">不适用</Option>
-                  </Select>
-                  <span className="mlr15"></span>
-                  <Input style={{width:'60px'}} />
-                  <span className="mlr5">-</span>
-                  <Input style={{width:'60px'}} />
+                    </Select>
                </div>
-               <div className="category-section-row">
-                   <label className="mr20">适用航段</label> 
-                   <Select defaultValue="" style={{ width: "120px" }} >
-                      <Option value="">不限</Option>
-                      <Option value="1">适用</Option>
-                      <Option value="2">不适用</Option>
-                   </Select>
-               </div>
+               
                <div className="category-section-row">
                     <label className="mr20">适用星期</label>
                     <CheckboxGroup options={options}  className="inline-block"
@@ -124,12 +140,14 @@ class Category4 extends Component {
                </div>
                <div className="category-section-row">
                     <label className="mr20">适用时刻</label>
-                    <Input style={{width:'60px'}} />
+                    <TimePicker  style={{width:'80px'}} 
+                        defaultValue={moment('12:08', format)} 
+                        format={format} />
                     <span className="mlr5">-</span>
-                    <Input style={{width:'60px'}} />
-                    <span className="mlr15">
-                        <Button shape="circle" icon="plus" />
-                    </span>
+                    <TimePicker  style={{width:'80px'}} 
+                        defaultValue={moment('12:08', format)} 
+                        format={format} />
+                    <span className="ml15 oper-bg"><Icon type="plus" /></span>
                </div>
 
                <div className="category-section-row">
@@ -137,10 +155,7 @@ class Category4 extends Component {
                         columns={columns} pagination={false}
                         bordered={true}/>
                </div>
-               <div className="category-section-row">
-                   <DatePicker  />
-               </div>
-               
+              
             </div>
         )
     }
