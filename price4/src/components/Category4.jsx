@@ -151,7 +151,8 @@ class Category4 extends Component {
                </div>
 
                <div className="category-section-row">
-                    <Table dataSource={dataSource} size="small" 
+                    <Table dataSource={dataSource} 
+                        size="small" style={{maxWidth:'830px'}}
                         columns={columns} pagination={false}
                         bordered={true}/>
                </div>
