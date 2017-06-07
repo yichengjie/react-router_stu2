@@ -75,6 +75,9 @@ const columns = [{
 
 
 class Category4 extends Component {
+
+    
+
     render(){
         return (
             <div className="category-container">
