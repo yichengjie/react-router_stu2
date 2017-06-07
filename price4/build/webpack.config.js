@@ -60,6 +60,8 @@ module.exports = {
     externals: {
         "react": "React",
         "react-dom": "ReactDOM",
+        "antd":"antd",
+        "moment":"moment" ,
         "jquery": "window.$",
         "jquery": "window.jQuery"
     },
