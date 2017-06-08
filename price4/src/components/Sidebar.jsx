@@ -50,10 +50,8 @@ class Sidebar extends React.Component {
           </Menu>
         </Sider>
         <Layout style={{height:'100%'}}>
-          <Content >
-              <div style={{ padding: 24, background: '#fff', minHeight: 360 }}>
-                    {this.props.children}                 
-              </div>
+          <Content style={{ margin: '0 16px 0 16px' }}>
+              {this.props.children}                 
           </Content>
           <Footer style={{ textAlign: 'center',height:'50px' }}>
                 Price2.0 ©2017 Created by FGUI 

@@ -3,6 +3,7 @@ import moment from 'moment';
 import {Select,Input,Radio,Checkbox,Icon,Button,Table,TimePicker} from 'antd';
 const Option = Select.Option;
 const RadioGroup = Radio.Group;
+const RadioButton = Radio.Button;
 const CheckboxGroup = Checkbox.Group;
 
 const format = 'HH:mm';
@@ -82,6 +83,7 @@ class Category4 extends Component {
         return (
             <div className="category-container">
                <CategorySection>基础信息</CategorySection>
+               
                <div className="category-section-row">
                    <label className="mr15">机型</label>
                    <Select defaultValue="" style={{ width: "100px" }} >
@@ -102,10 +104,17 @@ class Category4 extends Component {
                    </Select>
                    <span className="mr15"></span>
                    <Input style={{width:"150px"}} placeholder="承运人"/> 
-                </div>
+               </div>
                
-               <CategorySection>去程信息</CategorySection> 
-               <div className="category-section-row">
+               <CategorySection>航班信息</CategorySection>
+                 <div className="category-section-row">
+                    <RadioGroup defaultValue={1}>
+                        <RadioButton value={1}>去程航班</RadioButton>
+                        <RadioButton value={2}>回程航班</RadioButton>
+                    </RadioGroup>
+                    <span className="fr"><Button type="primary">添加</Button></span>
+                 </div> 
+                 <div className="category-section-row">
                     <label className="mr20">航班计划适用于</label>
                     <RadioGroup defaultValue={2}>
                         <Radio value={1}>正班/加班</Radio>

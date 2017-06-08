@@ -1,8 +1,10 @@
+
 #app{
     height: 100% ;
 }
 .category-container{
     display: block ;
+    margin: 0 10px ;
     height: 100% ;
 }
 .category-section-title{
@@ -78,11 +80,12 @@
 .inline-block {
     display: inline-block ;
 }
+
 .oper-bg{
     display: inline-block ;
-    width: 18px;
+    width: 14px;
     height: 18px;
-    background: #eee ;
+    background: #bbb ;
     text-align: center ;
     border-radius: 2px ;
     font-weight: 700;
@@ -98,6 +101,7 @@
   line-height: 32px;
   font-size: 16px;
   color: white ;
+  text-align: center ;
 }
 /*当sidebar折叠的时候图标字体变大*/
 #components-layout-demo-side .ant-layout-sider-collapsed .anticon {
@@ -115,4 +119,12 @@
 }
 #components-layout-demo-side .ant-layout-content{
     background: #fff ;
+}
+.fr{
+    float: right ;
+}
+.fr:after{
+    content: '';
+    display: table ;
+    clear: both;
 }
