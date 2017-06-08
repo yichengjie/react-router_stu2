@@ -1,6 +1,7 @@
 import  React,{Component} from 'react' ;
+import FlightInfoItem from './FlightInfoItem.jsx' ;
 import moment from 'moment';
-import {Select,Input,Radio,Checkbox,Icon,Button,Table,TimePicker,message} from 'antd';
+import {Select,Input,Radio,Checkbox,Icon,Button,TimePicker,message} from 'antd';
 const Option = Select.Option;
 const RadioGroup = Radio.Group;
 const RadioButton = Radio.Button;
@@ -26,53 +27,6 @@ const options = [
   { label: '星期日', value: '7' },
 ];
 
-const dataSource = [{
-  key: '1',
-  name1: '胡彦斌',
-  name2: 32,
-  name3: '西湖区湖底公园1号',
-  name4: '西湖区湖底公园1号',
-  name5: '西湖区湖底公园1号'
-}, {
-  key: '2',
-  name1: '胡彦斌',
-  name2: 32,
-  name3: '西湖区湖底公园1号',
-  name4: '西湖区湖底公园1号',
-  name5: '西湖区湖底公园1号'
-}];
-
-const columns = [{
-  title: '序号',
-  dataIndex: 'name1',
-  key: 'name1',
-}, {
-  title: '航班号.从',
-  dataIndex: 'name2',
-  key: 'name2',
-}, {
-  title: '航班号.至',
-  dataIndex: 'name3',
-  key: 'name3',
-},{
-    title: '是否适用',
-    dataIndex: 'name4',
-    key: 'name4',
-},{
-    title: '适用航段',
-    dataIndex: 'name5',
-    key: 'name5',
-},{
-  title: '操作',
-  key: 'action',
-  render: (text, record) => (
-    <span>
-      <a href="#">删</a>
-      <span className="ant-divider" />
-      <a href="#">改</a>
-    </span>
-  ),
-}];
 
 function getChangeValue(event){
     if(event && event.target){
@@ -80,7 +34,6 @@ function getChangeValue(event){
     }
     return event ;
 }
-
 
 class Category4 extends Component {
     constructor(props){
@@ -246,10 +199,7 @@ class Category4 extends Component {
                </div>
 
                <div className="category-section-row">
-                    <Table dataSource={dataSource} 
-                        size="small" style={{maxWidth:'830px'}}
-                        columns={columns} pagination={false}
-                        bordered={true}/>
+                    <FlightInfoItem />
                </div>
               
             </div>
