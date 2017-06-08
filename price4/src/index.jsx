@@ -3,7 +3,6 @@
 import React,{Component} from 'react';
 import ReactDOM from 'react-dom';
 //引入组件
-import Category4 from './components/Category4.jsx' ;
 import HelloComp from './components/HelloComp.jsx' ;
 import './style/index.less' ;
 

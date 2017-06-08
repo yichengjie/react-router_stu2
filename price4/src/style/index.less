@@ -1,28 +1,8 @@
-
+@import './category.less' ;
 #app{
     height: 100% ;
 }
-.category-container{
-    display: block ;
-    margin: 0 10px ;
-    height: 100% ;
-}
-.category-section-title{
-    display: block ;
-    height: 40px ;
-    line-height: 40px;
-    border-bottom: 1px solid #333 ;
-    margin-bottom: 10px;
-    .title{
-        display: inline-block ;
-        font-size: 14px;
-        font-weight: 500 ;
-    }
-}
-.category-section-row{
-    display: block ;
-    margin: 10px 0 ;
-}
+
 .mlr5{
     display: inline-block ;
     margin: 0 5px;
@@ -120,11 +100,17 @@
 #components-layout-demo-side .ant-layout-content{
     background: #fff ;
 }
-.fr{
+.float-right{
     float: right ;
 }
-.fr:after{
+.float-right:after{
     content: '';
     display: table ;
     clear: both;
+}
+.color-grey{
+    color: #bbb ;
+}
+.hand{
+    cursor: pointer;
 }
