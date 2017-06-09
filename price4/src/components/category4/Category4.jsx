@@ -1,7 +1,8 @@
 import  React,{Component} from 'react' ;
 import FlightInfoItem from './FlightInfoItem.jsx' ;
 import moment from 'moment';
-import {Select,Input,Radio,Checkbox,Icon,Button,TimePicker,message} from 'antd';
+import {Select,Input,Radio,Checkbox,Icon,Button,
+    TimePicker,message,Tag} from 'antd';
 const Option = Select.Option;
 const RadioGroup = Radio.Group;
 const RadioButton = Radio.Button;
@@ -138,7 +139,7 @@ class Category4 extends Component {
                </div>
                
                <CategorySection>航班信息</CategorySection>
-                 <div className="category-section-row">
+                 <div className="category-section-row" style={{width:'900px'}}>
                     <RadioGroup {...gsfp('flightType')}>
                         <RadioButton value="1">去程航班</RadioButton>
                         <RadioButton value="2">回程航班</RadioButton>

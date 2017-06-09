@@ -1,3 +1,4 @@
+@baseColor :#ddd ;
 .category-container{
     display: block ;
     margin: 0 10px ;
@@ -7,7 +8,7 @@
     display: block ;
     height: 40px ;
     line-height: 40px;
-    border-bottom: 1px solid #bbb ;
+    border-bottom: 1px solid @baseColor ;
     margin-bottom: 10px;
     .title{
         display: inline-block ;
@@ -36,17 +37,21 @@
 
 /*航班信息列表相关start*/
 .category-flight-info-container{
-    @baseColor :#eee ;
-    @boxWidth:900px;
+   
+    @baseBoxWidth:900px;
+    @contentLeftWidth:90px;
+
     display: block;
-    width: @boxWidth;
-    border: 1px solid @baseColor;
+    width: @baseBoxWidth;
+    border: 1px solid #ddd;
+    border-top: 0px ;
+    box-sizing: border-box ;
     min-height: 100px;
     .header{
         display: block ;
         height: 30px ;
         line-height: 30px;
-        background-color: @baseColor;
+        background-color: #ddd;
         white-space:nowrap;  
     }
     .header-item{
@@ -54,14 +59,41 @@
         font-size: 14px;
         font-weight: 500;
         padding: 0 5px;
-        width: 100px;
     }
-    .body-left{
-        display: inline-block ;
-        width: 
+
+    .content{
+        display: block ;
+        padding-top: 10px;
     }
-    .body-right{
+    .content-left{
         display: inline-block ;
+        box-sizing:border-box ;
+        width: @contentLeftWidth;
+        min-height: 20px;
+        vertical-align: top ;
+        text-align: center ;
+    }
+
+    .content-left-title{
+        display: inline-block ;
+        line-height: 25px;
+        background-color: @baseColor ;
+        padding: 0 10px;
+    }
+
+    .content-right{
+        display: inline-block ;
+        box-sizing:border-box ;
+        width: (@baseBoxWidth - @contentLeftWidth - 2);
+        min-height: 20px;
+        vertical-align: top ;
+        position: relative ;
+    }
+    .content-split-line{
+        position: absolute ;
+        width: 97% ;
+        bottom: 0px;
+        border-bottom: 1px solid #ccc ;
     }
 }
 /*航班信息列表end*/
