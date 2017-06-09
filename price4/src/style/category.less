@@ -37,7 +37,6 @@
 
 /*航班信息列表相关start*/
 .category-flight-info-container{
-   
     @baseBoxWidth:900px;
     @contentLeftWidth:90px;
 
@@ -87,12 +86,11 @@
         width: (@baseBoxWidth - @contentLeftWidth - 2);
         min-height: 30px;
         vertical-align: top ;
-        position: relative ;
+        overflow-y:auto;
+        max-height:300px;
     }
     .content-split-line{
-        position: absolute ;
         width: 97% ;
-        bottom: 0px;
         border-bottom: 1px solid #ccc ;
     }
     

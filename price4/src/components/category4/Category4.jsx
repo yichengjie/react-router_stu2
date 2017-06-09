@@ -1,5 +1,5 @@
 import  React,{Component} from 'react' ;
-import FlightInfoItem from './FlightInfoItem.jsx' ;
+import FlightInfoContainer from './FlightInfoContainer.jsx' ;
 import moment from 'moment';
 import {Select,Input,Radio,Checkbox,Icon,Button,
     TimePicker,message,Tag} from 'antd';
@@ -239,7 +239,7 @@ class Category4 extends Component {
                </div>
 
                <div className="category-section-row">
-                    <FlightInfoItem flightList1 ={this.state.flightList1} 
+                    <FlightInfoContainer flightList1 ={this.state.flightList1} 
                         flightList2 ={this.state.flightList2} />
                </div>
               

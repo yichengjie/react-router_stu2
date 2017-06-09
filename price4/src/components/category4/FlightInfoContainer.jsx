@@ -1,5 +1,6 @@
 import React,{Component} from 'react' ;
 import {Icon} from 'antd' ;
+import classNames from 'classnames' ;
 import Ellipsis from '../Ellipsis.jsx' ;
 
 
@@ -117,7 +118,7 @@ class FlightInfo extends Component{
     renderTr(item,index){
         let itemShowObj = getShowInfoObj(item) ;
         return (
-             <tr height="28px">
+             <tr height="28px" key ={index}>
                 <td width="50">{index + 1}</td>
                 <td width="120">{itemShowObj.flightPlanApplyType}</td>
                 <td width="170">
@@ -144,11 +145,14 @@ class FlightInfo extends Component{
                 return this.renderTr(item,index) ;
             }.bind(this)) ;
         }
-        return arr ;
+        return <tbody>{arr}</tbody> ;
     }
 
     render(){
-        let {splitLine} = this.props ;
+        let {splitLine,list=[]} = this.props ;
+        let splitLineClassName = classNames('content-split-line',{
+            'mt30':list.length == 0
+        }) ;
         return (
             <div className="content">
                 <div className="content-left">
@@ -158,7 +162,7 @@ class FlightInfo extends Component{
                     <table>
                         {this.renderTbody()}
                     </table>
-                    {/*这里是分割线*/splitLine ? <div className="content-split-line"></div> : null}
+                    {/*这里是分割线*/splitLine ? <div className={splitLineClassName}></div> : null}
                 </div>
             </div>
         ) ;
