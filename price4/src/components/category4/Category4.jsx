@@ -41,20 +41,21 @@ class Category4 extends Component {
         super(props) ;
         this.state = {
             formData:{
-                modelType:'' , //机型
+                modelType:'' , //机型 [空:不限,1:适用,2:不适用]
                 modelCode:'',  //机型代码       
-                codeShareFlightType:'',//代码共享航班类型
+                codeShareFlightType:'',//代码共享航班类型 [空:可适用,1:不适用,2:仅适用]
                 codeShareFlightCode:'',//代码共享航班代码
-                timeRangeList:[
+                timeRangeList:[//适用时刻范围段 
                     {start:'11:30',end:'12:10'},
                 ],
                 flightType:'1',//航班类型，1:去程航班，2:回程航班
-                flightPlanApplyType:'',//航班计划适用于
-                flightNoType:'',//航班号
-                flightNoCodeStart:'',//航班号起始值
+                flightPlanApplyType:'',//航班计划适用于 [空:正班/加班,1:正班,2:加班]
+                flightNoType:'',//航班号 [空:不限,1:仅适用,2:不适用]
+                flightNoCodeStart:'',//航班号起始值 
                 flightNoCodeEnd:'',//航班号结束
-                flightApplyRangeType:'',//适用航段类型
-                flightApplyWeek:[]
+                flightApplyRangeType:'',//适用航段类型 [空:'不限',1:首段,8:末段,
+                                        //2:第二段,3:第三段,4:第四段,5:第五段,6:第六段,7:第七段]
+                flightApplyWeek:[] //[1:星期一,2:星期二,3:星期三,4:星期四,5:星期五,6:星期六,7:星期日]
             },
             flightList1:[],//去程信息
             flightList2:[]//回程信息
@@ -104,9 +105,41 @@ class Category4 extends Component {
        let newFormData = Object.assign({},formData,{timeRangeList}) ;
        this.setState({formData:newFormData}) ;
     }
+
+    getFlightInfoObj(){
+        let retObj = {
+            flightType:'' ,//这个字段仅为下面点击添加按钮时使用，之后不会显示到页面上
+            flightPlanApplyType:'',//航班计划适用于 [空:正班/加班,1:正班,2:加班]
+            flightNoType:'',//[空:不限,1:仅适用,2:不适用]
+            flightNoCodeStart:'',//000
+            flightNoCodeEnd:'',//999
+            flightApplyRangeType:'',//第一段，二段，三段,
+            flightApplyWeek:'',//星期
+            timeRangeList:'',//适用时刻
+        } ;
+        let {formData} = this.state ;
+        let keys = Object.keys(retObj) ;
+        keys.forEach(function(key){
+            retObj[key] = formData[key] ;
+        });
+        return retObj ;
+    }
+
+
     //添加航班信息
     handleAddFlightInfo = (e) => {
+        let retObj = this.getFlightInfoObj() ;
+        let {flightType,flightNoType} = retObj ; 
 
+        if(flightType === '1'){//去程信息
+            let flightList1 = [...this.state.flightList1] ;
+            flightList1.push(retObj) ;
+            this.setState({flightList1}) ;
+        }else{
+            let flightList2 = [...this.state.flightList2] ;
+            flightList2.push(retObj) ;
+            this.setState({flightList2}) ;
+        }
     }
 
     render(){
@@ -176,8 +209,14 @@ class Category4 extends Component {
                     <Select {...gsfp('flightApplyRangeType')} 
                         style={{ width: "90px" }} >
                       <Option value="">不限</Option>
-                      <Option value="1">适用</Option>
-                      <Option value="2">不适用</Option>
+                      <Option value="1">首段</Option>
+                      <Option value="8">末段</Option>
+                      <Option value="2">第二段</Option>
+                      <Option value="3">第三段</Option>
+                      <Option value="4">第四段</Option>
+                      <Option value="5">第五段</Option>
+                      <Option value="6">第六段</Option>
+                      <Option value="7">第七段</Option>
                     </Select>
                </div>
                
@@ -200,7 +239,8 @@ class Category4 extends Component {
                </div>
 
                <div className="category-section-row">
-                    <FlightInfoItem />
+                    <FlightInfoItem flightList1 ={this.state.flightList1} 
+                        flightList2 ={this.state.flightList2} />
                </div>
               
             </div>

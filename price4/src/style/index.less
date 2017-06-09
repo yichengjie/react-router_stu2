@@ -1,6 +1,7 @@
 @import './category.less' ;
 body{
     min-width: 1100px;
+    color: #333;
 }
 #app{
     height: 100% ;
@@ -120,4 +121,12 @@ body{
 }
 .hand{
     cursor: pointer;
+}
+.ellipsis{
+    display: inline-block ;
+    overflow:hidden;
+    text-overflow:ellipsis; 
+    -o-text-overflow:ellipsis;
+    white-space:nowrap;
+    width:200px;
 }
