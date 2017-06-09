@@ -231,11 +231,12 @@ class Category4 extends Component {
                     <ApplyTimeRangeList list={formData.timeRangeList} 
                         onDelete={this.handleDeleteTimeGroup} 
                         onChange={this.handleChangeTimeGroup}/>
-                    <span className="label oper-bg" 
-                        onClick={this.handleAddTimeGroup}>
-                       <Icon type="plus" />
+                    <span style={{lineHeight:'28px'}}>
+                        <span className="time-add-bg label" onClick={this.handleAddTimeGroup}>
+                         <Icon type="plus" />
+                        </span>
+                        <span className="ml5 color-grey label">限最多10组</span>
                     </span>
-                    <span className="label ml5 color-grey">限最多10组</span>
                </div>
 
                <div className="category-section-row">

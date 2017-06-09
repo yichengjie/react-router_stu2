@@ -106,14 +106,17 @@ function getShowInfoObj(item){
 class FlightInfo extends Component{
     renderFlightNoIcon(item){
         let {flightNoType} = item ;
-        if(flightNoType === '2'){
+        if(flightNoType === '1'){
+            return (<Icon type="check-square-o" className="mr5" 
+                        style={{color:'green'}}/>) ;
+        }else if(flightNoType === '2'){
             return (
-                <Icon type="minus-square-o" className="mr5" 
+                <Icon type="close-square-o" className="mr5" 
                     style={{color:'#FF6600'}}/>
             ) ;
+        }else{
+            return null ;
         }
-        return (<Icon type="check-square-o" className="mr5" 
-                        style={{color:'green'}}/>) ;
     }
     renderTr(item,index){
         let itemShowObj = getShowInfoObj(item) ;
