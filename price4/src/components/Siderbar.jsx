@@ -54,14 +54,10 @@ class Siderbar extends React.Component {
 
   onCollapse = (collapsed) => {
     console.log(`collapsed :${collapsed}`);
-
-    
-
     this.setState({
       collapsed,
       mode: collapsed ? 'vertical' : 'inline',
     });
-    
   }
   render() {
     return (
@@ -107,9 +103,12 @@ class Siderbar extends React.Component {
         </Sider>
         <Layout style={{height:'100%'}}>
           <Content>
+            <div>
               <Route exact path="/" component={Category4Query}/>
               <Route exact path="/rule-category" component={Category4Query}/>
-              <Route exact path="/rule-category-edit" component={Category4Edit}/>
+              <Route exact path="/rule-category-edit" 
+                component={Category4Edit}/>
+            </div>
           </Content>
           <Footer style={{ textAlign: 'center',height:'50px' }}>
                 Price2.0 ©2017 Created by FGUI 
