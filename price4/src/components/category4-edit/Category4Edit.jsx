@@ -1,6 +1,7 @@
 import  React,{Component} from 'react' ;
 import FlightInfoContainer from './FlightInfoContainer.jsx' ;
 import moment from 'moment';
+import {Link} from 'react-router-dom' ;
 import {Select,Input,Radio,Checkbox,Icon,Button,
     TimePicker,message,Tag} from 'antd';
 const Option = Select.Option;
@@ -158,7 +159,7 @@ class Category4 extends Component {
                <div className="category-section-row">
                     <Button type="primary" >保存</Button>
                     <Button className="mlr15">清空</Button>
-                    <Button>返回</Button>
+                    <Button><Link to="/rule-category">返回</Link></Button>
                </div>
                <CategorySection>基础信息</CategorySection>
                <div className="category-section-row">
