@@ -40,7 +40,7 @@ app.use(devMiddleware)
 app.use(hotMiddleware)
 
 // 监听 3000端口，开启服务器
-app.listen(3000, function (err) {
+app.listen(8080, function (err) {
     if (err) {
         console.log(err)
         return
