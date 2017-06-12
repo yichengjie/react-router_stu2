@@ -155,6 +155,11 @@ class Category4 extends Component {
         let gsfp = this.getSimpleFieldProps.bind(this) ;
         return (
             <div className="category-container">
+               <div className="category-section-row">
+                    <Button type="primary" >保存</Button>
+                    <Button className="mlr15">清空</Button>
+                    <Button>返回</Button>
+               </div>
                <CategorySection>基础信息</CategorySection>
                <div className="category-section-row">
                    <label className="mr15">机型</label>
