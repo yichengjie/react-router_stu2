@@ -7,7 +7,6 @@ const Option = Select.Option;
 const RadioGroup = Radio.Group;
 const RadioButton = Radio.Button;
 const CheckboxGroup = Checkbox.Group;
-
 const format = 'HH:mm';
 
 function CategorySection (props){
@@ -41,36 +40,55 @@ class Category4 extends Component {
         super(props) ;
         this.state = {
             formData:{
-                modelType:'' , //机型 [空:不限,1:适用,2:不适用]
-                modelCode:'',  //机型代码       
-                codeShareFlightType:'',//代码共享航班类型 [空:可适用,1:不适用,2:仅适用]
-                codeShareFlightCode:'',//代码共享航班代码
-                timeRangeList:[//适用时刻范围段 
+                modelType:'' , //(1)机型 [空:不限,1:适用,2:不适用]
+                modelCode:'',  //(2)机型代码       
+                codeShareFlightType:'',//(3)代码共享航班类型 [空:可适用,1:不适用,2:仅适用]
+                codeShareFlightCode:'',//(4)代码共享航班代码
+                timeRangeList:[//(5)适用时刻范围段 
                     {start:'11:30',end:'12:10'},
                 ],
-                flightType:'1',//航班类型，1:去程航班，2:回程航班
-                flightPlanApplyType:'',//航班计划适用于 [空:正班/加班,1:正班,2:加班]
-                flightNoType:'',//航班号 [空:不限,1:仅适用,2:不适用]
-                flightNoCodeStart:'',//航班号起始值 
-                flightNoCodeEnd:'',//航班号结束
-                flightApplyRangeType:'',//适用航段类型 [空:'不限',1:首段,8:末段,
+                flightType:'1',//(6)航班类型，1:去程航班，2:回程航班
+                flightPlanApplyType:'',//(7)航班计划适用于 [空:正班/加班,1:正班,2:加班]
+                flightNoType:'',//(8)航班号 [空:不限,1:仅适用,2:不适用]
+                flightNoCodeStart:'',//(9)航班号起始值 
+                flightNoCodeEnd:'',//(10)航班号结束
+                flightApplyRangeType:'',//(11)适用航段类型 [空:'不限',1:首段,8:末段,
                                         //2:第二段,3:第三段,4:第四段,5:第五段,6:第六段,7:第七段]
-                flightApplyWeek:[] //[1:星期一,2:星期二,3:星期三,4:星期四,5:星期五,6:星期六,7:星期日]
+                flightApplyWeek:[] //(12)适用星期[1:星期一,2:星期二,3:星期三,4:星期四,5:星期五,6:星期六,7:星期日]
             },
             flightList1:[],//去程信息
             flightList2:[]//回程信息
         } ;
     }
 
+     //从页面填写的数据组装一条航班信息列表
+    assembleFlightInfoObjByFormData(){
+        let {formData} = this.state ;
+        let retObj = _.cloneDeep(formData) ;
+        return retObj ;
+    }
+   
+
     handleSimpleFieldChangeFactory(fieldName){
         let formData = this.state.formData ;
         return (event) => {
             let value = getChangeValue(event) ;
+            //星期天需要排序
+            this.delFlightApplyWeek(fieldName,value) ;
             let newFormData = Object.assign({},formData,{[fieldName]:value}) ; 
             this.setState({formData:newFormData}) ;
         }
     }
 
+     //星期天需要从大到小进行排序
+    delFlightApplyWeek(fieldName,value){
+        if(fieldName === 'flightApplyWeek' && value && value.length > 1){
+            value.sort(function(a,b){
+                return a - b
+            }) ;
+        }
+        return value ;
+    }
 
     getSimpleFieldProps(fieldName){
         let formData = this.state.formData ;
@@ -106,31 +124,14 @@ class Category4 extends Component {
        this.setState({formData:newFormData}) ;
     }
 
-    getFlightInfoObj(){
-        let retObj = {
-            flightType:'' ,//这个字段仅为下面点击添加按钮时使用，之后不会显示到页面上
-            flightPlanApplyType:'',//航班计划适用于 [空:正班/加班,1:正班,2:加班]
-            flightNoType:'',//[空:不限,1:仅适用,2:不适用]
-            flightNoCodeStart:'',//000
-            flightNoCodeEnd:'',//999
-            flightApplyRangeType:'',//第一段，二段，三段,
-            flightApplyWeek:'',//星期
-            timeRangeList:'',//适用时刻
-        } ;
-        let {formData} = this.state ;
-        let keys = Object.keys(retObj) ;
-        keys.forEach(function(key){
-            retObj[key] = formData[key] ;
-        });
-        return retObj ;
-    }
+   
 
+    
 
     //添加航班信息
     handleAddFlightInfo = (e) => {
-        let retObj = this.getFlightInfoObj() ;
+        let retObj = this.assembleFlightInfoObjByFormData() ;
         let {flightType,flightNoType} = retObj ; 
-
         if(flightType === '1'){//去程信息
             let flightList1 = [...this.state.flightList1] ;
             flightList1.push(retObj) ;
