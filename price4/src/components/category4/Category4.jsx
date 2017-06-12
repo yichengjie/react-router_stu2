@@ -124,10 +124,6 @@ class Category4 extends Component {
        this.setState({formData:newFormData}) ;
     }
 
-   
-
-    
-
     //添加航班信息
     handleAddFlightInfo = (e) => {
         let retObj = this.assembleFlightInfoObjByFormData() ;
@@ -141,6 +137,17 @@ class Category4 extends Component {
             flightList2.push(retObj) ;
             this.setState({flightList2}) ;
         }
+    }
+    
+    handeleDeleteFlightInfo = (name,index) => {
+        let newList = [...this.state[name]] ;
+        newList.splice(index,1) ;
+        this.setState({[name]:newList}) ;
+    }
+
+    handleModifyFlightInfo = (name,index) =>{
+       let obj = _.cloneDeep(this.state[name][index] );
+       this.setState({formData:obj}) ;
     }
 
     render(){
@@ -180,7 +187,7 @@ class Category4 extends Component {
                     </RadioGroup>
 
                     <span className="float-right">
-                        <Button type="primary" onClick={this.handleAddFlightInfo}>添加</Button>
+                        <Button type="primary" onClick={this.handleAddFlightInfo}>保存</Button>
                     </span>
                  </div> 
                  <div className="category-section-row">
@@ -242,7 +249,9 @@ class Category4 extends Component {
 
                <div className="category-section-row">
                     <FlightInfoContainer flightList1 ={this.state.flightList1} 
-                        flightList2 ={this.state.flightList2} />
+                        flightList2 ={this.state.flightList2} 
+                        onDelete={this.handeleDeleteFlightInfo}
+                        onModify={this.handleModifyFlightInfo}/>
                </div>
               
             </div>
@@ -289,6 +298,10 @@ class ApplyTimeRangeItem extends Component{
         ) ;
     }
 }
+
+
+
+
 
 class ApplyTimeRangeList extends Component {
     renderAllGroup(){

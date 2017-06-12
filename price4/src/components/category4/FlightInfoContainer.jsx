@@ -17,8 +17,17 @@ function FlightInfoContainer (props){
                     <span className="header-item" style={{width:'200px'}}>适用时刻</span>
                     <span className="header-item" style={{width:'80px'}}>操作</span>
                 </div>
-                <FlightInfo label="去程航班" splitLine list = {props.flightList1}/>
-                <FlightInfo label="回程航班" list = {props.flightList2}/>
+                <FlightInfo label="去程航班" 
+                    splitLine 
+                    name='flightList1'
+                    list = {props.flightList1}
+                    onDelete={props.onDelete}
+                    onModify={props.onModify}/>
+                <FlightInfo label="回程航班" 
+                    name='flightList2'
+                    list = {props.flightList2}
+                    onDelete={props.onDelete}
+                    onModify={props.onModify}/>
             </div>
         ) ;
 }
@@ -79,7 +88,6 @@ function getTimeRangeListStr(timeRangeList){
 
 
 
-
 function getShowInfoObj(item){
     let obj = {
         flightPlanApplyType:'',//航班计划适用于 [空:正班/加班,1:正班,2:加班]
@@ -118,6 +126,21 @@ class FlightInfo extends Component{
             return null ;
         }
     }
+
+    handleDeleteOprFactory(index){
+        let {name} = this.props ;
+        return function(){
+            this.props.onDelete(name,index) ;
+        }.bind(this) ;
+    }
+
+    handleModifyOperFactory(index){
+        let {name} = this.props ;
+        return function(){
+            this.props.onModify(name,index) ;
+        }.bind(this) ;
+    }
+
     renderTr(item,index){
         let itemShowObj = getShowInfoObj(item) ;
         return (
@@ -136,7 +159,12 @@ class FlightInfo extends Component{
                 <td width="200"> 
                     <Ellipsis>{itemShowObj.timeRangeList}</Ellipsis>
                 </td>
-                <td width="80"><Icon type="delete" className="oper-icon" /></td>
+                <td width="80">
+                    <Icon type="delete" className="oper-icon mr10"  
+                        onClick={this.handleDeleteOprFactory(index)} />
+                    <Icon type="edit" className="oper-icon"
+                        onClick ={this.handleModifyOperFactory(index)}/>
+                </td>
             </tr>
         ) ;
     }
