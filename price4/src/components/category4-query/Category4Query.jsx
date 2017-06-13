@@ -3,6 +3,8 @@ import {Button,Icon} from 'antd';
 import {Link} from 'react-router-dom' ;
 import FlightInfoContainer from '../category4-edit/FlightInfoContainer.jsx' ;
 
+let timeObj = {start:'11:20',end:'12:20'} ;
+
 let list1 = [{
     flightPlanApplyType:'',
     flightNoType:'1',
@@ -10,7 +12,7 @@ let list1 = [{
     flightNoCodeEnd:'999',
     flightApplyRangeType:'2',
     flightApplyWeek:['1','2','3'],
-    timeRangeList:[{start:'11:20',end:'12:20'},{start:'11:20',end:'12:20'}]
+    timeRangeList:[timeObj,timeObj]
 },
 {
     flightPlanApplyType:'1',
@@ -18,8 +20,8 @@ let list1 = [{
     flightNoCodeStart:'000',
     flightNoCodeEnd:'999',
     flightApplyRangeType:'3',
-    flightApplyWeek:['1','2','3'],
-    timeRangeList:[{start:'11:20',end:'12:20'}]
+    flightApplyWeek:['1','2','3','4','5','6','7'],
+    timeRangeList:[timeObj,timeObj,timeObj]
 },
 {
     flightPlanApplyType:'2',
@@ -28,7 +30,105 @@ let list1 = [{
     flightNoCodeEnd:'999',
     flightApplyRangeType:'4',
     flightApplyWeek:['1','2','3'],
-    timeRangeList:[{start:'11:20',end:'12:20'}]
+    timeRangeList:[timeObj]
+},
+{
+    flightPlanApplyType:'1',
+    flightNoType:'1',
+    flightNoCodeStart:'000',
+    flightNoCodeEnd:'999',
+    flightApplyRangeType:'2',
+    flightApplyWeek:['1','2','3'],
+    timeRangeList:[timeObj]
+},
+{
+    flightPlanApplyType:'1',
+    flightNoType:'1',
+    flightNoCodeStart:'000',
+    flightNoCodeEnd:'999',
+    flightApplyRangeType:'2',
+    flightApplyWeek:['1','2','3'],
+    timeRangeList:[timeObj]
+},
+{
+    flightPlanApplyType:'1',
+    flightNoType:'1',
+    flightNoCodeStart:'000',
+    flightNoCodeEnd:'999',
+    flightApplyRangeType:'2',
+    flightApplyWeek:['1','2','3'],
+    timeRangeList:[timeObj]
+},
+{
+    flightPlanApplyType:'1',
+    flightNoType:'1',
+    flightNoCodeStart:'000',
+    flightNoCodeEnd:'999',
+    flightApplyRangeType:'2',
+    flightApplyWeek:['1','2','3'],
+    timeRangeList:[timeObj]
+},
+{
+    flightPlanApplyType:'1',
+    flightNoType:'1',
+    flightNoCodeStart:'000',
+    flightNoCodeEnd:'999',
+    flightApplyRangeType:'2',
+    flightApplyWeek:['1','2','3'],
+    timeRangeList:[timeObj]
+},
+{
+    flightPlanApplyType:'1',
+    flightNoType:'1',
+    flightNoCodeStart:'000',
+    flightNoCodeEnd:'999',
+    flightApplyRangeType:'2',
+    flightApplyWeek:['1','2','3'],
+    timeRangeList:[timeObj]
+},{
+    flightPlanApplyType:'1',
+    flightNoType:'1',
+    flightNoCodeStart:'000',
+    flightNoCodeEnd:'999',
+    flightApplyRangeType:'2',
+    flightApplyWeek:['1','2','3'],
+    timeRangeList:[timeObj]
+},
+{
+    flightPlanApplyType:'1',
+    flightNoType:'1',
+    flightNoCodeStart:'000',
+    flightNoCodeEnd:'999',
+    flightApplyRangeType:'2',
+    flightApplyWeek:['1','2','3'],
+    timeRangeList:[timeObj]
+},
+{
+    flightPlanApplyType:'1',
+    flightNoType:'1',
+    flightNoCodeStart:'000',
+    flightNoCodeEnd:'999',
+    flightApplyRangeType:'2',
+    flightApplyWeek:['1','2','3'],
+    timeRangeList:[timeObj]
+},
+{
+    flightPlanApplyType:'1',
+    flightNoType:'1',
+    flightNoCodeStart:'000',
+    flightNoCodeEnd:'999',
+    flightApplyRangeType:'2',
+    flightApplyWeek:['1','2','3'],
+    timeRangeList:[timeObj]
+},
+{
+    flightPlanApplyType:'1',
+    flightNoType:'1',
+    flightNoCodeStart:'000',
+    flightNoCodeEnd:'999',
+    flightApplyRangeType:'2',
+    flightApplyWeek:['1','2','3'],
+    timeRangeList:[timeObj]
 }];
 
 class Category4Query extends Component{
