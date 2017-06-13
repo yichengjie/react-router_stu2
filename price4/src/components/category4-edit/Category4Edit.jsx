@@ -193,7 +193,8 @@ class Category4 extends Component {
                     </RadioGroup>
 
                     <span className="float-right">
-                        <Button type="primary" onClick={this.handleAddFlightInfo}>保存</Button>
+                        <Button type="default"
+                            onClick={this.handleAddFlightInfo}>保存</Button>
                     </span>
                  </div> 
                  <div className="category-section-row">
@@ -254,10 +255,13 @@ class Category4 extends Component {
                </div>
 
                <div className="category-section-row">
-                    <FlightInfoContainer flightList1 ={this.state.flightList1} 
+                    <FlightInfoContainer 
+                        flightList1 ={this.state.flightList1} 
                         flightList2 ={this.state.flightList2} 
                         onDelete={this.handeleDeleteFlightInfo}
-                        onModify={this.handleModifyFlightInfo}/>
+                        onModify={this.handleModifyFlightInfo}
+                        showOperBtn={true}
+                    />
                </div>
               
             </div>

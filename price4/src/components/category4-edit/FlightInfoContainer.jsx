@@ -3,31 +3,51 @@ import {Icon} from 'antd' ;
 import classNames from 'classnames' ;
 import Ellipsis from '../Ellipsis.jsx' ;
 
+let tdWidthArr = [70,120,170,80,100,200,60] ;
+
+function getItemWidth(index,showOperBtn,unit){
+    let w = tdWidthArr[index] ;
+    let t = showOperBtn ? w : (w + 10) ;
+    t = unit ? (t + 'px') : t ;
+    return {width:t} ;
+}
+
 
 function FlightInfoContainer (props){
+    let {showOperBtn} = props ;
+    let headerClassName = classNames('header',{
+        'bg-ddd':showOperBtn 
+    }) ;
     return(
             <div className="category-flight-info-container">
-                <div className="header">
+                <div className={headerClassName}>
                     <span className="header-item" style={{width:'90px'}}></span>
-                    <span className="header-item" style={{width:'50px'}}>序号</span>
-                    <span className="header-item" style={{width:'120px'}}>航班计划适用于</span>
-                    <span className="header-item" style={{width:'170px'}}>航班号</span>
-                    <span className="header-item" style={{width:'80px'}}>适用航段</span>
-                    <span className="header-item" style={{width:'100px'}}>适用星期</span>
-                    <span className="header-item" style={{width:'200px'}}>适用时刻</span>
-                    <span className="header-item" style={{width:'80px'}}>操作</span>
+                    <span className="header-item" style={getItemWidth(0,showOperBtn,true)}>序号</span>
+                    <span className="header-item" style={getItemWidth(1,showOperBtn,true)}>航班计划适用于</span>
+                    <span className="header-item" style={getItemWidth(2,showOperBtn,true)}>航班号</span>
+                    <span className="header-item" style={getItemWidth(3,showOperBtn,true)}>适用航段</span>
+                    <span className="header-item" style={getItemWidth(4,showOperBtn,true)}>适用星期</span>
+                    <span className="header-item" style={getItemWidth(5,showOperBtn,true)}>适用时刻</span>
+                    {showOperBtn ? (<span className="header-item" 
+                                    style={getItemWidth(6,showOperBtn,true)}>操作</span> )
+                                    : null
+                    }
                 </div>
                 <FlightInfo label="去程航班" 
                     splitLine 
                     name='flightList1'
                     list = {props.flightList1}
                     onDelete={props.onDelete}
-                    onModify={props.onModify}/>
+                    onModify={props.onModify}
+                    showOperBtn={showOperBtn}
+                />
                 <FlightInfo label="回程航班" 
                     name='flightList2'
                     list = {props.flightList2}
                     onDelete={props.onDelete}
-                    onModify={props.onModify}/>
+                    onModify={props.onModify}
+                     showOperBtn={showOperBtn}
+                />
             </div>
         ) ;
 }
@@ -140,31 +160,42 @@ class FlightInfo extends Component{
             this.props.onModify(name,index) ;
         }.bind(this) ;
     }
+    //显示操作列的td
+    renderOperTd(index){
+        let {showOperBtn} = this.props ;
+        if(!showOperBtn){
+            return null;
+        }
+        return (
+            <td {...getItemWidth(6,showOperBtn,false)}>
+                <Icon type="delete" className="oper-icon mr10"  
+                    onClick={this.handleDeleteOprFactory(index)} />
+                <Icon type="edit" className="oper-icon"
+                    onClick ={this.handleModifyOperFactory(index)}/>
+            </td>
+        ) ;
+    }
 
     renderTr(item,index){
+        let {showOperBtn} = this.props ;
         let itemShowObj = getShowInfoObj(item) ;
         return (
              <tr height="28px" key ={index}>
-                <td width="50">{index + 1}</td>
-                <td width="120">{itemShowObj.flightPlanApplyType}</td>
-                <td width="170">
+                <td {...getItemWidth(0,showOperBtn,false)}>{index + 1}</td>
+                <td {...getItemWidth(1,showOperBtn,false)}>{itemShowObj.flightPlanApplyType}</td>
+                <td {...getItemWidth(2,showOperBtn,false)}>
                     {this.renderFlightNoIcon(item)}
                     {itemShowObj.flightNoType + ' ' + 
                      itemShowObj.flightNoCodeStart + '-' +  
                      itemShowObj.flightNoCodeEnd
                     } 
                 </td>
-                <td width="80">{itemShowObj.flightApplyRangeType}</td>
-                <td width="100">{itemShowObj.flightApplyWeek}</td>
-                <td width="200"> 
+                <td {...getItemWidth(3,showOperBtn,false)}>{itemShowObj.flightApplyRangeType}</td>
+                <td {...getItemWidth(4,showOperBtn,false)}>{itemShowObj.flightApplyWeek}</td>
+                <td {...getItemWidth(5,showOperBtn,false)}> 
                     <Ellipsis>{itemShowObj.timeRangeList}</Ellipsis>
                 </td>
-                <td width="80">
-                    <Icon type="delete" className="oper-icon mr10"  
-                        onClick={this.handleDeleteOprFactory(index)} />
-                    <Icon type="edit" className="oper-icon"
-                        onClick ={this.handleModifyOperFactory(index)}/>
-                </td>
+                {this.renderOperTd(index)}
             </tr>
         ) ;
     }

@@ -1,7 +1,6 @@
 @baseColor :#ddd ;
 .category-section-title{
     display: block ;
-    height: 40px ;
     line-height: 40px;
     border-bottom: 1px solid @baseColor ;
     margin-bottom: 10px;
@@ -23,12 +22,13 @@
         background: @baseColor ;
         text-align: center ;
         border-radius: 2px ;
-        font-weight: 700;
+        font-weight: 600;
         line-height: 18px;
-        color:white ;
+        color:#fff ;
         cursor: pointer ;
     }
 }
+//分组input ，一行可以有多个，动态添加
 .category-input-list-container{
     display: inline-block ;
     max-width: 700px;
@@ -38,11 +38,23 @@
     display: inline-block ;
     margin-bottom: 5px;
 }
+
+
+.category-flight-info-descr{
+    width: 900px ;
+    line-height: 35px ;
+    background-color: @baseColor;
+    font-size: 14px;
+}
+
+.bg-ddd{
+   background-color: #ddd;
+}
+
 /*航班信息列表相关start*/
 .category-flight-info-container{
     @baseBoxWidth:900px;
     @contentLeftWidth:90px;
-
     display: block;
     width: @baseBoxWidth;
     border: 1px solid #ddd;
@@ -51,15 +63,12 @@
     min-height: 100px;
     .header{
         display: block ;
-        height: 30px ;
         line-height: 30px;
-        background-color: #ddd;
         white-space:nowrap;  
     }
     .header-item{
         display: inline-block ;
         font-size: 14px;
-        font-weight: 500;
         padding: 0 5px;
     }
 
