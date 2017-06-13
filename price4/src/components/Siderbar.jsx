@@ -20,14 +20,14 @@ class Siderbar extends React.Component {
      let currentOpenKey = this.getCurrentOpenKeyByLocation(location) ;
      this.state = {
        current,
-       currentOpenKey,
+       openKeys:[currentOpenKey],
        collapsed: false,
        mode: 'inline',
      }
   }
 
-  handleClick = (e) => {
-    //console.log('click ', e);
+  handleMenuItemClick = (e) => {
+    console.log('click ', e);
     this.setState({
       current: e.key,
     });
@@ -52,14 +52,31 @@ class Siderbar extends React.Component {
       return current
   }
 
+  handleMenuOpenChange = (openKeys) =>{
+      this.setState({
+        openKeys   
+      }) ;
+  }
+
+
+
   onCollapse = (collapsed) => {
     console.log(`collapsed :${collapsed}`);
+    let {openKeys} = [] ;
+    if(collapsed){//如果是折叠
+        this.openKeys = [...this.state.openKeys] ;
+        openKeys = [] ;
+    }else{//如果是展开折叠
+       openKeys = [...this.openKeys] ; 
+    }
     this.setState({
       collapsed,
       mode: collapsed ? 'vertical' : 'inline',
+      openKeys
     });
   }
   render() {
+    let {openKeys} = this.state;
     return (
       <Layout style={{height:'100%'}} id="components-layout-demo-side">
         <Sider 
@@ -71,9 +88,10 @@ class Siderbar extends React.Component {
           <div className="logo" > {this.state.collapsed ? 'EF':'EasyFare GUI'}</div>
           <Menu theme="dark" 
             mode={this.state.mode} 
-            onClick={this.handleClick}
-            defaultOpenKeys={[this.state.currentOpenKey]}
+            onClick={this.handleMenuItemClick}
+            openKeys={openKeys}
             selectedKeys={[this.state.current]}
+            onOpenChange={this.handleMenuOpenChange}
             >
             <SubMenu
               key="user"
