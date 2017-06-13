@@ -121,7 +121,7 @@ class Siderbar extends React.Component {
         </Sider>
         <Layout style={{height:'100%'}}>
           <Content>
-            <div>
+            <div style={{margin:'10px 10px 0 10px'}}>
               <Route exact path="/" component={Category4Query}/>
               <Route exact path="/rule-category" component={Category4Query}/>
               <Route exact path="/rule-category-edit" 
