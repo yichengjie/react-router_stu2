@@ -106,8 +106,6 @@ function getTimeRangeListStr(timeRangeList){
     return joinArr2Str(newArr) ;
 }
 
-
-
 function getShowInfoObj(item){
     let obj = {
         flightPlanApplyType:'',//航班计划适用于 [空:正班/加班,1:正班,2:加班]
@@ -167,12 +165,12 @@ class FlightInfo extends Component{
     renderFlightNoIcon(item){
         let {flightNoType} = item ;
         if(flightNoType === '1'){
-            return (<Icon type="check-square-o" className="mr5" 
-                        style={{color:'green'}}/>) ;
+            return (<Icon type="check-square-o" 
+                className="mr5 color-success" />) ;
         }else if(flightNoType === '2'){
             return (
-                <Icon type="close-square-o" className="mr5" 
-                    style={{color:'#FF6600'}}/>
+                <Icon type="close-square-o" 
+                    className="mr5 color-orange"/>
             ) ;
         }else{
             return null ;

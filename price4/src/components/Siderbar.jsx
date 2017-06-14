@@ -2,8 +2,8 @@ import { Layout, Menu, Breadcrumb, Icon } from 'antd';
 const { Header, Content, Footer, Sider } = Layout;
 const SubMenu = Menu.SubMenu ;
 import { Route, Link} from 'react-router-dom' ;
-import Category4Edit from './category4-edit/Category4Edit.jsx' ;
-import Category4Query from './category4-query/Category4Query.jsx' ;
+import Category4Edit from './category4/Category4Edit.jsx' ;
+import Category4Query from './category4/Category4Query.jsx' ;
 
 const defaultOpenKey = "rule" ;
 
