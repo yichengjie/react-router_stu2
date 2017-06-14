@@ -65,7 +65,7 @@ class Category4Query extends Component{
 function getFlightNoIcon(flightNoType){
     if(flightNoType === '1'){
         return (<Icon type="check-square-o" 
-                    className="mr5 color-green" />) ;
+                    className="mr5 color-success" />) ;
     }else if(flightNoType === '2'){
         return (
             <Icon type="close-square-o" 
