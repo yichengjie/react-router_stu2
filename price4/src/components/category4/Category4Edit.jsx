@@ -2,6 +2,8 @@ import  React,{Component} from 'react' ;
 import FlightInfoContainer from './FlightInfoContainer.jsx' ;
 import moment from 'moment';
 import {Link} from 'react-router-dom' ;
+import {queryCategory4ById} from './api/CommonApi.js' ;
+
 import {Select,Input,Radio,Checkbox,Icon,Button,
     TimePicker,message,Tag} from 'antd';
 const Option = Select.Option;
@@ -36,19 +38,25 @@ function getChangeValue(event){
     return event ;
 }
 
-class Category4 extends Component {
+class Category4Edit extends Component {
     constructor(props){
         super(props) ;
+        let  { match } = props ;
+        let id = match.params.id ;
         this.state = {
-            formData:{
+            id,
+            basicInfo:{
                 modelType:'' , //(1)机型 [空:不限,1:适用,2:不适用]
                 modelCode:'',  //(2)机型代码       
                 codeShareFlightType:'',//(3)代码共享航班类型 [空:可适用,1:不适用,2:仅适用]
                 codeShareFlightCode:'',//(4)代码共享航班代码
+            },
+            flightInfo:{
+                flightType:'1',//(6)航班类型，1:去程航班，2:回程航班
+                ///////////////////////////////////////////////
                 timeRangeList:[//(5)适用时刻范围段 
                     {start:'11:30',end:'12:10'},
                 ],
-                flightType:'1',//(6)航班类型，1:去程航班，2:回程航班
                 flightPlanApplyType:'',//(7)航班计划适用于 [空:正班/加班,1:正班,2:加班]
                 flightNoType:'',//(8)航班号 [空:不限,1:仅适用,2:不适用]
                 flightNoCodeStart:'',//(9)航班号起始值 
@@ -62,22 +70,46 @@ class Category4 extends Component {
         } ;
     }
 
+    async componentDidMount(){
+        let {id} = this.state ;
+        if(id && id.length > 0){
+           let retData = await queryCategory4ById(id) ;
+           let {category4} = retData ;
+           let {list1,list2,basicInfo} = category4 ;
+           let newBasicInfo = Object.assign({},this.state.basicInfo,basicInfo) ;
+           this.setState({
+               flightList1:list1 ,
+               flightList2:list2,
+               basicInfo:newBasicInfo
+           }) ;
+        }
+    }
+
      //从页面填写的数据组装一条航班信息列表
     assembleFlightInfoObjByFormData(){
-        let {formData} = this.state ;
-        let retObj = _.cloneDeep(formData) ;
+        let {flightInfo} = this.state ;
+        let retObj = _.cloneDeep(flightInfo) ;
         return retObj ;
     }
    
+    handleBaseInfoChangeFactory(fieldName){
+        let formDataName = "basicInfo" ;
+        return this._handleFormDataChange(fieldName,formDataName) ;
+    }
 
-    handleSimpleFieldChangeFactory(fieldName){
-        let formData = this.state.formData ;
+    handleFlightInfoChangeFactory(fieldName){
+        let formDataName = "flightInfo" ;
+        return this._handleFormDataChange(fieldName,formDataName) ;
+    }
+
+    _handleFormDataChange(fieldName,formDataName){
+        let formData = this.state[formDataName] ;
         return (event) => {
             let value = getChangeValue(event) ;
             //星期天需要排序
             this.delFlightApplyWeek(fieldName,value) ;
             let newFormData = Object.assign({},formData,{[fieldName]:value}) ; 
-            this.setState({formData:newFormData}) ;
+            this.setState({[formDataName]:newFormData}) ;
         }
     }
 
@@ -90,41 +122,36 @@ class Category4 extends Component {
         }
         return value ;
     }
-
-    getSimpleFieldProps(fieldName){
-        let formData = this.state.formData ;
+    //基础表单信息
+    getBaseInfoFieldProps = (fieldName) => {
+        let formDataName = "basicInfo" ;
+        let formData = this.state[formDataName] ;
         let value = formData[fieldName] ;
-        let onChange = this.handleSimpleFieldChangeFactory(fieldName) ;
+        let onChange = this.handleBaseInfoChangeFactory(fieldName) ;
+        return {value,onChange} ;
+    }
+    //航班号表单信息
+    getFlightInfoFieldProps = (fieldName) => {
+        let formDataName = "flightInfo" ;
+        let formData = this.state[formDataName] ;
+        let value = formData[fieldName] ;
+        let onChange = this.handleFlightInfoChangeFactory(fieldName) ;
         return {value,onChange} ;
     }
 
     handleAddTimeGroup = () =>{
-        let formData = this.state.formData ;
+        let formDataName = "flightInfo" ;
+        let formData = this.state[formDataName] ;
         let timeRangeList = [...formData.timeRangeList] ;
         if(timeRangeList.length < 10){
             timeRangeList.push({start:'',end:''}) ;
             let newFormData = Object.assign({},formData,{timeRangeList}) ;
-            this.setState({formData:newFormData}) ;
+            this.setState({[formDataName]:newFormData}) ;
         }else{
             message.error('最多添加10组!');
         }
     }
-    handleDeleteTimeGroup = (index)=>{
-       let formData = this.state.formData ;
-       let timeRangeList = [...formData.timeRangeList] ;
-       timeRangeList.splice(index,1) ;
-       let newFormData = Object.assign({},formData,{timeRangeList}) ;
-       this.setState({formData:newFormData}) ;
-    }
-    handleChangeTimeGroup = (index,fieldName,value) =>{
-       let formData = this.state.formData ;
-       let timeRangeList = [...formData.timeRangeList] ;
-       let oldObj = timeRangeList[index] ;
-       oldObj[fieldName] = value ;
-       let newFormData = Object.assign({},formData,{timeRangeList}) ;
-       this.setState({formData:newFormData}) ;
-    }
-
+    
     //添加航班信息
     handleAddFlightInfo = (e) => {
         let retObj = this.assembleFlightInfoObjByFormData() ;
@@ -148,12 +175,13 @@ class Category4 extends Component {
 
     handleModifyFlightInfo = (name,index) =>{
        let obj = _.cloneDeep(this.state[name][index] );
-       this.setState({formData:obj}) ;
+       this.setState({flightInfo:obj}) ;
     }
 
     render(){
-        let formData = this.state.formData ;
-        let gsfp = this.getSimpleFieldProps.bind(this) ;
+        let {flightInfo} = this.state ;
+        let gbfp = this.getBaseInfoFieldProps;
+        let gffp = this.getFlightInfoFieldProps;
         return (
             <div className="category-container">
                <div className="category-section-row">
@@ -164,30 +192,30 @@ class Category4 extends Component {
                <CategorySection>基础信息</CategorySection>
                <div className="category-section-row">
                    <label className="mr15">机型</label>
-                   <Select {...gsfp('modelType')} style={{ width: "100px" }} >
+                   <Select {...gbfp('modelType')} style={{ width: "100px" }} >
                       <Option value="">不限</Option>
                       <Option value="1">适用</Option>
                       <Option value="2">不适用</Option>
                    </Select>
                    <span className="mr10"></span>
-                   <Input style={{width:"150px"}}  {...gsfp('modelCode')} />
+                   <Input style={{width:"150px"}}  {...gbfp('modelCode')} />
                        
                    <span className="mlr15"></span>
 
                    <label className="mlr15">代码共享航班</label>
-                   <Select style={{ width: "100px" }} {...gsfp('codeShareFlightType')}  >
+                   <Select style={{ width: "100px" }} {...gbfp('codeShareFlightType')}  >
                       <Option value="">可适用</Option>
                       <Option value="1">不适用</Option>
                       <Option value="2">仅适用</Option>
                    </Select>
                    <span className="mr15"></span>
-                   <Input style={{width:"150px"}}  {...gsfp('codeShareFlightCode')} 
+                   <Input style={{width:"150px"}}  {...gbfp('codeShareFlightCode')} 
                          placeholder="承运人"/> 
                </div>
                
                <CategorySection>航班信息</CategorySection>
                  <div className="category-section-row" style={{width:'900px'}}>
-                    <RadioGroup {...gsfp('flightType')}>
+                    <RadioGroup {...gffp('flightType')}>
                         <RadioButton value="1">去程航班</RadioButton>
                         <RadioButton value="2">回程航班</RadioButton>
                     </RadioGroup>
@@ -200,27 +228,27 @@ class Category4 extends Component {
                  </div> 
                  <div className="category-section-row">
                     <label className="mr20">航班计划适用于</label>
-                    <RadioGroup {...gsfp('flightPlanApplyType')}>
+                    <RadioGroup {...gffp('flightPlanApplyType')}>
                         <Radio value="">正班/加班</Radio>
                         <Radio value="1">正班</Radio>
                         <Radio value="2">加班</Radio>
                     </RadioGroup>
                     <span className="mlr10"></span>
                     <label className="mlr10">航班号</label> 
-                    <Select {...gsfp('flightNoType')}
+                    <Select {...gffp('flightNoType')}
                         style={{ width: "90px" }} >
                         <Option value="">不限</Option>
                         <Option value="1">适用</Option>
                         <Option value="2">不适用</Option>
                     </Select>
                     <span className="ml10"></span>
-                    <Input style={{width:'60px'}} {...gsfp('flightNoCodeStart')} />
+                    <Input style={{width:'60px'}} {...gffp('flightNoCodeStart')} />
                     <span className="mlr5">-</span>
-                    <Input style={{width:'60px'}} {...gsfp('flightNoCodeEnd')}/>
+                    <Input style={{width:'60px'}} {...gffp('flightNoCodeEnd')}/>
                     
                     <span className="mlr10"></span>
                     <label className="mlr10">适用航段</label> 
-                    <Select {...gsfp('flightApplyRangeType')} 
+                    <Select {...gffp('flightApplyRangeType')} 
                         style={{ width: "90px" }} >
                       <Option value="">不限</Option>
                       <Option value="1">首段</Option>
@@ -238,13 +266,12 @@ class Category4 extends Component {
                     <label className="mr20">适用星期</label>
                     <CheckboxGroup options={options}  
                         className="inline-block"
-                        {...gsfp('flightApplyWeek')}/>
+                        {...gffp('flightApplyWeek')}/>
                </div>
                <div className="category-section-row">
                     <label className="mr20 label">适用时刻</label>
-                    <ApplyTimeRangeList list={formData.timeRangeList} 
-                        onDelete={this.handleDeleteTimeGroup} 
-                        onChange={this.handleChangeTimeGroup}/>
+                    <ApplyTimeRangeList 
+                        {...gffp('timeRangeList')}/>
                     <span style={{lineHeight:'28px'}}>
                         <span className="time-add-bg label" onClick={this.handleAddTimeGroup}>
                          <Icon type="plus" />
@@ -268,7 +295,7 @@ class Category4 extends Component {
         )
     }
 }
-export default Category4 ;
+export default Category4Edit ;
 
 
 function getFormatDateStr(str){
@@ -278,66 +305,83 @@ function getFormatDateStr(str){
     return  null; 
 }
 
-class ApplyTimeRangeItem extends Component{
-    handleDelete = () => {
-        let index = this.props.index ;
-        this.props.onDelete(index) ;
-    }
-    handleChangeFactory(fieldName){
-        let {index} = this.props ;
-        return (time,timeStr) => {
-           this.props.onChange(index,fieldName,timeStr) ;
-        } ;
-    }
-    render(){
-        let {start,end} = this.props;
-        return (
-            <span className="mr20 category-input-list-item">
-                <TimePicker  style={{width:'90px'}} 
-                    value = {getFormatDateStr(start)}
-                    onChange={this.handleChangeFactory('start')}
-                    format={format}  />
-                <span className="mlr5">-</span>
-                <TimePicker  style={{width:'90px'}} 
-                    value={getFormatDateStr(end)} 
-                    onChange={this.handleChangeFactory('end')}
-                    format={format} />
-                <Icon type="delete" className="hand ml5" 
-                    onClick={this.handleDelete} />
-            </span>
-        ) ;
-    }
-}
-
-
-
-
 
 class ApplyTimeRangeList extends Component {
+    handleChangeList = (newItemValue,index) => {
+        let {onChange,value} = this.props ;
+        let newValue = [...value] ;
+        newValue[index] = newItemValue ;
+        onChange(newValue) ;
+    }
+    handleDelete = (index) => {
+       let {onChange,value} = this.props ;
+       let newValue = [...value] ;
+       newValue.splice(index,1) ;
+       onChange(newValue) ;
+    }
     renderAllGroup(){
-        let {list,onDelete,onChange} = this.props ;
+        let {value,onChange,startFieldName,endFieldName} = this.props ;
         let retObj = null ;
+        let list = value ;
         if(list && list.length > 0){
-            retObj = list.map(function(item,index){
-                let {start,end} = item;
+            retObj = list.map((item,index) =>{
                 return (
                     <ApplyTimeRangeItem 
-                        onDelete={onDelete} 
+                        onDelete={this.handleDelete} 
+                        onChange={this.handleChangeList}
+                        value={item}
                         index={index}
-                        onChange={onChange}
-                        start={start} end={end}  
                         key ={index}/>
                 )
             }) ;
         }
         return retObj ;
     }
-
     render(){
         return (
             <div className="category-input-list-container">
                 {this.renderAllGroup()}
             </div>
+        ) ;
+    }
+}
+
+
+class ApplyTimeRangeItem extends Component{
+    static defaultProps = {
+        startFieldName:'start',
+        endFieldName:'end',
+        handleDelete:()=>{}
+    } ;
+    handleDelete = () => {
+        let index = this.props.index ;
+        this.props.onDelete(index) ;
+    }
+    handleChangeFactory(fieldName){
+        let {value,index} = this.props ;
+        return (time,timeStr) => {
+           let newValue = Object.assign({},value,{[fieldName]:timeStr}) ;
+           this.props.onChange(newValue,index) ;
+        } ;
+    }
+    render(){
+        let {startFieldName,endFieldName,value} = this.props ;
+        let startFieldValue = value[startFieldName] ;
+        let endFieldValue = value[endFieldName] ;
+        return (
+            <span className="mr20 category-input-list-item">
+                <TimePicker  style={{width:'90px'}} 
+                    value = {getFormatDateStr(startFieldValue)}
+                    onChange={this.handleChangeFactory(startFieldName)}
+                    format={format}  />
+                <span className="mlr5">-</span>
+                <TimePicker  style={{width:'90px'}} 
+                    value={getFormatDateStr(endFieldValue)} 
+                    onChange={this.handleChangeFactory(endFieldName)}
+                    format={format} />
+                <Icon type="delete" className="hand ml5" 
+                    onClick={this.handleDelete} />
+            </span>
         ) ;
     }
 }

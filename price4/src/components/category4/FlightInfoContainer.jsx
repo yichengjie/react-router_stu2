@@ -161,11 +161,12 @@ function getShowInfoObj(item){
 class FlightInfo extends PureComponent{
 
     constructor(props){
-        super(props) ;
+        super(props) ;//defaultShowOperBtn
         let {defaultShowAllRecord,defaultShowOperBtn} = this.props ;
         this.state = {
-            show5Record:defaultShowOperBtn,
-            showAllRecord:defaultShowAllRecord
+            show5Record:false,
+            showAllRecord:defaultShowAllRecord,
+            showOperBtn:defaultShowOperBtn
         } ;
     }
 
@@ -222,13 +223,13 @@ class FlightInfo extends PureComponent{
     }
     //显示操作列的td
     renderOperTd(index){
-        let {showOperBtn} = this.props ;
+        let {showOperBtn} = this.state ;
         if(!showOperBtn){
             return null;
         }
         return (
             <td {...getItemWidth(6,showOperBtn,false)}>
-                <Icon type="delete" className="oper-icon mr10"  
+                <Icon type="delete" className="oper-icon mr10 color-orange"  
                     onClick={this.handleDeleteOprFactory(index)} />
                 <Icon type="edit" className="oper-icon"
                     onClick ={this.handleModifyOperFactory(index)}/>

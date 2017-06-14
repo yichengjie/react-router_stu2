@@ -1,5 +1,5 @@
 import React,{Component} from 'react' ;
-import {Button,Icon} from 'antd';
+import {Button,Icon,notification} from 'antd';
 import {Link} from 'react-router-dom' ;
 import FlightInfoContainer from './FlightInfoContainer.jsx' ;
 import {queryAllCategory4} from './api/CommonApi.js' ;
@@ -9,14 +9,14 @@ class Category4Query extends Component{
     constructor(props){
         super(props) ;
         this.state = {
-            list:[]               
+            list:{}               
         }
     }
     async componentDidMount(){
       let retData = await queryAllCategory4() ;
-      let {categoryData} = retData ;
+      let {category4Data} = retData ;
       this.setState({
-          list:categoryData
+          list:category4Data
       }) ;
     }
 
@@ -29,12 +29,17 @@ class Category4Query extends Component{
         }.bind(this)) ;
     }
     handleDeleteItem = (id) => {
-
+        console.info(`删除的id 为 :${id}` ) ;
+        let list = {...this.state.list} ;
+        delete list[id] ;
+        this.setState({list}) ;
+        notification.success({message:'删除成功!'}) ;
     }
     renderListItem(item,key){
         return (
             <div className="category-section-row mb20" key={key}>
-                <ListItemTitle onDelete={this.handleDeleteItem} />
+                <ListItemTitle id = {key} 
+                    onDelete={this.handleDeleteItem} />
                 <FlightInfoContainer 
                     flightList1 ={item.list1} 
                     flightList2 ={item.list2} 
@@ -72,6 +77,7 @@ function getFlightNoIcon(flightNoType){
 }
 
 function ListItemTitle (props){
+    let {id} = props ;
     return (
         <div className="category-flight-info-descr">
             <span className="mlr20">1/15</span>
@@ -87,9 +93,9 @@ function ListItemTitle (props){
             </span>
             <span className="ml20">CA/CZ/MU/HU</span>
             <span className="oper-section">
-                <Icon type="edit hand"/>
+                <Link to={"/rule-category-edit/"+id}><Icon type="edit hand" /></Link>
                 <Icon type="delete" 
-                    onClick={(e) => props.onDelete()}
+                    onClick={(e) => props.onDelete(id)}
                     className="ml10 color-orange hand"/>
             </span>
         </div>

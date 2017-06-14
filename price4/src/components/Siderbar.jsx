@@ -126,6 +126,8 @@ class Siderbar extends React.Component {
               <Route exact path="/rule-category" component={Category4Query}/>
               <Route exact path="/rule-category-edit" 
                 component={Category4Edit}/>
+              <Route exact path="/rule-category-edit/:id" 
+                component={Category4Edit}/>
             </div>
           </Content>
           <Footer style={{ textAlign: 'center',height:'50px' }}>
