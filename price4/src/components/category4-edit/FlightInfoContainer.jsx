@@ -148,19 +148,18 @@ class FlightInfo extends Component{
         } ;
         return function(){
             let otherKey = otherKeyMap[fieldName] ;
+            let otherValue = this.state[otherKey] ;
+            if(otherValue){
+                return false ;
+            }
             this.setState(function(prevState){
                 //如果点击的是显示全部
                 let curFlag = prevState[fieldName] ;
                 let toFlag = !curFlag ;
-                if(fieldName === 'showAllRecord'){
-                    return {show5Record:false,showAllRecord:!curFlag} ;
-                }else{//如果点击的是显示5条
-                    if(curFlag){//当钱为展开状态
-                        return {show5Record:false,showAllRecord:false} ;
-                    }else{
-                        return {show5Record:true,showAllRecord:false} ;
-                    }
-                }
+                return {
+                    [fieldName]:toFlag,
+                    [otherKey]:false
+                } ;
             }.bind(this)) ;
         }.bind(this) ;
     }
@@ -268,9 +267,38 @@ class FlightInfo extends Component{
         return <tbody>{arr}</tbody> ;
     }
 
+
+    renderShowHideBar(list){
+        if(list == null || list.length <= 3){
+            return null ;
+        }
+        let {show5Record,showAllRecord} = this.state ;
+        let show5RecordClassName = classNames('content-table-show-hide-item bg-eee',{
+            'hand':!showAllRecord ,
+            'active':show5Record
+        }) ;
+
+        let showAllRecordClassName = classNames('content-table-show-hide-item bg-eee',{
+            'hand':!show5Record ,
+            'active':showAllRecord
+        }) ;
+        return (
+            <div className="content-table-show-hide" >
+                <span className="content-table-show-hide-item">共30条记录</span>
+                <span className={show5RecordClassName}
+                    onClick={this.handleChangeShowHideFactory('show5Record')}> 
+                    {show5Record ? '收起5条' : '展开5条' }  
+                </span>
+                <span className={showAllRecordClassName}
+                    onClick={this.handleChangeShowHideFactory('showAllRecord')}>
+                    {showAllRecord ? '收起全部' : ' 展开全部' }  
+                </span>
+            </div>
+        ) ;
+    }
+
     render(){
         let {splitLine,list=[]} = this.props ;
-        let {show5Record,showAllRecord} = this.state ;
         let splitLineClassName = classNames('content-split-line',{
             'mt30':list.length == 0
         }) ;
@@ -283,17 +311,7 @@ class FlightInfo extends Component{
                     <table>
                         {this.renderTbody()}
                     </table>
-                    <div className="content-table-show-hide" >
-                        <span className="content-table-show-hide-item">共30条记录</span>
-                        <span className="content-table-show-hide-item bg-eee hand"
-                            onClick={this.handleChangeShowHideFactory('show5Record')}> 
-                            {show5Record ? '收起5条' : '展开5条' }  
-                        </span>
-                        <span className="content-table-show-hide-item bg-eee hand"
-                            onClick={this.handleChangeShowHideFactory('showAllRecord')}>
-                            {showAllRecord ? '收起全部' : ' 展开全部' }  
-                        </span>
-                    </div>
+                    {this.renderShowHideBar(list)}
                     {/*这里是分割线*/splitLine ? <div className={splitLineClassName}></div> : null}
                 </div>
             </div>
