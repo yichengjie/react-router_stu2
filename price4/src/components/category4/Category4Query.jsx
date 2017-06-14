@@ -28,10 +28,13 @@ class Category4Query extends Component{
             return this.renderListItem(item,key) ;
         }.bind(this)) ;
     }
+    handleDeleteItem = (id) => {
+
+    }
     renderListItem(item,key){
         return (
             <div className="category-section-row mb20" key={key}>
-                <ListItemTitle />
+                <ListItemTitle onDelete={this.handleDeleteItem} />
                 <FlightInfoContainer 
                     flightList1 ={item.list1} 
                     flightList2 ={item.list2} 
@@ -86,6 +89,7 @@ function ListItemTitle (props){
             <span className="oper-section">
                 <Icon type="edit hand"/>
                 <Icon type="delete" 
+                    onClick={(e) => props.onDelete()}
                     className="ml10 color-orange hand"/>
             </span>
         </div>

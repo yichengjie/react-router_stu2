@@ -194,7 +194,8 @@ class Category4 extends Component {
 
                     <span className="float-right">
                         <Button type="default"
-                            onClick={this.handleAddFlightInfo}>保存</Button>
+                            onClick={this.handleAddFlightInfo}>新加
+                        </Button>
                     </span>
                  </div> 
                  <div className="category-section-row">
@@ -204,9 +205,7 @@ class Category4 extends Component {
                         <Radio value="1">正班</Radio>
                         <Radio value="2">加班</Radio>
                     </RadioGroup>
-
                     <span className="mlr10"></span>
-
                     <label className="mlr10">航班号</label> 
                     <Select {...gsfp('flightNoType')}
                         style={{ width: "90px" }} >
@@ -260,7 +259,8 @@ class Category4 extends Component {
                         flightList2 ={this.state.flightList2} 
                         onDelete={this.handeleDeleteFlightInfo}
                         onModify={this.handleModifyFlightInfo}
-                        showOperBtn={true}
+                        defaultShowOperBtn={true}
+                        defaultShowAllRecord={true}
                     />
                </div>
               

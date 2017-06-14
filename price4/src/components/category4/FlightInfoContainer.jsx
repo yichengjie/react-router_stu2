@@ -1,7 +1,8 @@
-import React,{Component} from 'react' ;
+import React,{Component,PureComponent} from 'react' ;
 import {Icon} from 'antd' ;
 import classNames from 'classnames' ;
 import Ellipsis from '../Ellipsis.jsx' ;
+import PropTypes from 'prop-types' ;
 
 let tdWidthArr = [70,120,170,80,100,200,60] ;
 
@@ -12,44 +13,72 @@ function getItemWidth(index,showOperBtn,unit){
     return {width:t} ;
 }
 
+class FlightInfoContainer extends PureComponent{
+    constructor(props){
+        super(props) ;
+        let {defaultShowOperBtn} = this.props ;
+        this.state = {
+            showOperBtn:defaultShowOperBtn
+        } ;
+    }
+    static defaultProps = {
+        defaultShowOperBtn:false,
+        defaultShowAllRecord:false
+    };
+    static propTypes = {
+        defaultShowOperBtn:PropTypes.bool,
+        defaultShowAllRecord:PropTypes.bool
+    } ; 
+    renderHeader(){
+         let {showOperBtn} = this.state ;
+         let headerClassName = classNames('header',{
+            'bg-ddd':showOperBtn 
+        }) ;
+         return (
+            <div className={headerClassName}>
+                <span className="header-item" style={{width:'90px'}}></span>
+                <span className="header-item" style={getItemWidth(0,showOperBtn,true)}>序号</span>
+                <span className="header-item" style={getItemWidth(1,showOperBtn,true)}>航班计划适用于</span>
+                <span className="header-item" style={getItemWidth(2,showOperBtn,true)}>航班号</span>
+                <span className="header-item" style={getItemWidth(3,showOperBtn,true)}>适用航段</span>
+                <span className="header-item" style={getItemWidth(4,showOperBtn,true)}>适用星期</span>
+                <span className="header-item" style={getItemWidth(5,showOperBtn,true)}>适用时刻</span>
+                {showOperBtn ? 
+                    <span className="header-item" 
+                       style={getItemWidth(6,showOperBtn,true)}>操作</span>
+                    : null
+                }
+            </div>
+         ) ;
+    }
 
-function FlightInfoContainer (props){
-    let {showOperBtn} = props ;
-    let headerClassName = classNames('header',{
-        'bg-ddd':showOperBtn 
-    }) ;
-    return(
+    render(){
+        let {showOperBtn} = this.state ;
+        let {defaultShowAllRecord,flightList1,flightList2,onDelete,onModify} = this.props ;
+        return(
             <div className="category-flight-info-container">
-                <div className={headerClassName}>
-                    <span className="header-item" style={{width:'90px'}}></span>
-                    <span className="header-item" style={getItemWidth(0,showOperBtn,true)}>序号</span>
-                    <span className="header-item" style={getItemWidth(1,showOperBtn,true)}>航班计划适用于</span>
-                    <span className="header-item" style={getItemWidth(2,showOperBtn,true)}>航班号</span>
-                    <span className="header-item" style={getItemWidth(3,showOperBtn,true)}>适用航段</span>
-                    <span className="header-item" style={getItemWidth(4,showOperBtn,true)}>适用星期</span>
-                    <span className="header-item" style={getItemWidth(5,showOperBtn,true)}>适用时刻</span>
-                    {showOperBtn ? (<span className="header-item" 
-                                    style={getItemWidth(6,showOperBtn,true)}>操作</span> )
-                                    : null
-                    }
-                </div>
+                {this.renderHeader()}
                 <FlightInfo label="去程航班" 
-                    splitLine 
+                    splitLine = {true}
                     name='flightList1'
-                    list = {props.flightList1}
-                    onDelete={props.onDelete}
-                    onModify={props.onModify}
-                    showOperBtn={showOperBtn}
+                    list = {flightList1}
+                    onDelete={onDelete}
+                    onModify={onModify}
+                    defaultShowOperBtn={showOperBtn}
+                    defaultShowAllRecord={defaultShowAllRecord}
                 />
                 <FlightInfo label="回程航班" 
                     name='flightList2'
-                    list = {props.flightList2}
-                    onDelete={props.onDelete}
-                    onModify={props.onModify}
-                     showOperBtn={showOperBtn}
+                    list = {flightList2}
+                    onDelete={onDelete}
+                    onModify={onModify}
+                    defaultShowOperBtn={showOperBtn}
+                    defaultShowAllRecord={defaultShowAllRecord}
                 />
             </div>
         ) ;
+    }
+    
 }
 
 
@@ -129,13 +158,14 @@ function getShowInfoObj(item){
     return obj ;
 }
 
-class FlightInfo extends Component{
+class FlightInfo extends PureComponent{
 
     constructor(props){
         super(props) ;
+        let {defaultShowAllRecord,defaultShowOperBtn} = this.props ;
         this.state = {
-            show5Record:false,
-            showAllRecord:false
+            show5Record:defaultShowOperBtn,
+            showAllRecord:defaultShowAllRecord
         } ;
     }
 
